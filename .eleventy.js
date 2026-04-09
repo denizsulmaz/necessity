@@ -4,6 +4,13 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/css");
   eleventyConfig.addPassthroughCopy("src/js");
 
+  // Keep .html extension in output to match current links
+  eleventyConfig.addGlobalData("eleventyComputed.permalink", () => {
+    return (data) => {
+      return `${data.page.filePathStem}.html`;
+    };
+  });
+
   return {
     dir: {
       input: "src",
