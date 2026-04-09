@@ -1,0 +1,1346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marketing — NECESSITY.INK</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/main.css">
+<style>
+  /* ─── HERO ─── */
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 90vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    border-bottom: 1px solid var(--rule);
+    position: relative; overflow: hidden;
+  }
+
+  .hero-left {
+    padding: 20vh 56px 80px 48px;
+    display: flex; flex-direction: column; justify-content: flex-start;
+    border-right: 1px solid var(--rule);
+    position: relative; z-index: 2;
+  }
+
+  .hero-label {
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--mid); margin-bottom: 32px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .hero-label::before {
+    content: ''; display: block;
+    width: 32px; height: 1px; background: var(--mid);
+  }
+
+  .hero-title {
+    font-family: var(--serif);
+    font-size: clamp(36px, 4.5vw, 64px);
+    font-weight: 400; line-height: 1.05; letter-spacing: -0.02em;
+    margin-bottom: 40px;
+  }
+  .hero-title em { font-style: italic; color: rgba(255,255,255,0.3); }
+
+  .hero-desc {
+    font-size: 17px; line-height: 1.7; color: rgba(255,255,255,0.5);
+    max-width: 440px; margin-bottom: 48px;
+  }
+
+  .hero-tags {
+    display: flex; flex-wrap: wrap; gap: 8px;
+  }
+  .hero-tag {
+    font-family: var(--mono); font-size: 10px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    border: 1px solid var(--rule); padding: 6px 14px;
+    color: var(--mid);
+  }
+
+  /* Generative canvas panel */
+  .hero-right {
+    background: var(--ink);
+    position: relative; overflow: hidden;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 48px 56px 80px 48px;
+  }
+
+  .hero-right-desc {
+    position: relative; z-index: 2;
+    font-size: 17px; line-height: 1.7;
+    color: rgba(255,255,255,0.5);
+    max-width: 520px;
+    margin-bottom: 0;
+  }
+
+  #genCanvas {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+  }
+
+  .hero-right-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, transparent 60%, rgba(10,10,10,0.4) 100%);
+    z-index: 1;
+  }
+
+  .hero-right-label {
+    position: absolute; bottom: 32px; right: 32px;
+    font-family: var(--mono); font-size: 9px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: rgba(255,255,255,0.25); z-index: 2;
+  }
+
+  /* ─── TICKER STRIP ─── */
+  .ticker {
+    background: var(--accent);
+    overflow: hidden; white-space: nowrap;
+    border-bottom: 1px solid var(--rule);
+    padding: 12px 0;
+  }
+  .ticker-inner {
+    display: inline-block;
+    animation: ticker 28s linear infinite;
+  }
+  .ticker-inner span {
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--text); padding: 0 32px;
+  }
+  .ticker-inner span::after { content: '·'; margin-left: 32px; }
+  @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* ─── SECTION COMMON ─── */
+  section { padding: 100px 48px; border-bottom: 1px solid var(--rule); }
+  .section-label {
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--mid); margin-bottom: 48px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .section-label::before {
+    content: ''; display: block;
+    width: 32px; height: 1px; background: var(--rule);
+  }
+  .section-heading {
+    font-family: var(--serif);
+    font-size: clamp(30px, 3.5vw, 52px);
+    font-weight: 400; line-height: 1.15;
+    letter-spacing: -0.01em; margin-bottom: 24px; color: var(--white);
+  }
+
+  /* ─── SERVICE GRID ─── */
+  .services-intro {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; margin-bottom: 64px; align-items: end;
+  }
+  .services-desc { font-size: 17px; line-height: 1.7; color: var(--mid); max-width: 420px; }
+
+  .services-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid var(--rule); border-left: 1px solid var(--rule);
+  }
+  .service-card {
+    padding: 48px 36px;
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    position: relative; transition: background 0.3s, color 0.3s;
+    overflow: hidden; cursor: default;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: var(--ink);
+    transform: translateY(100%);
+    transition: transform 0.35s cubic-bezier(0.22,1,0.36,1);
+    z-index: 0;
+  }
+  .service-card:hover::before { transform: translateY(0); }
+  .service-card:hover .svc-num { color: rgba(255,255,255,0.15); }
+  .service-card:hover .svc-title { color: var(--white); }
+  .service-card:hover .svc-body { color: rgba(255,255,255,0.55); }
+  .service-card:hover .svc-icon { border-color: rgba(255,255,255,0.15); color: var(--accent); }
+
+  .svc-num {
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.1em; color: var(--rule);
+    margin-bottom: 20px; position: relative; z-index: 1;
+    transition: color 0.3s;
+  }
+  .svc-icon {
+    width: 44px; height: 44px; border: 1px solid var(--rule);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; margin-bottom: 20px;
+    position: relative; z-index: 1; transition: all 0.3s;
+  }
+  .svc-title {
+    font-family: var(--serif); font-size: 20px; font-weight: 700;
+    margin-bottom: 12px; line-height: 1.2;
+    position: relative; z-index: 1; transition: color 0.3s;
+  }
+  .svc-body {
+    font-size: 14px; line-height: 1.65; color: var(--mid);
+    position: relative; z-index: 1; transition: color 0.3s;
+  }
+
+  /* ─── IMMERSIVE SHOWCASE ─── */
+  /* Full-bleed dark sections showcasing each capability */
+  .immersive { padding: 0; border-bottom: 1px solid var(--rule); }
+
+  .imm-row {
+    display: grid; grid-template-columns: 1fr 1fr;
+    min-height: 500px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .imm-row:last-child { border-bottom: none; }
+
+  .imm-visual {
+    background: var(--ink);
+    position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+    min-height: 420px;
+  }
+
+  .imm-content {
+    padding: 72px 56px;
+    display: flex; flex-direction: column; justify-content: center;
+    background: var(--ink); color: var(--white);
+  }
+  .imm-row.light .imm-content { background: var(--ink); color: var(--text); }
+  .imm-row.light .imm-visual { border-right: 1px solid var(--rule); }
+
+  .imm-tag {
+    font-family: var(--mono); font-size: 10px;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 4px 10px; display: inline-block; margin-bottom: 28px;
+    align-self: flex-start;
+  }
+  .imm-tag.on-dark { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.6); }
+  .imm-tag.on-light { background: var(--ink); color: var(--white); }
+
+  .imm-title {
+    font-family: var(--serif); font-size: clamp(24px, 2.8vw, 40px);
+    font-weight: 400; line-height: 1.15; margin-bottom: 18px;
+    letter-spacing: -0.01em;
+  }
+  .imm-title.on-dark { color: var(--white); }
+  .imm-title em { font-style: italic; }
+  .imm-title.on-dark em { color: rgba(255,255,255,0.45); }
+  .imm-title.on-light em { color: var(--mid); }
+
+  .imm-body {
+    font-size: 15px; line-height: 1.75; margin-bottom: 28px; max-width: 380px;
+  }
+  .imm-body.on-dark { color: rgba(255,255,255,0.5); }
+  .imm-body.on-light { color: rgba(255,255,255,0.45); }
+
+  .imm-list { list-style: none; }
+  .imm-list li {
+    display: flex; gap: 12px; align-items: baseline;
+    font-size: 14px; padding: 10px 0;
+  }
+  .imm-list.on-dark li { border-bottom: 1px solid rgba(255,255,255,0.08); color: rgba(255,255,255,0.7); }
+  .imm-list.on-light li { border-bottom: 1px solid var(--rule); color: rgba(255,255,255,0.5); }
+  .imm-list li::before {
+    content: '→'; font-family: var(--mono); font-size: 11px; flex-shrink: 0;
+  }
+  .imm-list.on-dark li::before { color: var(--accent); }
+  .imm-list.on-light li::before { color: var(--mid); }
+
+  /* ─── CAMPAIGN VIS ─── */
+  /* Data-driven campaign: flowing particles */
+  #campaignCanvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+  /* ─── SONIC VIS ─── */
+  .sonic-vis {
+    width: 100%; height: 100%; padding: 40px;
+    display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 6px;
+  }
+  .waveform-row {
+    display: flex; align-items: center; gap: 3px; height: 32px;
+  }
+  .wave-bar {
+    width: 3px; border-radius: 2px;
+    background: var(--accent);
+    animation: wave 1.8s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+  @keyframes wave {
+    0%, 100% { transform: scaleY(0.2); opacity: 0.3; }
+    50% { transform: scaleY(1); opacity: 0.9; }
+  }
+  .sonic-label {
+    font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em;
+    text-transform: uppercase; color: rgba(255,255,255,0.2); margin-top: 16px;
+    text-align: center;
+  }
+
+  /* ─── INSTALLATION VIS ─── */
+  #installCanvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+  .motion-vis {
+    width: 100%; height: 100%;
+    position: relative;
+    background: #080808;
+    overflow: hidden;
+  }
+  .motion-vis canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  .motion-shape {
+    position: absolute;
+    animation: dataPulse 6s ease-in-out infinite;
+  }
+  @keyframes dataPulse {
+    0%, 100% { transform: scale(1) translate(0, 0); opacity: 0.7; }
+    50% { transform: scale(1.15) translate(4px, -4px); opacity: 1; }
+  }
+
+  /* ─── PROCESS ─── */
+  .process-section {
+    background: var(--ink); color: var(--white);
+    padding: 100px 48px; border-bottom: 1px solid var(--rule);
+  }
+  .process-intro {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; margin-bottom: 80px; align-items: end;
+  }
+  .process-desc {
+    font-size: 17px; line-height: 1.7;
+    color: rgba(255,255,255,0.5); max-width: 440px;
+  }
+  .process-steps {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid rgba(255,255,255,0.1);
+    border-left: 1px solid rgba(255,255,255,0.1);
+  }
+  .process-step {
+    padding: 40px 32px;
+    border-right: 1px solid rgba(255,255,255,0.1);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .step-index { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 20px; }
+  .step-title { font-family: var(--serif); font-size: 19px; font-weight: 700; margin-bottom: 14px; color: var(--white); line-height: 1.25; }
+  .step-body { font-size: 14px; line-height: 1.65; color: rgba(255,255,255,0.45); }
+
+  /* ─── WHO IT'S FOR ─── */
+  .who-layout {
+    display: grid; grid-template-columns: 1fr 1fr;
+    border-top: 1px solid var(--rule); border-left: 1px solid var(--rule);
+    margin-top: 64px;
+  }
+  .who-card {
+    padding: 52px 44px;
+    border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+  }
+  .who-tag {
+    font-family: var(--mono); font-size: 10px;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    background: var(--accent); color: var(--white);
+    padding: 4px 10px; display: inline-block; margin-bottom: 24px;
+  }
+  .who-title { font-family: var(--serif); font-size: 22px; font-weight: 700; margin-bottom: 14px; line-height: 1.2; }
+  .who-body { font-size: 15px; line-height: 1.7; color: var(--mid); margin-bottom: 24px; }
+  .who-examples { font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em; color: var(--mid); border-top: 1px solid var(--rule); padding-top: 18px; }
+
+  /* ─── CASE STUDY ─── */
+  .case-section {
+    background: var(--ink); color: var(--white);
+    padding: 100px 48px; border-bottom: 1px solid var(--rule);
+  }
+  .case-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .case-heading {
+    font-family: var(--serif); font-size: clamp(26px, 2.8vw, 42px);
+    font-weight: 400; line-height: 1.2; color: var(--white);
+    margin-top: 48px; margin-bottom: 24px;
+  }
+  .case-desc { font-size: 16px; line-height: 1.7; color: rgba(255,255,255,0.5); margin-bottom: 40px; }
+  .case-metrics {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid rgba(255,255,255,0.1); border-left: 1px solid rgba(255,255,255,0.1);
+    margin-bottom: 40px;
+  }
+  .case-metric { padding: 20px 24px; border-right: 1px solid rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.1); }
+  .case-metric-num { font-family: var(--serif); font-size: 28px; font-weight: 700; color: var(--accent); line-height: 1; margin-bottom: 4px; }
+  .case-metric-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.3); }
+  .case-visual { aspect-ratio: 4/3; background: #0f0f0f; border: 1px solid rgba(255,255,255,0.07); overflow: hidden; position: relative; }
+  #caseCanvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+  /* ─── PRICING ─── */
+  .pricing-layout { display: grid; grid-template-columns: 1fr 2fr; gap: 80px; margin-top: 64px; }
+  .pricing-intro { font-size: 16px; line-height: 1.7; color: var(--mid); }
+  .pricing-cards { border-top: 1px solid var(--rule); border-left: 1px solid var(--rule); }
+  .pricing-row {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    border-bottom: 1px solid var(--rule); border-right: 1px solid var(--rule);
+  }
+  .pricing-cell { padding: 30px 26px; border-right: 1px solid var(--rule); }
+  .pricing-cell:last-child { border-right: none; }
+  .pricing-cell-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mid); margin-bottom: 8px; }
+  .pricing-cell-value { font-family: var(--serif); font-size: 20px; font-weight: 700; line-height: 1.2; }
+  .pricing-cell-note { font-size: 13px; color: var(--mid); margin-top: 4px; }
+  .pricing-row.highlight { background: var(--ink); color: var(--white); }
+  .pricing-row.highlight .pricing-cell-label { color: rgba(255,255,255,0.35); }
+  .pricing-row.highlight .pricing-cell-value { color: var(--accent); }
+  .pricing-row.highlight .pricing-cell-note { color: rgba(255,255,255,0.45); }
+  .pricing-row.highlight .pricing-cell { border-right-color: rgba(255,255,255,0.1); }
+
+  /* ─── CTA ─── */
+  .cta-section {
+    padding: 120px 48px; display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: center; border-bottom: 1px solid var(--rule);
+  }
+  .cta-heading { font-family: var(--serif); font-size: clamp(36px, 4vw, 64px); font-weight: 400; line-height: 1.1; letter-spacing: -0.02em; }
+  .cta-heading em { font-style: italic; color: var(--mid); }
+  .cta-body { font-size: 17px; line-height: 1.7; color: var(--mid); margin-bottom: 28px; }
+  .btn-group { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn-primary {
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.06em;
+    text-transform: uppercase; background: var(--accent); color: var(--white);
+    border: none; padding: 16px 28px; cursor: pointer;
+    text-decoration: none; transition: background 0.2s; display: inline-block;
+  }
+  .btn-primary:hover { background: #c8141a; }
+  .btn-secondary {
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.06em;
+    text-transform: uppercase; background: transparent; color: var(--text);
+    border: 1px solid var(--ink); padding: 16px 28px; cursor: pointer;
+    text-decoration: none; transition: all 0.2s; display: inline-block;
+  }
+  .btn-secondary:hover { background: var(--ink); color: var(--white); }
+
+  /* ─── FOOTER ─── */
+  footer { background: var(--ink); color: var(--white); padding: 64px 48px 40px; }
+  .footer-top {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+    gap: 48px; padding-bottom: 48px;
+    border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 40px;
+  }
+  .footer-brand { font-family: var(--mono); font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 16px; }
+  .footer-tagline { font-size: 14px; line-height: 1.6; color: rgba(255,255,255,0.35); }
+  .footer-col-title { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 16px; }
+  .footer-links { list-style: none; }
+  .footer-links li { margin-bottom: 10px; }
+  .footer-links a { font-size: 13px; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--white); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; color: rgba(255,255,255,0.25); }
+
+  /* ─── SCROLL FADE ─── */
+  .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    nav { padding: 0 24px; }
+    .nav-links { display: none; }
+    .hero, .services-intro, .process-intro, .case-layout,
+    .pricing-layout, .cta-section { grid-template-columns: 1fr; gap: 40px; }
+    .hero { min-height: auto; padding: 120px 24px 64px; }
+    .hero-right { min-height: 320px; }
+    section, .process-section, .case-section { padding: 64px 24px; }
+    .services-grid { grid-template-columns: 1fr 1fr; }
+    .process-steps { grid-template-columns: 1fr 1fr; }
+    .imm-row { grid-template-columns: 1fr; }
+    .imm-visual { min-height: 280px; }
+    .who-layout { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+    .motion-vis { grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(4, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo"><img src="Media/NCSSTYlogo.png" alt="NECESSITY.INK" style="height:21px;width:auto;display:block;filter:brightness(0) invert(1);"></a>
+  <ul class="nav-links">
+    <li><a href="strategy.html">Strategy</a></li>
+    <li><a href="reporting.html">Reporting</a></li>
+    <li><a href="marketing.html" class="active">Marketing</a></li>
+    <li><a href="products.html">Products</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <a href="brief-builder.html" class="nav-cta" id="nav-cta-brief">Get a free quote</a>
+</nav>
+
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-left fade-up">
+    <p class="hero-label">Solution — 03</p>
+    <h1 class="hero-title">Use data as a<br>powerful storytelling and <em>brand asset.</em></h1>
+    <div class="hero-tags">
+      <span class="hero-tag">Data-driven campaigns</span>
+      <span class="hero-tag">Sonic identity</span>
+      <span class="hero-tag">Brand activations</span>
+      <span class="hero-tag">Digital experiences</span>
+      <span class="hero-tag">Installations</span>
+      <span class="hero-tag">Generative design</span>
+    </div>
+  </div>
+  <div class="hero-right">
+    <canvas id="genCanvas"></canvas>
+    <div class="hero-right-overlay"></div>
+    <p class="hero-right-desc">We transform datasets into campaigns, experiences and content that communicate ideas in compelling ways. Data becomes something audiences can see, hear and interact with.</p>
+    <div class="hero-right-label">Generative data visualisation — live render</div>
+  </div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner" id="tickerInner">
+    <span>Data-driven campaigns</span>
+    <span>Sonic identity</span>
+    <span>Brand activations</span>
+    <span>Digital experiences</span>
+    <span>Installations</span>
+    <span>Motion design</span>
+    <span>Generative visuals</span>
+    <span>Data storytelling</span>
+    <span>Data-driven campaigns</span>
+    <span>Sonic identity</span>
+    <span>Brand activations</span>
+    <span>Digital experiences</span>
+    <span>Installations</span>
+    <span>Motion design</span>
+    <span>Generative visuals</span>
+    <span>Data storytelling</span>
+  </div>
+</div>
+
+<!-- SERVICES OVERVIEW -->
+<section class="fade-up">
+  <div class="services-intro">
+    <div>
+      <p class="section-label">What Marketing Includes</p>
+      <h2 class="section-heading">Six ways data becomes<br>a brand experience.</h2>
+    </div>
+    <p class="services-desc">Marketing and data rarely speak the same language. We bridge that gap — turning analysis into narrative, and datasets into experiences audiences remember.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="svc-num">01</div>
+      <div class="svc-icon">◎</div>
+      <h3 class="svc-title">Data-Driven Campaigns</h3>
+      <p class="svc-body">Campaigns built on real data — not assumptions. We mine datasets to find the story and build the creative around evidence.</p>
+    </div>
+    <div class="service-card">
+      <div class="svc-num">02</div>
+      <div class="svc-icon">♪</div>
+      <h3 class="svc-title">Sonic Identity</h3>
+      <p class="svc-body">Brand sound and data sonification — translating datasets into audio, and building distinctive sonic identities rooted in your organisation's data.</p>
+    </div>
+    <div class="service-card">
+      <div class="svc-num">03</div>
+      <div class="svc-icon">⬡</div>
+      <h3 class="svc-title">Brand Activations</h3>
+      <p class="svc-body">Live and digital activations where data is the medium. Experiences that connect audiences to your organisation's story in unexpected ways.</p>
+    </div>
+    <div class="service-card">
+      <div class="svc-num">04</div>
+      <div class="svc-icon">◈</div>
+      <h3 class="svc-title">Digital Experiences</h3>
+      <p class="svc-body">Interactive web experiences, microsites, and digital content that make data tangible, navigable, and shareable.</p>
+    </div>
+    <div class="service-card">
+      <div class="svc-num">05</div>
+      <div class="svc-icon">▲</div>
+      <h3 class="svc-title">Installations</h3>
+      <p class="svc-body">Physical and hybrid installations for cultural spaces, exhibitions, and live events — where data becomes environment.</p>
+    </div>
+    <div class="service-card">
+      <div class="svc-num">06</div>
+      <div class="svc-icon">◻</div>
+      <h3 class="svc-title">Motion & Generative Design</h3>
+      <p class="svc-body">Animated and algorithmically generated visuals — where each output is unique, driven by data, and impossible to produce by hand.</p>
+    </div>
+  </div>
+</section>
+
+<!-- IMMERSIVE SHOWCASE -->
+<div class="immersive fade-up">
+
+  <!-- 1. Data-driven campaigns: dark, canvas particles -->
+  <div class="imm-row">
+    <div class="imm-visual">
+      <canvas id="campaignCanvas"></canvas>
+    </div>
+    <div class="imm-content">
+      <span class="imm-tag on-dark">Data-Driven Campaigns</span>
+      <h3 class="imm-title on-dark">The story is already<br>inside <em>your data.</em></h3>
+      <p class="imm-body on-dark">We work with your datasets to find the narrative — patterns, outliers, changes over time — and build campaigns around what the data actually says, not what you assume it says.</p>
+      <ul class="imm-list on-dark">
+        <li>Exploratory data analysis to find the story</li>
+        <li>Creative concept built around the evidence</li>
+        <li>Visual, motion and copy direction</li>
+        <li>Works alongside your existing agency or comms team</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 2. Sonic identity: light, waveform vis -->
+  <div class="imm-row light">
+    <div class="imm-visual" style="border-right: 1px solid var(--rule);">
+      <div class="sonic-vis" id="sonicVis">
+        <!-- filled by JS -->
+      </div>
+      <div style="position:absolute;bottom:20px;left:0;right:0;text-align:center;">
+        <span class="sonic-label">Waveform — brand audio identity render</span>
+      </div>
+    </div>
+    <div class="imm-content" style="background:var(--surface);color:var(--text);">
+      <span class="imm-tag on-light">Sonic Identity</span>
+      <h3 class="imm-title on-light">Data you can <em>hear.</em></h3>
+      <p class="imm-body on-light" style="color:rgba(255,255,255,0.45)">We translate datasets into sound — and build brand audio identities that are mathematically derived from your organisation's data. Every note has a source. Every tone has a meaning.</p>
+      <ul class="imm-list on-light">
+        <li>Data sonification — turning numbers into music</li>
+        <li>Brand audio identity systems</li>
+        <li>Sonic logos derived from your data</li>
+        <li>Works for events, films, campaigns and products</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 3. Installations: dark, grid canvas -->
+  <div class="imm-row">
+    <div class="imm-content" style="order:1;">
+      <span class="imm-tag on-dark">Installations</span>
+      <h3 class="imm-title on-dark">Data as <em>physical environment.</em></h3>
+      <p class="imm-body on-dark">We design data-driven installations for cultural venues, corporate spaces, exhibitions, and live events — where the dataset becomes something audiences can walk through, touch, and experience in real time.</p>
+      <ul class="imm-list on-dark">
+        <li>Concept, technical design and production</li>
+        <li>Responsive to live data feeds</li>
+        <li>Physical and hybrid (screen-based) formats</li>
+        <li>On-site support for installation and launch</li>
+      </ul>
+    </div>
+    <div class="imm-visual" style="order:2;">
+      <canvas id="installCanvas"></canvas>
+    </div>
+  </div>
+
+  <!-- 4. Motion & Generative: light grid mosaic -->
+  <div class="imm-row light">
+    <div class="imm-visual" style="border-right: 1px solid var(--rule);">
+      <div class="motion-vis" id="motionVis">
+        <!-- filled by JS -->
+      </div>
+    </div>
+    <div class="imm-content" style="background:var(--surface);color:var(--text);">
+      <span class="imm-tag on-light">Motion & Generative Design</span>
+      <h3 class="imm-title on-light">Every output <em>unique.</em><br>Every frame, data.</h3>
+      <p class="imm-body on-light" style="color:rgba(255,255,255,0.45)">Algorithmically generated visuals where the design system is defined, but the output is never the same twice. Driven by your data, impossible to fake, and impossible to produce by hand.</p>
+      <ul class="imm-list on-light">
+        <li>Generative brand identity systems</li>
+        <li>Data-driven motion graphics and animation</li>
+        <li>Custom algorithms producing unique variations</li>
+        <li>Export-ready for digital and print</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<!-- PROCESS -->
+<section class="process-section fade-up">
+  <div class="process-intro">
+    <div>
+      <p class="section-label" style="color:rgba(255,255,255,0.3)">How We Work</p>
+      <h2 class="section-heading" style="color:var(--white)">From data to<br>audience experience.</h2>
+    </div>
+    <p class="process-desc">Marketing work begins with the data — not the brief. We find what the data wants to say before we decide how to say it.</p>
+  </div>
+  <div class="process-steps">
+    <div class="process-step">
+      <div class="step-index">Phase 01</div>
+      <h3 class="step-title">Data Discovery</h3>
+      <p class="step-body">We explore your dataset to find the stories, patterns, and unexpected angles — the raw material for the campaign or experience.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-index">Phase 02</div>
+      <h3 class="step-title">Creative Direction</h3>
+      <p class="step-body">We propose a creative direction: the concept, medium, tone, and format. We present options — not a single answer — and align on direction before building.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-index">Phase 03</div>
+      <h3 class="step-title">Prototype & Refine</h3>
+      <p class="step-body">We build a working prototype of the experience — enough to feel real, test, and iterate on before committing to full production.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-index">Phase 04</div>
+      <h3 class="step-title">Production & Launch</h3>
+      <p class="step-body">Full production of the final deliverable — with support through launch, installation, or publication. We remain available through the live period.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHO IT'S FOR -->
+<section class="fade-up">
+  <p class="section-label">Who This Is For</p>
+  <h2 class="section-heading">Marketing work is built for<br>organisations with something to say.</h2>
+  <div class="who-layout">
+    <div class="who-card">
+      <span class="who-tag">Brand Teams</span>
+      <h3 class="who-title">You want to use your data as a brand differentiator.</h3>
+      <p class="who-body">Your organisation holds data others don't. We help you turn that into campaigns, content, and experiences that only you could create.</p>
+      <p class="who-examples">Examples: Global brands, challenger companies, data-rich businesses</p>
+    </div>
+    <div class="who-card">
+      <span class="who-tag">Cultural Institutions</span>
+      <h3 class="who-title">You want audiences to experience your data — not just read it.</h3>
+      <p class="who-body">Museums, galleries, and cultural organisations with archives, collections, or research data that deserves to be communicated as experience.</p>
+      <p class="who-examples">Examples: Museums, galleries, heritage bodies, research centres</p>
+    </div>
+    <div class="who-card">
+      <span class="who-tag">Campaigns & Launches</span>
+      <h3 class="who-title">You have a launch, event, or campaign that data could make remarkable.</h3>
+      <p class="who-body">Product launches, brand moments, funding announcements — we find the data angle that makes the story shareable and impossible to ignore.</p>
+      <p class="who-examples">Examples: Marketing teams, PR agencies, innovation departments</p>
+    </div>
+    <div class="who-card">
+      <span class="who-tag">Events & Installations</span>
+      <h3 class="who-title">You need a data-driven experience for a live event or physical space.</h3>
+      <p class="who-body">Conferences, exhibitions, brand spaces — we design and build installations where data becomes something audiences walk through and interact with.</p>
+      <p class="who-examples">Examples: Event producers, venue operators, festival commissions</p>
+    </div>
+  </div>
+</section>
+
+<!-- CASE STUDY -->
+<section class="case-section fade-up">
+  <div class="case-layout">
+    <div>
+      <p class="section-label" style="color:rgba(255,255,255,0.3)">Work in Context</p>
+      <h2 class="case-heading">A generative installation driven by 40 years of environmental data.</h2>
+      <div class="case-metrics">
+        <div class="case-metric">
+          <div class="case-metric-num">40yr</div>
+          <div class="case-metric-label">Dataset span</div>
+        </div>
+        <div class="case-metric">
+          <div class="case-metric-num">Live</div>
+          <div class="case-metric-label">Data feed</div>
+        </div>
+        <div class="case-metric">
+          <div class="case-metric-num">3mo</div>
+          <div class="case-metric-label">Exhibition run</div>
+        </div>
+      </div>
+      <p class="case-desc">A leading environmental research body commissioned an installation for a major public exhibition. We built a generative visual system driven by 40 years of climate sensor data — updating in real time as new readings came in, making the invisible visible to 80,000 visitors.</p>
+      <div class="btn-group">
+        <a href="#" class="btn-primary" style="background:var(--accent);color:var(--ink)">View Case Study</a>
+        <a href="#" class="btn-secondary" style="color:rgba(255,255,255,0.6);border-color:rgba(255,255,255,0.25)">All Work</a>
+      </div>
+    </div>
+    <div class="case-visual">
+      <canvas id="caseCanvas"></canvas>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="fade-up">
+  <p class="section-label">Pricing</p>
+  <h2 class="section-heading">Scoped to your medium,<br>timeline and ambition.</h2>
+  <div class="pricing-layout">
+    <div>
+      <p class="pricing-intro">Marketing projects vary enormously — from a single data-driven asset to a multi-month installation build. We price around scope, not day rates. Most projects begin with a short discovery phase.</p>
+    </div>
+    <div class="pricing-cards">
+      <div class="pricing-row">
+        <div class="pricing-cell">
+          <div class="pricing-cell-label">Engagement Type</div>
+          <div class="pricing-cell-value" style="font-size:14px;font-family:var(--mono)">What's included</div>
+        </div>
+        <div class="pricing-cell">
+          <div class="pricing-cell-label">Timeline</div>
+          <div class="pricing-cell-value" style="font-size:14px;font-family:var(--mono)">Duration</div>
+        </div>
+        <div class="pricing-cell">
+          <div class="pricing-cell-label">Starting From</div>
+          <div class="pricing-cell-value" style="font-size:14px;font-family:var(--mono)">Indicative cost</div>
+        </div>
+      </div>
+      <div class="pricing-row">
+        <div class="pricing-cell">
+          <div class="pricing-cell-label">Digital Experience / Microsite</div>
+          <div class="pricing-cell-value">Concept + build</div>
+          <div class="pricing-cell-note">Single interactive deliverable</div>
+        </div>
+        <div class="pricing-cell">
+          <div class="pricing-cell-label">Timeline</div>
+          <div class="pricing-cell-value">4–8 weeks</div>
+        </div>
+        <div class="pricing-cell">
+          <div class="pricing-cell-label">From</div>
+          <div class="pricing-cell-value">£8,000</div>
+        </div>
+      </div>
+      <div class="pricing-row highlight">
+        <div class="pricing-cell">
+          <div class="pricing-cell-label">Campaign or Activation</div>
+          <div class="pricing-cell-value">Data → creative → production</div>
+          <div class="pricing-cell-note">Most common engagement</div>
+        </div>
+        <div class="pricing-cell">
+          <div class="pricing-cell-label">Timeline</div>
+          <div class="pricing-cell-value">6–12 weeks</div>
+        </div>
+        <div class="pricing-cell">
+          <div class="pricing-cell-label">From</div>
+          <div class="pricing-cell-value">£14,000</div>
+        </div>
+      </div>
+      <div class="pricing-row">
+        <div class="pricing-cell">
+          <div class="pricing-cell-label">Installation</div>
+          <div class="pricing-cell-value">Full production + install</div>
+          <div class="pricing-cell-note">Physical or hybrid</div>
+        </div>
+        <div class="pricing-cell">
+          <div class="pricing-cell-label">Timeline</div>
+          <div class="pricing-cell-value">8–16 weeks</div>
+        </div>
+        <div class="pricing-cell">
+          <div class="pricing-cell-label">From</div>
+          <div class="pricing-cell-value">£22,000</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section fade-up">
+  <div>
+    <h2 class="cta-heading">Have a story<br>your data<br><em>wants to tell?</em></h2>
+  </div>
+  <div>
+    <p class="cta-body">Tell us about your data and your audience. We'll help you find the most compelling way to bring it to life — and return a tailored proposal within 48 hours.</p>
+    <div class="btn-group">
+      <a href="#" class="btn-primary">Get a Free Quote</a>
+      <a href="#" class="btn-secondary">Book a Call</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <img src="Media/NCSSTYlogo.png" alt="NECESSITY.INK" style="height:17px;width:auto;display:block;margin-bottom:16px;filter:brightness(0) invert(1);">
+      <p class="footer-tagline">AI, Strategy and Data Design<br>for Organisations Building<br>the Future.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Company</div>
+      <ul class="footer-links">
+        <li><a href="index.html">About</a></li>
+        <li><a href="contact.html">Keynotes</a></li>
+        <li><a href="contact.html">Careers</a></li>
+        <li><a href="contact.html">Partners</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Solutions</div>
+      <ul class="footer-links">
+        <li><a href="strategy.html">Strategy</a></li>
+        <li><a href="reporting.html">Reporting</a></li>
+        <li><a href="marketing.html">Marketing</a></li>
+        <li><a href="products.html">Products</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Pricing</div>
+      <ul class="footer-links">
+        <li><a href="pricing.html">Overview</a></li>
+        <li><a href="pricing.html#models">Fixed Packages</a></li>
+        <li><a href="pricing.html#models">Retainers</a></li>
+        <li><a href="pricing.html#models">Workshops</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Contact</div>
+      <ul class="footer-links">
+        <li><a href="contact.html">Book a Call</a></li>
+        <li><a href="mailto:hello@necessity.ink">Send an Email</a></li>
+        <li><a href="brief-builder.html">Brief Builder</a></li>
+        <li><a href="contact.html#visit">Visit Studio</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>hello@necessity.ink</span>
+    <span>© 2026 Necessity.ink — London</span>
+  </div>
+</footer>
+
+<script>
+// ─── GENERATIVE HERO CANVAS ───
+(function() {
+  const canvas = document.getElementById('genCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let W, H, particles = [], t = 0;
+
+  function resize() {
+    W = canvas.width = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  // Data-flow particles
+  class Particle {
+    constructor() { this.reset(); }
+    reset() {
+      this.x = Math.random() * W;
+      this.y = Math.random() * H;
+      this.vx = (Math.random() - 0.5) * 0.4;
+      this.vy = (Math.random() - 0.5) * 0.4;
+      this.life = Math.random();
+      this.maxLife = 0.004 + Math.random() * 0.003;
+      this.size = 1 + Math.random() * 2.5;
+      this.trail = [];
+    }
+    update() {
+      // Noise-like steering
+      const angle = Math.sin(this.x * 0.008 + t * 0.3) * Math.cos(this.y * 0.006 + t * 0.2) * Math.PI * 2;
+      this.vx += Math.cos(angle) * 0.06;
+      this.vy += Math.sin(angle) * 0.06;
+      const speed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
+      if (speed > 1.8) { this.vx *= 1.8 / speed; this.vy *= 1.8 / speed; }
+      this.x += this.vx;
+      this.y += this.vy;
+      this.trail.push({ x: this.x, y: this.y });
+      if (this.trail.length > 18) this.trail.shift();
+      this.life += this.maxLife;
+      if (this.life > 1 || this.x < 0 || this.x > W || this.y < 0 || this.y > H) this.reset();
+    }
+    draw() {
+      if (this.trail.length < 2) return;
+      const alpha = Math.sin(this.life * Math.PI) * 0.65;
+      ctx.beginPath();
+      ctx.moveTo(this.trail[0].x, this.trail[0].y);
+      for (let i = 1; i < this.trail.length; i++) ctx.lineTo(this.trail[i].x, this.trail[i].y);
+      ctx.strokeStyle = `rgba(231,25,31,${alpha * 0.5})`;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size * 0.5, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(231,25,31,${alpha})`;
+      ctx.fill();
+    }
+  }
+
+  for (let i = 0; i < 110; i++) particles.push(new Particle());
+
+  // Concentric rings in background
+  function drawRings() {
+    const cx = W * 0.55, cy = H * 0.5;
+    for (let r = 40; r < Math.max(W, H); r += 70) {
+      ctx.beginPath();
+      ctx.arc(cx, cy, r + Math.sin(t * 0.5 + r * 0.01) * 8, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(231,25,31,${0.025 - r * 0.00004})`;
+      ctx.lineWidth = 0.5;
+      ctx.stroke();
+    }
+  }
+
+  function frame() {
+    ctx.fillStyle = 'rgba(10,10,10,0.18)';
+    ctx.fillRect(0, 0, W, H);
+    drawRings();
+    particles.forEach(p => { p.update(); p.draw(); });
+    t += 0.012;
+    requestAnimationFrame(frame);
+  }
+  frame();
+})();
+
+// ─── CAMPAIGN CANVAS (data particle flow) ───
+(function() {
+  const canvas = document.getElementById('campaignCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let W, H, nodes = [], t = 0;
+
+  function resize() {
+    W = canvas.width = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+  }
+  resize();
+
+  // Fixed data nodes
+  for (let i = 0; i < 22; i++) {
+    nodes.push({
+      x: 60 + Math.random() * (W - 120),
+      y: 60 + Math.random() * (H - 120),
+      r: 2 + Math.random() * 5,
+      pulse: Math.random() * Math.PI * 2
+    });
+  }
+
+  // Moving data packets along edges
+  let packets = [];
+  function spawnPacket() {
+    const a = Math.floor(Math.random() * nodes.length);
+    let b = Math.floor(Math.random() * nodes.length);
+    while (b === a) b = Math.floor(Math.random() * nodes.length);
+    const dist = Math.hypot(nodes[a].x - nodes[b].x, nodes[a].y - nodes[b].y);
+    if (dist > 280) return;
+    packets.push({ a, b, t: 0, speed: 0.006 + Math.random() * 0.006 });
+  }
+  for (let i = 0; i < 12; i++) spawnPacket();
+
+  function frame() {
+    ctx.fillStyle = 'rgba(10,10,10,0.22)';
+    ctx.fillRect(0, 0, W, H);
+
+    // Draw edges between close nodes
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const d = Math.hypot(nodes[i].x - nodes[j].x, nodes[i].y - nodes[j].y);
+        if (d < 200) {
+          ctx.beginPath();
+          ctx.moveTo(nodes[i].x, nodes[i].y);
+          ctx.lineTo(nodes[j].x, nodes[j].y);
+          ctx.strokeStyle = `rgba(231,25,31,${0.08 * (1 - d / 200)})`;
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+        }
+      }
+    }
+
+    // Draw nodes
+    nodes.forEach((n, i) => {
+      n.pulse += 0.04;
+      const alpha = 0.5 + Math.sin(n.pulse) * 0.3;
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(231,25,31,${alpha})`;
+      ctx.fill();
+      // Pulse ring
+      const pr = n.r + 6 + Math.sin(n.pulse) * 4;
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, pr, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(231,25,31,${0.15 * alpha})`;
+      ctx.lineWidth = 0.8;
+      ctx.stroke();
+    });
+
+    // Draw packets
+    packets.forEach((p, idx) => {
+      p.t += p.speed;
+      if (p.t >= 1) { packets.splice(idx, 1); spawnPacket(); return; }
+      const na = nodes[p.a], nb = nodes[p.b];
+      const x = na.x + (nb.x - na.x) * p.t;
+      const y = na.y + (nb.y - na.y) * p.t;
+      ctx.beginPath();
+      ctx.arc(x, y, 3, 0, Math.PI * 2);
+      ctx.fillStyle = '#e7191f';
+      ctx.fill();
+    });
+
+    t += 0.01;
+    requestAnimationFrame(frame);
+  }
+  frame();
+})();
+
+// ─── SONIC WAVEFORM ───
+(function() {
+  const container = document.getElementById('sonicVis');
+  if (!container) return;
+  const rowCount = 8;
+  const barsPerRow = 64;
+  const rows = [];
+  for (let r = 0; r < rowCount; r++) {
+    const row = document.createElement('div');
+    row.className = 'waveform-row';
+    const bars = [];
+    for (let b = 0; b < barsPerRow; b++) {
+      const bar = document.createElement('div');
+      bar.className = 'wave-bar';
+      const baseH = 6 + Math.sin((b / barsPerRow) * Math.PI) * 20;
+      bar.style.height = baseH + 'px';
+      bar.style.animationDelay = (b * 30 + r * 80) + 'ms';
+      bar.style.animationDuration = (1.4 + Math.random() * 0.8) + 's';
+      const alpha = 0.3 + (rowCount - r) / rowCount * 0.6;
+      bar.style.opacity = alpha;
+      row.appendChild(bar);
+      bars.push(bar);
+    }
+    container.appendChild(row);
+    rows.push(bars);
+  }
+
+  // Animate heights based on sine pattern over time
+  let t = 0;
+  function animate() {
+    rows.forEach((bars, r) => {
+      bars.forEach((bar, b) => {
+        const h = 4 + Math.abs(Math.sin((b / barsPerRow) * Math.PI * 3 + t + r * 0.3)) * 24;
+        bar.style.height = h + 'px';
+      });
+    });
+    t += 0.05;
+    requestAnimationFrame(animate);
+  }
+  animate();
+})();
+
+// ─── INSTALLATION CANVAS ───
+(function() {
+  const canvas = document.getElementById('installCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let W, H, t = 0;
+
+  function resize() {
+    W = canvas.width = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+  }
+  resize();
+
+  // Grid of cells that respond to a wave
+  const cols = 18, rows = 12;
+
+  function frame() {
+    ctx.fillStyle = 'rgba(10,10,10,0.25)';
+    ctx.fillRect(0, 0, W, H);
+
+    const cw = W / cols, ch = H / rows;
+
+    for (let c = 0; c < cols; c++) {
+      for (let r = 0; r < rows; r++) {
+        const cx = (c + 0.5) * cw, cy = (r + 0.5) * ch;
+        const dist = Math.hypot(c - cols / 2, r - rows / 2);
+        const wave = Math.sin(dist * 0.6 - t * 1.8) * 0.5 + 0.5;
+        const wave2 = Math.sin(c * 0.4 + t * 0.7) * Math.cos(r * 0.5 - t * 0.5) * 0.5 + 0.5;
+        const v = wave * 0.6 + wave2 * 0.4;
+        const size = 1 + v * (Math.min(cw, ch) * 0.38);
+        const alpha = 0.1 + v * 0.7;
+
+        ctx.beginPath();
+        // Alternate between square and circle
+        if ((c + r) % 3 === 0) {
+          ctx.arc(cx, cy, size * 0.5, 0, Math.PI * 2);
+        } else {
+          ctx.rect(cx - size * 0.4, cy - size * 0.4, size * 0.8, size * 0.8);
+        }
+        ctx.fillStyle = `rgba(231,25,31,${alpha})`;
+        ctx.fill();
+      }
+    }
+
+    t += 0.018;
+    requestAnimationFrame(frame);
+  }
+  frame();
+})();
+
+// ─── MOTION VIS (generative mosaic) ───
+// ─── MOTION & GENERATIVE (Cyber Renaissance) ───
+(function() {
+  const container = document.getElementById('motionVis');
+  if (!container) return;
+  
+  container.innerHTML = '<canvas id="motionCanvas"></canvas>';
+  const canvas = document.getElementById('motionCanvas');
+  const ctx = canvas.getContext('2d');
+  
+  let w, h;
+  const resize = () => {
+    w = container.offsetWidth;
+    h = container.offsetHeight;
+    canvas.width = w * window.devicePixelRatio;
+    canvas.height = h * window.devicePixelRatio;
+    ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+  };
+  window.addEventListener('resize', resize);
+  resize();
+
+  const particles = [];
+  const particleCount = 45;
+  for(let i=0; i < particleCount; i++) {
+    particles.push({
+      x: Math.random() * w,
+      y: Math.random() * h,
+      vx: (Math.random() - 0.5) * 0.4,
+      vy: (Math.random() - 0.5) * 0.4,
+      r: Math.random() * 1.5 + 0.5,
+      alpha: Math.random() * 0.5 + 0.2
+    });
+  }
+
+  let time = 0;
+  function animate() {
+    time += 0.008;
+    ctx.fillStyle = '#080808';
+    ctx.fillRect(0, 0, w, h);
+
+    // subtle grid
+    ctx.strokeStyle = 'rgba(231,25,31,0.03)';
+    ctx.lineWidth = 0.5;
+    const gSize = 50;
+    for(let x=0; x<w; x+=gSize) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke(); }
+    for(let y=0; y<h; y+=gSize) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke(); }
+
+    // Renaissance Sacred Geometry (Harmonic Oscillations)
+    ctx.save();
+    ctx.translate(w/2, h/2);
+    ctx.strokeStyle = 'rgba(231,25,31,0.08)';
+    ctx.lineWidth = 1;
+    for(let i=0; i<6; i++) {
+        ctx.save();
+        ctx.rotate(time * 0.2 + (i * Math.PI / 3));
+        const orbitSize = 60 + i * 20;
+        ctx.beginPath();
+        ctx.ellipse(orbitSize * Math.cos(time * 0.5), 0, orbitSize, orbitSize * 0.6, time, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.restore();
+    }
+    ctx.restore();
+
+    // Data Mesh (Cyber)
+    particles.forEach((p, i) => {
+      p.x += p.vx; p.y += p.vy;
+      if(p.x < 0 || p.x > w) p.vx *= -1;
+      if(p.y < 0 || p.y > h) p.vy *= -1;
+
+      ctx.fillStyle = `rgba(231,25,31, ${p.alpha})`;
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fill();
+
+      // Connections
+      for(let j=i+1; j<particles.length; j++) {
+        const p2 = particles[j];
+        const d = Math.hypot(p.x - p2.x, p.y - p2.y);
+        if(d < 90) {
+          ctx.strokeStyle = `rgba(231,25,31, ${0.15 * (1 - d/90)})`;
+          ctx.lineWidth = 0.5;
+          ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(p2.x, p2.y); ctx.stroke();
+        }
+      }
+    });
+
+    // Floating Hex Data (Cyber)
+    if(Math.random() > 0.97) {
+        ctx.font = '8px DM Mono';
+        ctx.fillStyle = 'rgba(231,25,31,0.2)';
+        const hex = '0x' + Math.floor(Math.random()*0xffffff).toString(16).toUpperCase();
+        ctx.fillText(hex, Math.random() * w, Math.random() * h);
+    }
+
+    requestAnimationFrame(animate);
+  }
+  animate();
+})();
+
+// ─── CASE STUDY CANVAS (environmental data) ───
+(function() {
+  const canvas = document.getElementById('caseCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let W, H, t = 0;
+
+  function resize() {
+    W = canvas.width = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+  }
+  resize();
+
+  // Simulated 40 years of sensor readings as layered area charts
+  const layers = [
+    { offset: 0, amp: 0.25, freq: 0.8, phase: 0, color: 'rgba(231,25,31,0.12)' },
+    { offset: 0.1, amp: 0.2, freq: 1.2, phase: 1, color: 'rgba(231,25,31,0.18)' },
+    { offset: 0.05, amp: 0.15, freq: 1.8, phase: 2, color: 'rgba(231,25,31,0.28)' },
+    { offset: 0, amp: 0.08, freq: 2.4, phase: 3, color: 'rgba(231,25,31,0.55)' },
+  ];
+
+  function drawLayer(layer) {
+    ctx.beginPath();
+    for (let x = 0; x <= W; x += 2) {
+      const prog = x / W;
+      const y = H * (0.55 + layer.offset)
+        - Math.sin(prog * Math.PI * layer.freq * 4 + layer.phase + t * 0.5) * H * layer.amp
+        - Math.sin(prog * Math.PI * layer.freq * 1.3 + t * 0.3) * H * layer.amp * 0.4;
+      if (x === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    }
+    ctx.lineTo(W, H); ctx.lineTo(0, H); ctx.closePath();
+    ctx.fillStyle = layer.color;
+    ctx.fill();
+  }
+
+  // Sensor dots
+  const sensors = Array.from({ length: 16 }, (_, i) => ({
+    x: (i / 15) * (W - 60) + 30,
+    y: 60 + Math.random() * (H - 120),
+    pulse: Math.random() * Math.PI * 2,
+  }));
+
+  function frame() {
+    ctx.fillStyle = '#0a0a0a';
+    ctx.fillRect(0, 0, W, H);
+
+    // Grid
+    ctx.strokeStyle = 'rgba(255,255,255,0.04)';
+    ctx.lineWidth = 0.5;
+    for (let y = 0; y < H; y += H / 6) {
+      ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
+    }
+
+    layers.forEach(l => drawLayer(l));
+
+    // Top glowing line
+    ctx.beginPath();
+    for (let x = 0; x <= W; x += 2) {
+      const prog = x / W;
+      const y = H * 0.38
+        - Math.sin(prog * Math.PI * 6 + t * 0.8) * H * 0.12
+        - Math.sin(prog * Math.PI * 2.5 + t * 0.4) * H * 0.06;
+      if (x === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    }
+    ctx.strokeStyle = 'rgba(231,25,31,0.85)';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+
+    // Sensors
+    sensors.forEach(s => {
+      s.pulse += 0.04;
+      const a = 0.4 + Math.sin(s.pulse) * 0.3;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, 3, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(231,25,31,${a})`;
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, 7 + Math.sin(s.pulse) * 3, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(231,25,31,${a * 0.3})`;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    });
+
+    // Year labels
+    ctx.font = '9px monospace';
+    ctx.fillStyle = 'rgba(255,255,255,0.2)';
+    ctx.letterSpacing = '1px';
+    ['1984', '1994', '2004', '2014', '2024'].forEach((yr, i) => {
+      ctx.fillText(yr, 16 + (i / 4) * (W - 60), H - 12);
+    });
+
+    t += 0.012;
+    requestAnimationFrame(frame);
+  }
+  frame();
+})();
+</script>
+
+<script src="js/main.js"></script>
+</body>
+</html>

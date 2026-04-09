@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Products — NECESSITY.INK</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/main.css">
+<style>
+  /* ─── HERO ─── */
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 90vh;
+    padding: 20vh 48px 80px;
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  .hero-top {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: stretch;
+    width: 100%;
+    flex: 1;
+  }
+  .hero-col-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+  .hero-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mid); margin-bottom: 28px; display: flex; align-items: center; gap: 12px; }
+  .hero-label::before { content: ''; display: block; width: 32px; height: 1px; background: var(--mid); }
+  .hero-title { font-family: var(--serif); font-size: clamp(36px, 4.5vw, 64px); font-weight: 400; line-height: 1.05; letter-spacing: -0.02em; }
+  .hero-title em { font-style: italic; color: rgba(255,255,255,0.3); }
+  .hero-desc { font-size: 17px; line-height: 1.7; color: rgba(255,255,255,0.5); max-width: 460px; margin-bottom: 36px; }
+  .hero-meta { display: flex; flex-direction: column; gap: 0; border-top: 1px solid var(--rule); border-left: 1px solid var(--rule); }
+  .hero-meta-row { display: flex; border-bottom: 1px solid var(--rule); }
+  .hero-meta-cell { flex: 1; padding: 18px 20px; border-right: 1px solid var(--rule); }
+  .hero-meta-cell:last-child { border-right: none; }
+  .meta-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mid); margin-bottom: 4px; }
+  .meta-val { font-family: var(--serif); font-size: 22px; font-weight: 700; line-height: 1; }
+
+  /* ─── PRODUCT TYPE FILTER ─── */
+  .filter-bar {
+    display: flex; align-items: center; gap: 0;
+    padding: 0 48px;
+    border-bottom: 1px solid var(--rule);
+    background: var(--ink);
+    overflow-x: auto;
+  }
+  .filter-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mid); padding: 16px 20px 16px 0; margin-right: 8px; white-space: nowrap; border-right: 1px solid var(--rule); }
+  .filter-btn {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+    background: none; border: none; border-right: 1px solid var(--rule);
+    padding: 16px 22px; cursor: pointer; color: var(--mid);
+    white-space: nowrap; transition: all 0.2s; position: relative;
+  }
+  .filter-btn::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: var(--ink); transform: scaleX(0); transition: transform 0.2s; }
+  .filter-btn.active { color: var(--text); }
+  .filter-btn.active::after { transform: scaleX(1); }
+  .filter-btn:hover { color: var(--text); }
+
+  /* ─── SECTION COMMON ─── */
+  section { padding: 100px 48px; border-bottom: 1px solid var(--rule); }
+  .section-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mid); margin-bottom: 48px; display: flex; align-items: center; gap: 12px; }
+  .section-label::before { content: ''; display: block; width: 32px; height: 1px; background: var(--rule); }
+  .section-heading { font-family: var(--serif); font-size: clamp(30px, 3.5vw, 52px); font-weight: 400; line-height: 1.15; letter-spacing: -0.01em; margin-bottom: 24px; }
+
+  /* ─── FEATURED PRODUCT (full-bleed hero-style) ─── */
+  .featured-product {
+    display: grid; grid-template-columns: 1fr 1fr;
+    min-height: 560px; border-bottom: 1px solid var(--rule);
+    position: relative;
+  }
+  .featured-product.flip .fp-visual { order: 2; }
+  .featured-product.flip .fp-content { order: 1; }
+
+  .fp-visual {
+    background: var(--ink);
+    position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .fp-content {
+    padding: 72px 56px;
+    display: flex; flex-direction: column; justify-content: center;
+    border-right: 1px solid var(--rule);
+  }
+  .featured-product.flip .fp-content { border-right: none; border-left: 1px solid var(--rule); }
+
+  .fp-type-tag {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em;
+    text-transform: uppercase; background: var(--ink); color: var(--white);
+    padding: 4px 10px; display: inline-block; margin-bottom: 12px; align-self: flex-start;
+  }
+  .fp-product-tag {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--mid); margin-bottom: 28px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .fp-product-tag::before { content: ''; display: block; width: 20px; height: 1px; background: var(--rule); }
+
+  .fp-title { font-family: var(--serif); font-size: clamp(26px, 3vw, 44px); font-weight: 400; line-height: 1.15; margin-bottom: 18px; letter-spacing: -0.01em; }
+  .fp-title em { font-style: italic; color: var(--mid); }
+  .fp-body { font-size: 15px; line-height: 1.75; color: var(--mid); margin-bottom: 32px; max-width: 380px; }
+
+  .fp-specs { border-top: 1px solid var(--rule); }
+  .fp-spec-row { display: flex; gap: 0; border-bottom: 1px solid var(--rule); }
+  .fp-spec { flex: 1; padding: 14px 0; }
+  .fp-spec + .fp-spec { border-left: 1px solid var(--rule); padding-left: 16px; }
+  .fp-spec-label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mid); margin-bottom: 3px; }
+  .fp-spec-val { font-family: var(--mono); font-size: 13px; letter-spacing: 0.04em; color: var(--text); }
+
+  .fp-cta { margin-top: 28px; display: flex; gap: 12px; }
+
+  /* ─── PRODUCT GRID ─── */
+  .product-grid-section { padding: 0; border-bottom: 1px solid var(--rule); }
+
+  .product-grid-header {
+    padding: 64px 48px 0;
+  }
+
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid var(--rule);
+    border-left: 1px solid var(--rule);
+    margin-top: 0;
+  }
+
+  .product-card {
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    display: flex; flex-direction: column;
+    cursor: pointer; transition: background 0.2s;
+    position: relative; overflow: hidden;
+  }
+  .product-card:hover { background: rgba(231,25,31,0.03); }
+  .product-card:hover .pc-arrow { opacity: 1; transform: translateX(0); }
+
+  .pc-visual {
+    height: 220px;
+    background: var(--ink);
+    position: relative; overflow: hidden;
+    border-bottom: 1px solid var(--rule);
+    flex-shrink: 0;
+  }
+  .pc-visual canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+  .pc-body { padding: 28px 28px 24px; flex: 1; display: flex; flex-direction: column; }
+  .pc-category { font-family: var(--mono); font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mid); margin-bottom: 10px; }
+  .pc-title { font-family: var(--serif); font-size: 20px; font-weight: 700; line-height: 1.2; margin-bottom: 10px; }
+  .pc-desc { font-size: 13px; line-height: 1.65; color: var(--mid); margin-bottom: 16px; flex: 1; }
+  .pc-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--rule); padding-top: 14px; margin-top: auto; }
+  .pc-price { font-family: var(--mono); font-size: 12px; letter-spacing: 0.06em; color: var(--text); }
+  .pc-arrow { font-family: var(--mono); font-size: 11px; color: var(--text); opacity: 0; transform: translateX(-6px); transition: all 0.2s; }
+
+  /* ─── WHITE-LABEL SECTION ─── */
+  .wl-section { background: var(--ink); color: var(--white); padding: 100px 48px; border-bottom: 1px solid var(--rule); }
+  .wl-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; margin-bottom: 64px; align-items: end; }
+  .wl-desc { font-size: 17px; line-height: 1.7; color: rgba(255,255,255,0.5); max-width: 440px; }
+
+  .wl-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid rgba(255,255,255,0.1);
+    border-left: 1px solid rgba(255,255,255,0.1);
+  }
+  .wl-card { padding: 36px 28px; border-right: 1px solid rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.1); transition: background 0.25s; }
+  .wl-card:hover { background: rgba(231,25,31,0.04); }
+  .wl-icon { font-size: 20px; margin-bottom: 16px; }
+  .wl-title { font-family: var(--serif); font-size: 17px; font-weight: 700; margin-bottom: 10px; color: var(--white); line-height: 1.2; }
+  .wl-body { font-size: 13px; line-height: 1.65; color: rgba(255,255,255,0.45); }
+
+  /* ─── PROCESS ─── */
+  .process-section { background: var(--ink); padding: 100px 48px; border-bottom: 1px solid var(--rule); }
+  .process-split { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; margin-bottom: 64px; align-items: end; }
+  .process-desc { font-size: 17px; line-height: 1.7; color: var(--mid); }
+  .process-steps {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    border-top: 1px solid var(--rule); border-left: 1px solid var(--rule);
+  }
+  .process-step { padding: 40px 36px; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+  .step-index { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; color: var(--mid); margin-bottom: 16px; }
+  .step-title { font-family: var(--serif); font-size: 19px; font-weight: 700; margin-bottom: 12px; line-height: 1.25; }
+  .step-body { font-size: 14px; line-height: 1.65; color: var(--mid); }
+
+  /* ─── TECH STACK ─── */
+  .tech-section { border-bottom: 1px solid var(--rule); }
+  .tech-strip { display: grid; grid-template-columns: repeat(6, 1fr); border-top: 1px solid var(--rule); border-left: 1px solid var(--rule); margin-top: 48px; }
+  .tech-item { padding: 28px 24px; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); display: flex; flex-direction: column; gap: 8px; }
+  .tech-name { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text); }
+  .tech-type { font-size: 12px; color: var(--mid); }
+
+  /* ─── CASE STUDY ─── */
+  .case-section { background: var(--ink); color: var(--white); padding: 100px 48px; border-bottom: 1px solid var(--rule); }
+  .case-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .case-label-inv { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 48px; display: flex; align-items: center; gap: 12px; }
+  .case-label-inv::before { content: ''; display: block; width: 32px; height: 1px; background: rgba(255,255,255,0.15); }
+  .case-heading { font-family: var(--serif); font-size: clamp(26px, 2.8vw, 42px); font-weight: 400; line-height: 1.2; color: var(--white); margin-bottom: 20px; }
+  .case-desc { font-size: 16px; line-height: 1.7; color: rgba(255,255,255,0.5); margin-bottom: 36px; }
+  .case-metrics { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid rgba(255,255,255,0.1); border-left: 1px solid rgba(255,255,255,0.1); margin-bottom: 36px; }
+  .case-metric { padding: 20px 22px; border-right: 1px solid rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.1); }
+  .case-metric-num { font-family: var(--serif); font-size: 26px; font-weight: 700; color: var(--accent); line-height: 1; margin-bottom: 4px; }
+  .case-metric-label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.3); }
+  .case-visual { aspect-ratio: 4/3; background: #0f0f0f; border: 1px solid rgba(255,255,255,0.07); overflow: hidden; position: relative; }
+
+  /* ─── PRICING ─── */
+  .pricing-layout { display: grid; grid-template-columns: 1fr 2fr; gap: 80px; margin-top: 64px; }
+  .pricing-intro { font-size: 16px; line-height: 1.7; color: var(--mid); }
+  .pricing-cards { border-top: 1px solid var(--rule); border-left: 1px solid var(--rule); }
+  .pricing-row { display: grid; grid-template-columns: 1fr 1fr 1fr; border-bottom: 1px solid var(--rule); border-right: 1px solid var(--rule); }
+  .pricing-cell { padding: 28px 24px; border-right: 1px solid var(--rule); }
+  .pricing-cell:last-child { border-right: none; }
+  .pricing-cell-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mid); margin-bottom: 6px; }
+  .pricing-cell-value { font-family: var(--serif); font-size: 19px; font-weight: 700; line-height: 1.2; }
+  .pricing-cell-note { font-size: 12px; color: var(--mid); margin-top: 4px; }
+  .pricing-row.highlight { background: var(--ink); color: var(--white); }
+  .pricing-row.highlight .pricing-cell-label { color: rgba(255,255,255,0.35); }
+  .pricing-row.highlight .pricing-cell-value { color: var(--accent); }
+  .pricing-row.highlight .pricing-cell-note { color: rgba(255,255,255,0.45); }
+  .pricing-row.highlight .pricing-cell { border-right-color: rgba(255,255,255,0.1); }
+
+  /* ─── CTA ─── */
+  .cta-section { padding: 120px 48px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; border-bottom: 1px solid var(--rule); }
+  .cta-heading { font-family: var(--serif); font-size: clamp(36px, 4vw, 64px); font-weight: 400; line-height: 1.1; letter-spacing: -0.02em; }
+  .cta-heading em { font-style: italic; color: var(--mid); }
+  .cta-body { font-size: 17px; line-height: 1.7; color: var(--mid); margin-bottom: 28px; }
+  .btn-group { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn-primary { font-family: var(--mono); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; background: var(--accent); color: var(--white); border: none; padding: 16px 28px; cursor: pointer; text-decoration: none; transition: background 0.2s; display: inline-block; }
+  .btn-primary:hover { background: #c8141a; }
+  .btn-secondary { font-family: var(--mono); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; background: transparent; color: var(--text); border: 1px solid var(--ink); padding: 16px 28px; cursor: pointer; text-decoration: none; transition: all 0.2s; display: inline-block; }
+  .btn-secondary:hover { background: var(--ink); color: var(--white); }
+
+  /* ─── FOOTER ─── */
+  footer { background: var(--ink); color: var(--white); padding: 64px 48px 40px; }
+  .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr; gap: 48px; padding-bottom: 48px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 40px; }
+  .footer-brand { font-family: var(--mono); font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 16px; }
+  .footer-tagline { font-size: 14px; line-height: 1.6; color: rgba(255,255,255,0.35); }
+  .footer-col-title { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 16px; }
+  .footer-links { list-style: none; }
+  .footer-links li { margin-bottom: 10px; }
+  .footer-links a { font-size: 13px; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--white); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; color: rgba(255,255,255,0.25); }
+
+  /* ─── ANIMATIONS ─── */
+  .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 1100px) {
+    .wl-grid { grid-template-columns: repeat(2, 1fr); }
+    .tech-strip { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (max-width: 900px) {
+    nav { padding: 0 24px; }
+    .nav-links { display: none; }
+    section, .process-section, .case-section, .wl-section { padding: 64px 24px; }
+    .filter-bar { padding: 0 24px; }
+    .hero { padding: 120px 24px 64px; }
+    .hero-top, .featured-product, .wl-intro, .process-split, .case-layout, .pricing-layout, .cta-section { grid-template-columns: 1fr; gap: 40px; }
+    .product-grid { grid-template-columns: 1fr 1fr; }
+    .process-steps { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+    .fp-content { border-right: none; border-bottom: 1px solid var(--rule); }
+    .featured-product.flip .fp-content { border-left: none; border-bottom: 1px solid var(--rule); }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo"><img src="Media/NCSSTYlogo.png" alt="NECESSITY.INK" style="height:21px;width:auto;display:block;filter:brightness(0) invert(1);"></a>
+  <ul class="nav-links">
+    <li><a href="strategy.html">Strategy</a></li>
+    <li><a href="reporting.html">Reporting</a></li>
+    <li><a href="marketing.html">Marketing</a></li>
+    <li><a href="products.html" class="active">Products</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <a href="brief-builder.html" class="nav-cta" id="nav-cta-brief">Get a free quote</a>
+</nav>
+
+
+<!-- HERO -->
+<div class="hero fade-up">
+  <div class="hero-top">
+    <div>
+      <p class="hero-label">Solution — 04</p>
+      <h1 class="hero-title">Build tools,<br>platforms and<br><em>experiences<br>powered by data.</em></h1>
+    </div>
+    <div class="hero-col-right">
+      <p class="hero-desc">We partner with organisations to develop original products and services driven by data, AI and machine learning — from early prototypes to full production systems. White-label solutions, custom software, exhibition platforms, interactive apps, and sonification engines.</p>
+
+    </div>
+  </div>
+</div>
+
+<!-- Category Overview -->
+<div style="display:grid;grid-template-columns:repeat(6,1fr);border-top:1px solid var(--rule);border-left:1px solid var(--rule);" class="fade-up">
+    <div style="padding:20px 24px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);">
+      <div style="font-family:var(--mono);font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--mid);margin-bottom:6px;">Type 01</div>
+      <div style="font-family:var(--serif);font-size:15px;font-weight:700;">White-Label</div>
+    </div>
+    <div style="padding:20px 24px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);">
+      <div style="font-family:var(--mono);font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--mid);margin-bottom:6px;">Type 02</div>
+      <div style="font-family:var(--serif);font-size:15px;font-weight:700;">Exhibition</div>
+    </div>
+    <div style="padding:20px 24px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);">
+      <div style="font-family:var(--mono);font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--mid);margin-bottom:6px;">Type 03</div>
+      <div style="font-family:var(--serif);font-size:15px;font-weight:700;">App & Platform</div>
+    </div>
+    <div style="padding:20px 24px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);">
+      <div style="font-family:var(--mono);font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--mid);margin-bottom:6px;">Type 04</div>
+      <div style="font-family:var(--serif);font-size:15px;font-weight:700;">Sonification</div>
+    </div>
+    <div style="padding:20px 24px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);">
+      <div style="font-family:var(--mono);font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--mid);margin-bottom:6px;">Type 05</div>
+      <div style="font-family:var(--serif);font-size:15px;font-weight:700;">AI Tool</div>
+    </div>
+    <div style="padding:20px 24px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);">
+      <div style="font-family:var(--mono);font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--mid);margin-bottom:6px;">Type 06</div>
+      <div style="font-family:var(--serif);font-size:15px;font-weight:700;">Custom Platform</div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<!-- PRODUCT GRID -->
+<div class="product-grid-section fade-up">
+  <div class="product-grid-header">
+    <p class="section-label">Product Catalogue</p>
+    <h2 class="section-heading">All products and<br>platform types.</h2>
+  </div>
+
+  <div class="filter-bar" style="border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); margin-top: 48px;">
+    <span class="filter-label">Filter by type</span>
+    <button class="filter-btn active">All Products</button>
+    <button class="filter-btn">White-Label</button>
+    <button class="filter-btn">Exhibition</button>
+    <button class="filter-btn">App & Platform</button>
+    <button class="filter-btn">Sonification</button>
+    <button class="filter-btn">AI Tools</button>
+    <button class="filter-btn">Custom Platform</button>
+  </div>
+  <div class="product-grid" id="productGrid">
+
+    <!-- Sonification Engine -->
+    <div class="product-card" data-type="Sonification">
+      <div class="pc-visual"><canvas class="pc-canvas" id="pc1"></canvas></div>
+      <div class="pc-body">
+        <div class="pc-category">Sonification Engine</div>
+        <h3 class="pc-title">Data-to-Audio Converter</h3>
+        <p class="pc-desc">A configurable engine for mapping datasets to audio parameters — pitch, rhythm, timbre, and spatialization. Used for accessibility, artistic and research applications.</p>
+        <div class="pc-footer">
+          <span class="pc-price">From £8,000</span>
+          <span class="pc-arrow">Enquire →</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI Insight Tool -->
+    <div class="product-card" data-type="AI Tools">
+      <div class="pc-visual"><canvas class="pc-canvas" id="pc2"></canvas></div>
+      <div class="pc-body">
+        <div class="pc-category">AI Tool</div>
+        <h3 class="pc-title">Natural Language Data Query</h3>
+        <p class="pc-desc">A custom AI interface allowing non-technical users to interrogate complex datasets using plain language — surfacing answers, patterns, and anomalies automatically.</p>
+        <div class="pc-footer">
+          <span class="pc-price">From £12,000</span>
+          <span class="pc-arrow">Enquire →</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Generative Identity System -->
+    <div class="product-card" data-type="White-Label">
+      <div class="pc-visual"><canvas class="pc-canvas" id="pc3"></canvas></div>
+      <div class="pc-body">
+        <div class="pc-category">Generative Identity System</div>
+        <h3 class="pc-title">Algorithmic Brand Engine</h3>
+        <p class="pc-desc">A software system that generates unique brand visuals from data inputs — producing outputs that are distinct each time but always unmistakably yours. Exportable for print and digital.</p>
+        <div class="pc-footer">
+          <span class="pc-price">From £16,000</span>
+          <span class="pc-arrow">Enquire →</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Data Exhibition Platform -->
+    <div class="product-card" data-type="Exhibition">
+      <div class="pc-visual"><canvas class="pc-canvas" id="pc4"></canvas></div>
+      <div class="pc-body">
+        <div class="pc-category">Exhibition Platform</div>
+        <h3 class="pc-title">Live Data Installation System</h3>
+        <p class="pc-desc">A real-time data-driven display system for physical spaces — ingesting live data feeds and rendering them as large-scale visual environments across screens, projections, or LED.</p>
+        <div class="pc-footer">
+          <span class="pc-price">From £20,000</span>
+          <span class="pc-arrow">Enquire →</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Research App -->
+    <div class="product-card" data-type="App & Platform">
+      <div class="pc-visual"><canvas class="pc-canvas" id="pc5"></canvas></div>
+      <div class="pc-body">
+        <div class="pc-category">App & Platform</div>
+        <h3 class="pc-title">Research Data Platform</h3>
+        <p class="pc-desc">A structured platform for collecting, annotating, visualising and sharing research data — designed for academic, NGO and institutional teams working across multiple contributors.</p>
+        <div class="pc-footer">
+          <span class="pc-price">From £18,000</span>
+          <span class="pc-arrow">Enquire →</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Custom ML System -->
+    <div class="product-card" data-type="AI Tools">
+      <div class="pc-visual"><canvas class="pc-canvas" id="pc6"></canvas></div>
+      <div class="pc-body">
+        <div class="pc-category">AI Tool / ML System</div>
+        <h3 class="pc-title">Pattern Recognition Engine</h3>
+        <p class="pc-desc">A machine learning system trained on your specific dataset to automatically classify, cluster, or flag records — surfacing patterns a human analyst would take months to find.</p>
+        <div class="pc-footer">
+          <span class="pc-price">From £22,000</span>
+          <span class="pc-arrow">Enquire →</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sonic Brand -->
+    <div class="product-card" data-type="Sonification">
+      <div class="pc-visual"><canvas class="pc-canvas" id="pc7"></canvas></div>
+      <div class="pc-body">
+        <div class="pc-category">Sonification · Sonic Identity</div>
+        <h3 class="pc-title">Data-Derived Sonic Identity</h3>
+        <p class="pc-desc">A complete sonic identity system algorithmically derived from your organisation's own data — generating a unique brand sound that no other organisation could own.</p>
+        <div class="pc-footer">
+          <span class="pc-price">From £10,000</span>
+          <span class="pc-arrow">Enquire →</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- White-label Portal -->
+    <div class="product-card" data-type="White-Label">
+      <div class="pc-visual"><canvas class="pc-canvas" id="pc8"></canvas></div>
+      <div class="pc-body">
+        <div class="pc-category">White-Label · Data Portal</div>
+        <h3 class="pc-title">Public Data Portal</h3>
+        <p class="pc-desc">A white-label platform for publishing and exploring open or research datasets publicly — with search, filtering, visualisation, and download capabilities built in.</p>
+        <div class="pc-footer">
+          <span class="pc-price">From £14,000</span>
+          <span class="pc-arrow">Enquire →</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bespoke -->
+    <div class="product-card" style="background:var(--ink);color:var(--white);" data-type="Custom Platform">
+      <div class="pc-visual" style="background:#111;display:flex;align-items:center;justify-content:center;">
+        <canvas class="pc-canvas" id="pc9"></canvas>
+      </div>
+      <div class="pc-body">
+        <div class="pc-category" style="color:rgba(255,255,255,0.35);">Custom Platform</div>
+        <h3 class="pc-title" style="color:var(--white);">Something we haven't built yet.</h3>
+        <p class="pc-desc" style="color:rgba(255,255,255,0.5);">The most interesting products don't fit existing categories. If you have an idea for something new — powered by data, AI or algorithms — tell us what it is.</p>
+        <div class="pc-footer" style="border-top-color:rgba(255,255,255,0.1);">
+          <span class="pc-price" style="color:var(--accent);">Let's scope it</span>
+          <span class="pc-arrow" style="color:var(--white);opacity:1;transform:translateX(0);">Tell us →</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- WHITE-LABEL DEEP DIVE -->
+<section class="wl-section fade-up">
+  <div class="wl-intro">
+    <div>
+      <p class="section-label" style="color:rgba(255,255,255,0.3);">White-Label Solutions</p>
+      <h2 class="section-heading" style="color:var(--white);">Built by us.<br>Shipped as yours.</h2>
+    </div>
+    <p class="wl-desc">All white-label products are built to be indistinguishable from your own — branded, documented, and handed over with full source code and no ongoing dependency on NECESSITY.INK unless you want one.</p>
+  </div>
+  <div class="wl-grid">
+    <div class="wl-card">
+      <div class="wl-icon">◈</div>
+      <h3 class="wl-title">Full source code ownership</h3>
+      <p class="wl-body">You own everything we build. No licence fees, no lock-in. The code ships with your name on it.</p>
+    </div>
+    <div class="wl-card">
+      <div class="wl-icon">⬡</div>
+      <h3 class="wl-title">Branded to your identity</h3>
+      <p class="wl-body">Design system, fonts, colours, logos — all substituted. Your product, your brand, zero visual trace of us.</p>
+    </div>
+    <div class="wl-card">
+      <div class="wl-icon">◎</div>
+      <h3 class="wl-title">Documented for handover</h3>
+      <p class="wl-body">Every product ships with full technical documentation so your team can maintain and extend it independently.</p>
+    </div>
+    <div class="wl-card">
+      <div class="wl-icon">▲</div>
+      <h3 class="wl-title">Optional ongoing support</h3>
+      <p class="wl-body">Post-launch maintenance, updates, and feature development available through a monthly retainer arrangement.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process-section fade-up">
+  <div class="process-split">
+    <div>
+      <p class="section-label">How Products Are Built</p>
+      <h2 class="section-heading">From prototype to<br>production system.</h2>
+    </div>
+    <p class="process-desc">Every product starts with a short discovery phase — not to gather requirements, but to understand what the product actually needs to do. We build in phases so nothing is committed to prematurely.</p>
+  </div>
+  <div class="process-steps">
+    <div class="process-step">
+      <div class="step-index">Phase 01 — Discovery</div>
+      <h3 class="step-title">Define the problem before defining the product</h3>
+      <p class="step-body">We audit your data, understand your users, and map what the product actually needs to do. Many products change significantly at this stage — intentionally.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-index">Phase 02 — Prototype</div>
+      <h3 class="step-title">Build something real before committing to full production</h3>
+      <p class="step-body">A working prototype — not wireframes — tested against real data and real users. Fast, honest, and designed to surface what written specs can't predict.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-index">Phase 03 — Production</div>
+      <h3 class="step-title">Build the full system to production standard</h3>
+      <p class="step-body">Full engineering and design build — performant, accessible, and documented. Developed iteratively with checkpoints at defined milestones.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-index">Phase 04 — Handover</div>
+      <h3 class="step-title">Transfer ownership completely — no dependency required</h3>
+      <p class="step-body">Source code, documentation, deployment guides, and handover sessions. You leave with everything you need to own and run the product independently.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TECH CAPABILITIES -->
+<section class="tech-section fade-up">
+  <p class="section-label">Technical Capabilities</p>
+  <h2 class="section-heading">What we build with.</h2>
+  <div class="tech-strip">
+    <div class="tech-item"><div class="tech-name">React / Next.js</div><div class="tech-type">Frontend & web apps</div></div>
+    <div class="tech-item"><div class="tech-name">D3 / Three.js</div><div class="tech-type">Data visualisation</div></div>
+    <div class="tech-item"><div class="tech-name">Python / PyTorch</div><div class="tech-type">ML & AI systems</div></div>
+    <div class="tech-item"><div class="tech-name">Web Audio API</div><div class="tech-type">Sonification & audio</div></div>
+    <div class="tech-item"><div class="tech-name">Node / Supabase</div><div class="tech-type">Backend & databases</div></div>
+    <div class="tech-item"><div class="tech-name">WebGL / GLSL</div><div class="tech-type">Real-time rendering</div></div>
+    <div class="tech-item"><div class="tech-name">OpenAI / Anthropic</div><div class="tech-type">LLM integration</div></div>
+    <div class="tech-item"><div class="tech-name">Canvas / SVG</div><div class="tech-type">Generative graphics</div></div>
+    <div class="tech-item"><div class="tech-name">Electron / Tauri</div><div class="tech-type">Desktop apps</div></div>
+    <div class="tech-item"><div class="tech-name">Touch Designer</div><div class="tech-type">Installation / real-time</div></div>
+    <div class="tech-item"><div class="tech-name">REST / GraphQL</div><div class="tech-type">API & integrations</div></div>
+    <div class="tech-item"><div class="tech-name">Max/MSP / SC</div><div class="tech-type">Audio programming</div></div>
+  </div>
+</section>
+
+<!-- CASE STUDY -->
+<section class="case-section fade-up">
+  <div class="case-layout">
+    <div>
+      <p class="case-label-inv">Work in Context</p>
+      <h2 class="case-heading">A white-label intelligence platform now used by 3,000 researchers across 14 countries.</h2>
+      <div class="case-metrics">
+        <div class="case-metric"><div class="case-metric-num">3k+</div><div class="case-metric-label">Active users</div></div>
+        <div class="case-metric"><div class="case-metric-num">14</div><div class="case-metric-label">Countries</div></div>
+        <div class="case-metric"><div class="case-metric-num">12w</div><div class="case-metric-label">To production</div></div>
+      </div>
+      <p class="case-desc">A global research network needed a shared platform for exploring, annotating, and comparing datasets across country teams. We built a white-label research intelligence tool — branded under their identity, with full source code ownership and no licensing dependency.</p>
+      <div class="btn-group">
+        <a href="#" class="btn-primary" style="background:var(--accent);color:var(--ink)">View Case Study</a>
+        <a href="#" class="btn-secondary" style="color:rgba(255,255,255,0.6);border-color:rgba(255,255,255,0.25)">All Work</a>
+      </div>
+    </div>
+    <div class="case-visual">
+      <canvas id="caseCanvas" style="position:absolute;inset:0;width:100%;height:100%;"></canvas>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="fade-up">
+  <p class="section-label">Pricing</p>
+  <h2 class="section-heading">Products are scoped to<br>complexity and ownership model.</h2>
+  <div class="pricing-layout">
+    <div>
+      <p class="pricing-intro">Product builds are priced by scope, not by day rate. We offer fixed project fees for defined builds, and retainers for ongoing product development. All products include source code ownership unless otherwise agreed.</p>
+    </div>
+    <div class="pricing-cards">
+      <div class="pricing-row">
+        <div class="pricing-cell"><div class="pricing-cell-label">Type</div><div class="pricing-cell-value" style="font-size:13px;font-family:var(--mono);">Engagement</div></div>
+        <div class="pricing-cell"><div class="pricing-cell-label">Timeline</div><div class="pricing-cell-value" style="font-size:13px;font-family:var(--mono);">Duration</div></div>
+        <div class="pricing-cell"><div class="pricing-cell-label">Starting From</div><div class="pricing-cell-value" style="font-size:13px;font-family:var(--mono);">Cost</div></div>
+      </div>
+      <div class="pricing-row">
+        <div class="pricing-cell"><div class="pricing-cell-label">Prototype / POC</div><div class="pricing-cell-value">Proof of concept</div><div class="pricing-cell-note">Test before committing</div></div>
+        <div class="pricing-cell"><div class="pricing-cell-label">Timeline</div><div class="pricing-cell-value">2–4 weeks</div></div>
+        <div class="pricing-cell"><div class="pricing-cell-label">From</div><div class="pricing-cell-value">£5,000</div></div>
+      </div>
+      <div class="pricing-row">
+        <div class="pricing-cell"><div class="pricing-cell-label">Standard Product Build</div><div class="pricing-cell-value">Production-ready</div><div class="pricing-cell-note">Apps, tools, platforms</div></div>
+        <div class="pricing-cell"><div class="pricing-cell-label">Timeline</div><div class="pricing-cell-value">6–12 weeks</div></div>
+        <div class="pricing-cell"><div class="pricing-cell-label">From</div><div class="pricing-cell-value">£14,000</div></div>
+      </div>
+      <div class="pricing-row highlight">
+        <div class="pricing-cell"><div class="pricing-cell-label">White-Label System</div><div class="pricing-cell-value">Full ownership transfer</div><div class="pricing-cell-note">Most common engagement</div></div>
+        <div class="pricing-cell"><div class="pricing-cell-label">Timeline</div><div class="pricing-cell-value">8–16 weeks</div></div>
+        <div class="pricing-cell"><div class="pricing-cell-label">From</div><div class="pricing-cell-value">£18,000</div></div>
+      </div>
+      <div class="pricing-row">
+        <div class="pricing-cell"><div class="pricing-cell-label">Product Retainer</div><div class="pricing-cell-value">Ongoing development</div><div class="pricing-cell-note">Continuous build partner</div></div>
+        <div class="pricing-cell"><div class="pricing-cell-label">Timeline</div><div class="pricing-cell-value">Monthly</div></div>
+        <div class="pricing-cell"><div class="pricing-cell-label">From</div><div class="pricing-cell-value">£3,000/mo</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section fade-up">
+  <div>
+    <h2 class="cta-heading">Have a product<br>idea you want<br><em>to build?</em></h2>
+  </div>
+  <div>
+    <p class="cta-body">Tell us what you're trying to build — we'll help you work out whether it's feasible, what it would take, and what it might cost. Most proposals returned within 48 hours.</p>
+    <div class="btn-group">
+      <a href="#" class="btn-primary">Get a Free Quote</a>
+      <a href="#" class="btn-secondary">Book a Call</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <img src="Media/NCSSTYlogo.png" alt="NECESSITY.INK" style="height:17px;width:auto;display:block;margin-bottom:16px;filter:brightness(0) invert(1);">
+      <p class="footer-tagline">AI, Strategy and Data Design<br>for Organisations Building<br>the Future.</p>
+    </div>
+    <div><div class="footer-col-title">Company</div><ul class="footer-links"><li><a href="index.html">About</a></li><li><a href="contact.html">Keynotes</a></li><li><a href="contact.html">Careers</a></li><li><a href="contact.html">Partners</a></li></ul></div>
+    <div><div class="footer-col-title">Solutions</div><ul class="footer-links"><li><a href="strategy.html">Strategy</a></li><li><a href="reporting.html">Reporting</a></li><li><a href="marketing.html">Marketing</a></li><li><a href="products.html">Products</a></li></ul></div>
+    <div><div class="footer-col-title">Pricing</div><ul class="footer-links"><li><a href="pricing.html">Overview</a></li><li><a href="pricing.html#models">Fixed Packages</a></li><li><a href="pricing.html#models">Retainers</a></li><li><a href="pricing.html#models">Workshops</a></li></ul></div>
+    <div><div class="footer-col-title">Contact</div><ul class="footer-links"><li><a href="contact.html">Book a Call</a></li><li><a href="mailto:hello@necessity.ink">Send an Email</a></li><li><a href="brief-builder.html">Brief Builder</a></li><li><a href="contact.html#visit">Visit Studio</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <span>hello@necessity.ink</span>
+    <span>© 2026 Necessity.ink — London</span>
+  </div>
+</footer>
+
+<script>
+// ─── UTILITY: resize canvas to its CSS size ───
+function fitCanvas(c) {
+  c.width = c.offsetWidth || c.parentElement.offsetWidth;
+  c.height = c.offsetHeight || c.parentElement.offsetHeight;
+  return { w: c.width, h: c.height };
+}
+
+// ─── WHITE-LABEL FEATURED: Dashboard UI simulation ───
+(function() {
+  const c = document.getElementById('wlCanvas'); if (!c) return;
+  const ctx = c.getContext('2d');
+  let dim = fitCanvas(c), t = 0;
+  window.addEventListener('resize', () => { dim = fitCanvas(c); });
+
+  const bars = Array.from({length: 14}, (_,i) => ({
+    h: 0.2 + Math.random() * 0.65,
+    target: 0.2 + Math.random() * 0.65,
+    speed: 0.01 + Math.random() * 0.015
+  }));
+
+  function frame() {
+    const {w, h} = dim;
+    ctx.fillStyle = '#0a0a0a';
+    ctx.fillRect(0, 0, w, h);
+
+    // Sidebar simulation
+    ctx.fillStyle = '#111';
+    ctx.fillRect(0, 0, 60, h);
+    [0.2, 0.35, 0.5, 0.65, 0.8].forEach(y => {
+      ctx.fillStyle = y === 0.35 ? 'rgba(231,25,31,0.7)' : 'rgba(255,255,255,0.08)';
+      ctx.fillRect(14, h * y - 8, 32, 16);
+    });
+
+    // Top bar
+    ctx.fillStyle = '#111';
+    ctx.fillRect(60, 0, w, 48);
+    ctx.fillStyle = 'rgba(255,255,255,0.06)';
+    ctx.fillRect(w - 120, 10, 100, 28);
+    ctx.font = '10px monospace';
+    ctx.fillStyle = 'rgba(255,255,255,0.25)';
+    ctx.fillText('INTELLIGENCE PLATFORM v2', 76, 30);
+
+    // KPI row
+    const kpiW = (w - 76) / 3;
+    ['84,271', '73.6%', '14'].forEach((val, i) => {
+      const kx = 76 + i * kpiW;
+      ctx.fillStyle = '#141414';
+      ctx.fillRect(kx + 4, 56, kpiW - 8, 72);
+      ctx.fillStyle = 'rgba(255,255,255,0.2)';
+      ctx.font = '9px monospace';
+      ctx.fillText(['TOTAL RESPONSES','COMPLETION RATE','ACTIVE REGIONS'][i], kx + 14, 76);
+      ctx.fillStyle = i === 1 ? '#e7191f' : '#fff';
+      ctx.font = 'bold 22px serif';
+      ctx.fillText(val, kx + 14, 108);
+    });
+
+    // Chart area
+    const chartY = 140, chartH = h - chartY - 80;
+    ctx.fillStyle = '#0e0e0e';
+    ctx.fillRect(76, chartY, w - 76 - 4, chartH);
+
+    // Grid lines
+    ctx.strokeStyle = 'rgba(255,255,255,0.04)';
+    ctx.lineWidth = 1;
+    for (let g = 0; g < 5; g++) {
+      const gy = chartY + (g / 4) * chartH;
+      ctx.beginPath(); ctx.moveTo(76, gy); ctx.lineTo(w - 4, gy); ctx.stroke();
+    }
+
+    // Animated bars
+    bars.forEach((b, i) => {
+      if (Math.random() < 0.004) b.target = 0.15 + Math.random() * 0.75;
+      b.h += (b.target - b.h) * b.speed;
+      const bw = ((w - 76 - 4) / bars.length) * 0.65;
+      const bx = 76 + 4 + i * ((w - 76 - 4) / bars.length) + ((w - 76 - 4) / bars.length) * 0.175;
+      const bh = chartH * b.h * 0.85;
+      const by = chartY + chartH - bh;
+      const alpha = 0.25 + b.h * 0.55;
+      ctx.fillStyle = `rgba(231,25,31,${alpha})`;
+      ctx.fillRect(bx, by, bw, bh);
+    });
+
+    // Area line over bars
+    ctx.beginPath();
+    bars.forEach((b, i) => {
+      const bx = 76 + 4 + i * ((w - 76 - 4) / bars.length) + ((w - 76 - 4) / bars.length) * 0.5;
+      const by = chartY + chartH - chartH * b.h * 0.85;
+      i === 0 ? ctx.moveTo(bx, by) : ctx.lineTo(bx, by);
+    });
+    ctx.strokeStyle = 'rgba(231,25,31,0.7)';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+
+    // Bottom labels
+    ctx.fillStyle = 'rgba(255,255,255,0.2)';
+    ctx.font = '8px monospace';
+    const months = ['J','F','M','A','M','J','J','A','S','O','N','D','J','F'];
+    bars.forEach((_, i) => {
+      const bx = 76 + 4 + i * ((w - 76 - 4) / bars.length) + ((w - 76 - 4) / bars.length) * 0.4;
+      ctx.fillText(months[i] || '', bx, chartY + chartH + 16);
+    });
+
+    t += 0.01;
+    requestAnimationFrame(frame);
+  }
+  frame();
+})();
+
+// ─── EXHIBITION FEATURED: archive network graph ───
+(function() {
+  const c = document.getElementById('exhibCanvas'); if (!c) return;
+  const ctx = c.getContext('2d');
+  let dim = fitCanvas(c), t = 0;
+  window.addEventListener('resize', () => { dim = fitCanvas(c); });
+
+  const nodes = [];
+  function initNodes() {
+    nodes.length = 0;
+    const {w, h} = dim;
+    const cx = w / 2, cy = h / 2;
+    // Central node
+    nodes.push({ x: cx, y: cy, r: 8, type: 'central', label: 'Archive 1924–2024', pulse: 0 });
+    // Rings
+    const ringCounts = [6, 10, 14];
+    const ringRadii = [h * 0.18, h * 0.33, h * 0.46];
+    ringCounts.forEach((count, ri) => {
+      for (let i = 0; i < count; i++) {
+        const angle = (i / count) * Math.PI * 2 + ri * 0.3;
+        nodes.push({
+          x: cx + Math.cos(angle) * ringRadii[ri],
+          y: cy + Math.sin(angle) * ringRadii[ri],
+          r: ri === 0 ? 5 : ri === 1 ? 3.5 : 2.5,
+          type: ri === 0 ? 'primary' : 'secondary',
+          label: ri === 0 ? ['Photography','Manuscripts','Sound','Maps','Film','Objects'][i % 6] : '',
+          pulse: Math.random() * Math.PI * 2,
+          parentIdx: 0,
+          angle, ringR: ringRadii[ri], ringI: ri
+        });
+      }
+    });
+  }
+  initNodes();
+  window.addEventListener('resize', () => { dim = fitCanvas(c); initNodes(); });
+
+  // Active connection to highlight
+  let activeConn = { from: 0, to: 1, progress: 0 };
+
+  function frame() {
+    const {w, h} = dim;
+    ctx.fillStyle = 'rgba(10,10,10,0.22)';
+    ctx.fillRect(0, 0, w, h);
+
+    // Draw connections from center to primary
+    nodes.forEach((n, i) => {
+      if (i === 0) return;
+      const dist = Math.hypot(n.x - nodes[0].x, n.y - nodes[0].y);
+      if (dist > h * 0.5) return;
+      const alpha = n.type === 'primary' ? 0.2 : 0.08;
+      ctx.beginPath();
+      ctx.moveTo(nodes[0].x, nodes[0].y);
+      ctx.lineTo(n.x, n.y);
+      ctx.strokeStyle = `rgba(231,25,31,${alpha})`;
+      ctx.lineWidth = n.type === 'primary' ? 0.8 : 0.4;
+      ctx.stroke();
+    });
+
+    // Animated data packet along one connection
+    activeConn.progress += 0.012;
+    if (activeConn.progress > 1) {
+      activeConn.progress = 0;
+      activeConn.to = 1 + Math.floor(Math.random() * 6);
+    }
+    if (nodes[activeConn.to]) {
+      const tn = nodes[activeConn.to];
+      const px = nodes[0].x + (tn.x - nodes[0].x) * activeConn.progress;
+      const py = nodes[0].y + (tn.y - nodes[0].y) * activeConn.progress;
+      ctx.beginPath(); ctx.arc(px, py, 4, 0, Math.PI * 2);
+      ctx.fillStyle = '#e7191f'; ctx.fill();
+      // Trail
+      for (let tr = 1; tr <= 4; tr++) {
+        const tp = Math.max(0, activeConn.progress - tr * 0.04);
+        const tx = nodes[0].x + (tn.x - nodes[0].x) * tp;
+        const ty = nodes[0].y + (tn.y - nodes[0].y) * tp;
+        ctx.beginPath(); ctx.arc(tx, ty, 2 * (1 - tr / 5), 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(231,25,31,${0.5 - tr * 0.1})`; ctx.fill();
+      }
+    }
+
+    // Draw nodes
+    nodes.forEach((n, i) => {
+      n.pulse += 0.025 + i * 0.001;
+      const pa = 0.35 + Math.sin(n.pulse) * 0.25;
+      ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+      ctx.fillStyle = n.type === 'central' ? `rgba(231,25,31,${0.7 + Math.sin(n.pulse)*0.2})` : `rgba(231,25,31,${pa})`;
+      ctx.fill();
+      if (n.type === 'central' || n.type === 'primary') {
+        ctx.beginPath(); ctx.arc(n.x, n.y, n.r + 5 + Math.sin(n.pulse) * 3, 0, Math.PI * 2);
+        ctx.strokeStyle = `rgba(231,25,31,${pa * 0.3})`; ctx.lineWidth = 1; ctx.stroke();
+      }
+      if (n.label && n.type === 'primary') {
+        ctx.fillStyle = 'rgba(255,255,255,0.35)';
+        ctx.font = '9px monospace'; ctx.letterSpacing = '0.5px';
+        ctx.fillText(n.label, n.x + n.r + 6, n.y + 3);
+      }
+    });
+
+    t += 0.01;
+    requestAnimationFrame(frame);
+  }
+  frame();
+})();
+
+// ─── PRODUCT CARD CANVASES ───
+// Each one gets a distinct micro-vis
+
+// PC1: Sonification — waveform
+(function() {
+  const c = document.getElementById('pc1'); if (!c) return;
+  const ctx = c.getContext('2d');
+  let t = 0;
+  function fit() { c.width = c.offsetWidth || 280; c.height = c.offsetHeight || 220; }
+  fit(); window.addEventListener('resize', fit);
+  function frame() {
+    const w = c.width, h = c.height;
+    ctx.fillStyle = 'rgba(10,10,10,0.3)'; ctx.fillRect(0, 0, w, h);
+    for (let line = 0; line < 6; line++) {
+      ctx.beginPath();
+      const yBase = h * (0.2 + line * 0.12);
+      const amp = 4 + line * 2;
+      for (let x = 0; x <= w; x += 2) {
+        const y = yBase + Math.sin(x * 0.04 + t * 1.5 + line * 0.8) * amp
+                        + Math.sin(x * 0.09 + t * 0.8 + line) * amp * 0.5;
+        x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+      }
+      const alpha = 0.15 + (line / 6) * 0.55;
+      ctx.strokeStyle = `rgba(231,25,31,${alpha})`;
+      ctx.lineWidth = 0.8;
+      ctx.stroke();
+    }
+    t += 0.04; requestAnimationFrame(frame);
+  }
+  frame();
+})();
+
+// PC2: AI query — typing interface
+(function() {
+  const c = document.getElementById('pc2'); if (!c) return;
+  const ctx = c.getContext('2d');
+  let t = 0;
+  function fit() { c.width = c.offsetWidth || 280; c.height = c.offsetHeight || 220; }
+  fit(); window.addEventListener('resize', fit);
+  const queries = ['Show me anomalies in Q3...', 'Which regions declined?', 'Predict next quarter...', 'Compare 2022 vs 2024...'];
+  let qi = 0, ci = 0, waiting = 0;
+  function frame() {
+    const w = c.width, h = c.height;
+    ctx.fillStyle = '#0a0a0a'; ctx.fillRect(0, 0, w, h);
+    // "terminal" lines background
+    for (let l = 0; l < 8; l++) {
+      const lw = 60 + Math.random() * 0 + (l * 17) % 80;
+      ctx.fillStyle = 'rgba(255,255,255,0.04)';
+      ctx.fillRect(12, 18 + l * 22, lw, 8);
+    }
+    // Active query box
+    ctx.fillStyle = '#141414';
+    ctx.fillRect(8, h - 56, w - 16, 40);
+    ctx.strokeStyle = 'rgba(231,25,31,0.4)'; ctx.lineWidth = 1;
+    ctx.strokeRect(8, h - 56, w - 16, 40);
+
+    waiting++;
+    if (waiting > 90) { waiting = 0; qi = (qi + 1) % queries.length; ci = 0; }
+    if (ci < queries[qi].length) ci++;
+    const displayText = queries[qi].slice(0, ci);
+    const cursor = Math.floor(t * 3) % 2 === 0 ? '|' : '';
+    ctx.fillStyle = 'rgba(231,25,31,0.85)';
+    ctx.font = '11px monospace'; ctx.fillText(displayText + cursor, 18, h - 30);
+
+    // Result dots
+    const resultShown = ci > queries[qi].length * 0.7;
+    if (resultShown) {
+      ctx.fillStyle = 'rgba(255,255,255,0.5)';
+      ctx.font = '9px monospace';
+      ctx.fillText('↳ 3 anomalies detected in Oct–Dec', 12, h - 72);
+    }
+    t += 0.06; requestAnimationFrame(frame);
+  }
+  frame();
+})();
+
+// PC3: Generative identity — evolving shapes
+(function() {
+  const c = document.getElementById('pc3'); if (!c) return;
+  const ctx = c.getContext('2d');
+  let t = 0;
+  function fit() { c.width = c.offsetWidth || 280; c.height = c.offsetHeight || 220; }
+  fit(); window.addEventListener('resize', fit);
+  function frame() {
+    const w = c.width, h = c.height;
+    ctx.fillStyle = 'rgba(10,10,10,0.15)'; ctx.fillRect(0, 0, w, h);
+    const cx = w / 2, cy = h / 2;
+    for (let i = 0; i < 5; i++) {
+      const pts = 5 + i * 2;
+      const baseR = 20 + i * 16;
+      ctx.beginPath();
+      for (let p = 0; p <= pts; p++) {
+        const angle = (p / pts) * Math.PI * 2;
+        const r = baseR + Math.sin(angle * 3 + t * 0.8 + i * 0.5) * (6 + i * 2);
+        const x = cx + Math.cos(angle) * r;
+        const y = cy + Math.sin(angle) * r;
+        p === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+      }
+      ctx.closePath();
+      ctx.strokeStyle = `rgba(231,25,31,${0.6 - i * 0.1})`;
+      ctx.lineWidth = i === 0 ? 1.5 : 0.8;
+      ctx.stroke();
+    }
+    t += 0.025; requestAnimationFrame(frame);
+  }
+  frame();
+})();
+
+// PC4: Live data installation — grid wave
+(function() {
+  const c = document.getElementById('pc4'); if (!c) return;
+  const ctx = c.getContext('2d');
+  let t = 0;
+  function fit() { c.width = c.offsetWidth || 280; c.height = c.offsetHeight || 220; }
+  fit(); window.addEventListener('resize', fit);
+  function frame() {
+    const w = c.width, h = c.height;
+    ctx.fillStyle = 'rgba(10,10,10,0.25)'; ctx.fillRect(0, 0, w, h);
+    const cols = 14, rows = 9, cw = w / cols, ch = h / rows;
+    for (let col = 0; col < cols; col++) {
+      for (let row = 0; row < rows; row++) {
+        const v = Math.sin(col * 0.5 + t * 1.5) * Math.cos(row * 0.7 - t * 0.8) * 0.5 + 0.5;
+        const size = 3 + v * (Math.min(cw, ch) * 0.45);
+        ctx.fillStyle = `rgba(231,25,31,${0.1 + v * 0.7})`;
+        ctx.beginPath();
+        ctx.arc(col * cw + cw / 2, row * ch + ch / 2, size / 2, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+    t += 0.03; requestAnimationFrame(frame);
+  }
+  frame();
+})();
+
+// PC5: Research platform — table + scatter
+(function() {
+  const c = document.getElementById('pc5'); if (!c) return;
+  const ctx = c.getContext('2d');
+  let t = 0;
+  function fit() { c.width = c.offsetWidth || 280; c.height = c.offsetHeight || 220; }
+  fit(); window.addEventListener('resize', fit);
+  const pts = Array.from({length: 24}, () => ({
+    x: 0.1 + Math.random() * 0.8,
+    y: 0.1 + Math.random() * 0.8,
+    r: 2 + Math.random() * 4,
+    p: Math.random() * Math.PI * 2
+  }));
+  function frame() {
+    const w = c.width, h = c.height;
+    ctx.fillStyle = '#0a0a0a'; ctx.fillRect(0, 0, w, h);
+    // axes
+    ctx.strokeStyle = 'rgba(255,255,255,0.08)'; ctx.lineWidth = 0.5;
+    for (let g = 0; g <= 4; g++) {
+      ctx.beginPath(); ctx.moveTo(w * 0.1, h * (0.1 + g * 0.2)); ctx.lineTo(w * 0.9, h * (0.1 + g * 0.2)); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(w * (0.1 + g * 0.2), h * 0.1); ctx.lineTo(w * (0.1 + g * 0.2), h * 0.9); ctx.stroke();
+    }
+    pts.forEach(p => {
+      p.p += 0.02;
+      const alpha = 0.4 + Math.sin(p.p) * 0.3;
+      ctx.beginPath(); ctx.arc(p.x * w, p.y * h, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(231,25,31,${alpha})`; ctx.fill();
+    });
+    // best fit line
+    ctx.beginPath(); ctx.moveTo(w * 0.12, h * 0.78); ctx.lineTo(w * 0.88, h * 0.18);
+    ctx.strokeStyle = 'rgba(231,25,31,0.4)'; ctx.lineWidth = 1.2; ctx.stroke();
+    t += 0.02; requestAnimationFrame(frame);
+  }
+  frame();
+})();
+
+// PC6: ML pattern recognition — cluster vis
+(function() {
+  const c = document.getElementById('pc6'); if (!c) return;
+  const ctx = c.getContext('2d');
+  let t = 0;
+  function fit() { c.width = c.offsetWidth || 280; c.height = c.offsetHeight || 220; }
+  fit(); window.addEventListener('resize', fit);
+  const clusters = [
+    { cx: 0.28, cy: 0.35, color: 'rgba(231,25,31,', pts: Array.from({length: 18}, () => ({ dx: (Math.random()-0.5)*0.18, dy: (Math.random()-0.5)*0.18, p: Math.random()*Math.PI*2 })) },
+    { cx: 0.68, cy: 0.3, color: 'rgba(231,25,31,', pts: Array.from({length: 14}, () => ({ dx: (Math.random()-0.5)*0.15, dy: (Math.random()-0.5)*0.15, p: Math.random()*Math.PI*2 })) },
+    { cx: 0.48, cy: 0.72, color: 'rgba(231,25,31,', pts: Array.from({length: 16}, () => ({ dx: (Math.random()-0.5)*0.16, dy: (Math.random()-0.5)*0.16, p: Math.random()*Math.PI*2 })) },
+  ];
+  function frame() {
+    const w = c.width, h = c.height;
+    ctx.fillStyle = 'rgba(10,10,10,0.2)'; ctx.fillRect(0, 0, w, h);
+    clusters.forEach((cl, ci) => {
+      const alpha = [0.7, 0.45, 0.55][ci];
+      // cluster boundary
+      ctx.beginPath();
+      ctx.arc(cl.cx * w, cl.cy * h, 36 + Math.sin(t + ci) * 4, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(231,25,31,${0.15 + ci * 0.05})`; ctx.lineWidth = 1; ctx.stroke();
+      ctx.fillStyle = `rgba(231,25,31,0.03)`; ctx.fill();
+      cl.pts.forEach(p => {
+        p.p += 0.008;
+        ctx.beginPath();
+        ctx.arc(cl.cx * w + p.dx * w, cl.cy * h + p.dy * h, 2.5, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(231,25,31,${alpha * (0.5 + Math.sin(p.p) * 0.3)})`;
+        ctx.fill();
+      });
+    });
+    t += 0.02; requestAnimationFrame(frame);
+  }
+  frame();
+})();
+
+// PC7: Sonic identity — radial frequency
+(function() {
+  const c = document.getElementById('pc7'); if (!c) return;
+  const ctx = c.getContext('2d');
+  let t = 0;
+  function fit() { c.width = c.offsetWidth || 280; c.height = c.offsetHeight || 220; }
+  fit(); window.addEventListener('resize', fit);
+  function frame() {
+    const w = c.width, h = c.height;
+    const cx = w / 2, cy = h / 2;
+    ctx.fillStyle = 'rgba(10,10,10,0.2)'; ctx.fillRect(0, 0, w, h);
+    const bands = 48;
+    for (let i = 0; i < bands; i++) {
+      const angle = (i / bands) * Math.PI * 2;
+      const freq = Math.abs(Math.sin(i * 0.3 + t * 2.2) * Math.cos(i * 0.15 + t * 0.8));
+      const inner = 28, outer = inner + freq * 52;
+      const alpha = 0.2 + freq * 0.7;
+      ctx.beginPath();
+      ctx.moveTo(cx + Math.cos(angle) * inner, cy + Math.sin(angle) * inner);
+      ctx.lineTo(cx + Math.cos(angle) * outer, cy + Math.sin(angle) * outer);
+      ctx.strokeStyle = `rgba(231,25,31,${alpha})`;
+      ctx.lineWidth = 2.5;
+      ctx.stroke();
+    }
+    ctx.beginPath(); ctx.arc(cx, cy, 26, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(231,25,31,0.12)'; ctx.fill();
+    ctx.strokeStyle = 'rgba(231,25,31,0.5)'; ctx.lineWidth = 1; ctx.stroke();
+    t += 0.04; requestAnimationFrame(frame);
+  }
+  frame();
+})();
+
+// PC8: Public data portal — search + cards
+(function() {
+  const c = document.getElementById('pc8'); if (!c) return;
+  const ctx = c.getContext('2d');
+  let t = 0;
+  function fit() { c.width = c.offsetWidth || 280; c.height = c.offsetHeight || 220; }
+  fit(); window.addEventListener('resize', fit);
+  function frame() {
+    const w = c.width, h = c.height;
+    ctx.fillStyle = '#f5f2ec'; ctx.fillRect(0, 0, w, h);
+    // search bar
+    ctx.fillStyle = '#fff'; ctx.strokeStyle = '#d0ccc4'; ctx.lineWidth = 1;
+    ctx.fillRect(12, 16, w - 24, 32); ctx.strokeRect(12, 16, w - 24, 32);
+    ctx.fillStyle = '#0a0a0a'; ctx.font = '10px monospace';
+    ctx.fillText('Search datasets...', 22, 36);
+    const cursor = Math.floor(t * 3) % 2 === 0 ? '|' : '';
+    ctx.fillStyle = 'rgba(10,10,10,0.4)'; ctx.font = '10px monospace';
+    ctx.fillText(cursor, 22 + 95, 36);
+    // dataset cards
+    const cards = [['Environmental Data','4.2k records'],['Survey Results 2024','12k records'],['Global Indicators','89k records'],['Archive Metadata','31k records']];
+    cards.forEach((card, i) => {
+      const cx = 12 + (i % 2) * ((w - 28) / 2 + 4), cy = 58 + Math.floor(i / 2) * 68;
+      const cw = (w - 28) / 2, ch = 58;
+      ctx.fillStyle = '#fff'; ctx.strokeStyle = '#d0ccc4'; ctx.lineWidth = 0.8;
+      ctx.fillRect(cx, cy, cw, ch); ctx.strokeRect(cx, cy, cw, ch);
+      ctx.fillStyle = '#0a0a0a'; ctx.font = 'bold 11px Syne, sans-serif';
+      ctx.fillText(card[0], cx + 8, cy + 20);
+      ctx.fillStyle = '#6b6b6b'; ctx.font = '9px monospace';
+      ctx.fillText(card[1], cx + 8, cy + 34);
+      ctx.fillStyle = 'rgba(231,25,31,0.8)'; ctx.font = '8px monospace';
+      ctx.fillText('↓ Download', cx + 8, cy + 48);
+    });
+    t += 0.04; requestAnimationFrame(frame);
+  }
+  frame();
+})();
+
+// PC9: Bespoke / custom — abstract particles
+(function() {
+  const c = document.getElementById('pc9'); if (!c) return;
+  const ctx = c.getContext('2d');
+  let t = 0;
+  function fit() { c.width = c.offsetWidth || 280; c.height = c.offsetHeight || 220; }
+  fit(); window.addEventListener('resize', fit);
+  const pts = Array.from({length: 60}, () => ({ a: Math.random()*Math.PI*2, r: 20+Math.random()*80, speed: 0.003+Math.random()*0.008, offset: Math.random()*Math.PI*2 }));
+  function frame() {
+    const w = c.width, h = c.height, cx = w/2, cy = h/2;
+    ctx.fillStyle = 'rgba(10,10,10,0.2)'; ctx.fillRect(0, 0, w, h);
+    pts.forEach(p => {
+      p.a += p.speed;
+      const r = p.r + Math.sin(p.a * 2 + p.offset + t) * 12;
+      const x = cx + Math.cos(p.a) * r;
+      const y = cy + Math.sin(p.a) * r;
+      const alpha = 0.2 + Math.abs(Math.sin(p.a + t * 0.5)) * 0.5;
+      ctx.beginPath(); ctx.arc(x, y, 1.5, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(231,25,31,${alpha})`; ctx.fill();
+    });
+    // Question mark centre
+    ctx.fillStyle = 'rgba(231,25,31,0.08)';
+    ctx.beginPath(); ctx.arc(cx, cy, 18, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = 'rgba(231,25,31,0.5)';
+    ctx.font = 'bold 20px serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText('?', cx, cy);
+    ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
+    t += 0.02; requestAnimationFrame(frame);
+  }
+  frame();
+})();
+
+// ─── CASE STUDY CANVAS: platform network ───
+(function() {
+  const c = document.getElementById('caseCanvas'); if (!c) return;
+  const ctx = c.getContext('2d');
+  let t = 0;
+  function fit() { c.width = c.offsetWidth || 420; c.height = c.offsetHeight || 315; }
+  fit(); window.addEventListener('resize', fit);
+
+  // Grid of user nodes across 14 countries
+  const countries = ['UK','DE','FR','NL','SE','ES','IT','PL','BR','US','CA','JP','AU','ZA'];
+  let nodes;
+  function buildNodes() {
+    const w = c.width, h = c.height;
+    nodes = countries.map((name, i) => ({
+      x: 32 + (i % 7) * ((w - 64) / 6),
+      y: 40 + Math.floor(i / 7) * ((h - 80) / 1),
+      name, pulse: Math.random() * Math.PI * 2,
+      active: false, activeTimer: 0
+    }));
+  }
+  buildNodes();
+  window.addEventListener('resize', () => { fit(); buildNodes(); });
+
+  let centralX, centralY;
+
+  function frame() {
+    const w = c.width, h = c.height;
+    centralX = w / 2; centralY = h / 2;
+    ctx.fillStyle = 'rgba(10,10,10,0.22)'; ctx.fillRect(0, 0, w, h);
+
+    // Randomly activate nodes
+    if (Math.random() < 0.04) {
+      const n = nodes[Math.floor(Math.random() * nodes.length)];
+      n.active = true; n.activeTimer = 0;
+    }
+
+    nodes.forEach(n => {
+      n.pulse += 0.02;
+      if (n.active) {
+        n.activeTimer += 0.03;
+        if (n.activeTimer > 1) n.active = false;
+        // Draw connection to centre
+        ctx.beginPath();
+        ctx.moveTo(centralX, centralY);
+        ctx.lineTo(n.x, n.y);
+        ctx.strokeStyle = `rgba(231,25,31,${0.3 * (1 - n.activeTimer)})`;
+        ctx.lineWidth = 0.8; ctx.stroke();
+        // Animated packet
+        const px = centralX + (n.x - centralX) * n.activeTimer;
+        const py = centralY + (n.y - centralY) * n.activeTimer;
+        ctx.beginPath(); ctx.arc(px, py, 3, 0, Math.PI * 2);
+        ctx.fillStyle = '#e7191f'; ctx.fill();
+      } else {
+        ctx.beginPath(); ctx.moveTo(centralX, centralY); ctx.lineTo(n.x, n.y);
+        ctx.strokeStyle = 'rgba(231,25,31,0.06)'; ctx.lineWidth = 0.4; ctx.stroke();
+      }
+      // Node
+      const a = 0.3 + Math.sin(n.pulse) * 0.15 + (n.active ? 0.4 : 0);
+      ctx.beginPath(); ctx.arc(n.x, n.y, n.active ? 6 : 4, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(231,25,31,${a})`; ctx.fill();
+      ctx.fillStyle = 'rgba(255,255,255,0.3)';
+      ctx.font = '8px monospace';
+      ctx.fillText(n.name, n.x - 8, n.y + 14);
+    });
+
+    // Central hub
+    const hubPulse = Math.sin(t * 1.5) * 0.2 + 0.7;
+    ctx.beginPath(); ctx.arc(centralX, centralY, 12, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(231,25,31,${hubPulse})`; ctx.fill();
+    ctx.beginPath(); ctx.arc(centralX, centralY, 20 + Math.sin(t * 2) * 4, 0, Math.PI * 2);
+    ctx.strokeStyle = `rgba(231,25,31,0.25)`; ctx.lineWidth = 1; ctx.stroke();
+    ctx.fillStyle = 'rgba(255,255,255,0.4)';
+    ctx.font = '8px monospace'; ctx.textAlign = 'center';
+    ctx.fillText('PLATFORM', centralX, centralY + 28);
+    ctx.textAlign = 'left';
+
+    t += 0.015; requestAnimationFrame(frame);
+  }
+  frame();
+})();
+
+// ─── PRODUCT FILTER ───
+(function() {
+  const btns = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.product-card');
+
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const type = btn.textContent.trim();
+      btns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      cards.forEach(card => {
+        if (type === 'All Products') {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = (card.getAttribute('data-type') === type) ? 'flex' : 'none';
+        }
+      });
+    });
+  });
+})();
+</script>
+<script src="js/main.js"></script>
+</body>
+</html>

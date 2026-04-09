@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NECESSITY.INK — AI, Strategy & Data Design</title>
+<meta name="description" content="NECESSITY.INK is a creative technology studio turning data into high-end visual, sonic, and interactive systems. Strategy, reporting, marketing, and product design for organisations building the future.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/main.css">
+<style>
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 80vh;
+    padding: 64px 0 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+
+  .hero-left {
+    padding: 128px 56px 80px 48px;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    border-right: 1px solid var(--border);
+    position: relative; z-index: 2;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 32px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .hero-eyebrow::before {
+    content: ''; display: block; width: 28px; height: 1px; background: var(--accent);
+  }
+
+  .hero-title {
+    font-family: var(--serif);
+    font-size: clamp(36px, 4.5vw, 64px);
+    font-weight: 400; line-height: 1.04; letter-spacing: -0.025em;
+    margin-bottom: 40px; color: var(--white);
+  }
+  .hero-title em { font-style: italic; color: rgba(255,255,255,0.35); }
+
+  .hero-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 64px; }
+  .hero-tag {
+    font-family: var(--mono); font-size: 10px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    border: 1px solid var(--border2); padding: 6px 14px;
+    color: var(--muted); transition: all 0.2s;
+  }
+  .hero-tag:hover { border-color: var(--accent); color: var(--accent); }
+
+  .hero-right {
+    padding: 80px 48px 80px 56px;
+    display: flex; flex-direction: column; justify-content: flex-end;
+  }
+
+  .hero-desc {
+    font-size: 18px; line-height: 1.75;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 48px; max-width: 460px;
+  }
+
+  .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 64px; }
+  .btn-primary {
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em;
+    text-transform: uppercase; background: var(--accent); color: var(--white);
+    border: none; padding: 16px 28px; cursor: pointer;
+    text-decoration: none; transition: background 0.2s; display: inline-block;
+  }
+  .btn-primary:hover { background: #c8141a; }
+  .btn-secondary {
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em;
+    text-transform: uppercase; background: transparent; color: var(--text);
+    border: 1px solid var(--border2); padding: 16px 28px; cursor: pointer;
+    text-decoration: none; transition: all 0.2s; display: inline-block;
+  }
+  .btn-secondary:hover { border-color: var(--white); color: var(--white); }
+
+  .hero-stats {
+    display: grid; grid-template-columns: 1fr 1fr;
+    border-top: 1px solid var(--border); border-left: 1px solid var(--border);
+  }
+  .stat {
+    padding: 24px;
+    border-bottom: 1px solid var(--border); border-right: 1px solid var(--border);
+  }
+  .stat-num {
+    font-family: var(--serif); font-size: 34px;
+    font-weight: 700; line-height: 1; margin-bottom: 6px; color: var(--white);
+  }
+  .stat-num span { color: var(--accent); }
+  .stat-label {
+    font-family: var(--mono); font-size: 10px;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
+  }
+
+  /* Hero canvas */
+  .hero-canvas-panel {
+    position: absolute; top: 64px; right: 0;
+    width: 50%; height: calc(100% - 64px);
+    pointer-events: none; opacity: 0.3;
+  }
+  #heroCanvas { width: 100%; height: 100%; }
+
+  /* ─── TICKER ─── */
+  .ticker {
+    background: var(--accent); overflow: hidden; white-space: nowrap;
+    border-bottom: 1px solid var(--border); padding: 11px 0;
+  }
+  .ticker-inner { display: inline-block; animation: ticker 36s linear infinite; }
+  .ticker-inner span {
+    font-family: var(--mono); font-size: 10px;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--white); padding: 0 32px;
+  }
+  .ticker-inner span::after { content: '·'; margin-left: 32px; opacity: 0.5; }
+  @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* ─── SECTION COMMON ─── */
+  section { padding: 100px 48px; border-bottom: 1px solid var(--border); }
+  .section-label {
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 48px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .section-label::before {
+    content: ''; display: block; width: 28px; height: 1px; background: var(--border2);
+  }
+  .section-heading {
+    font-family: var(--serif);
+    font-size: clamp(32px, 3.8vw, 56px);
+    font-weight: 400; line-height: 1.12;
+    letter-spacing: -0.015em; color: var(--white);
+  }
+
+  /* ─── PAIN POINTS (IF ANY OF THIS SOUNDS FAMILIAR) ─── */
+  .familiar-intro {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; margin-bottom: 64px; align-items: end;
+  }
+  .familiar-desc {
+    font-size: 17px; line-height: 1.7; color: rgba(255,255,255,0.45); max-width: 400px;
+  }
+  .pain-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid var(--border); border-left: 1px solid var(--border);
+  }
+  .pain-card {
+    padding: 40px 32px;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    transition: background 0.25s;
+  }
+  .pain-card:hover { background: var(--surface2); }
+  .pain-num {
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.1em; color: var(--accent);
+    margin-bottom: 20px;
+  }
+  .pain-title {
+    font-family: var(--serif); font-size: 17px; font-weight: 700;
+    margin-bottom: 12px; line-height: 1.3; color: var(--white);
+  }
+  .pain-body { font-size: 13px; line-height: 1.65; color: var(--muted); }
+
+  /* ─── SERVICES ─── */
+  .services-intro {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; margin-bottom: 64px; align-items: end;
+  }
+  .services-desc { font-size: 17px; line-height: 1.7; color: rgba(255,255,255,0.45); max-width: 400px; }
+
+  .services-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid var(--border); border-left: 1px solid var(--border);
+  }
+  .svc-card {
+    padding: 48px 32px;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    position: relative; overflow: hidden;
+    transition: background 0.3s;
+    text-decoration: none; display: block;
+    color: inherit;
+  }
+  .svc-card::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: var(--accent-dim);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .svc-card:hover { background: var(--surface2); }
+  .svc-card:hover::after { opacity: 1; }
+  .svc-card:hover .svc-arrow { color: var(--accent); transform: translate(3px, -3px); }
+  .svc-num {
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.1em; color: var(--border2);
+    margin-bottom: 32px; position: relative; z-index: 1;
+  }
+  .svc-title {
+    font-family: var(--serif); font-size: 21px; font-weight: 700;
+    margin-bottom: 14px; line-height: 1.2;
+    color: var(--white); position: relative; z-index: 1;
+  }
+  .svc-body {
+    font-size: 13px; line-height: 1.65; color: var(--muted);
+    position: relative; z-index: 1; margin-bottom: 32px;
+  }
+  .svc-arrow {
+    font-family: var(--mono); font-size: 18px; color: var(--border2);
+    transition: color 0.3s, transform 0.3s;
+    position: relative; z-index: 1; display: block;
+  }
+
+  /* ─── CLIENTS / who we work with ─── */
+  .clients-section {
+    padding: 80px 48px;
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .clients-label {
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 48px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .clients-label::before {
+    content: ''; display: block; width: 28px; height: 1px; background: var(--border2);
+  }
+  .clients-scroll {
+    display: flex; gap: 0;
+    overflow: hidden; position: relative;
+  }
+  .clients-track {
+    display: flex; gap: 0;
+    animation: clientsScroll 30s linear infinite;
+    flex-shrink: 0;
+  }
+  .clients-track:hover { animation-play-state: paused; }
+  @keyframes clientsScroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  .client-item {
+    display: flex; align-items: center; justify-content: center;
+    padding: 28px 48px;
+    border-right: 1px solid var(--border);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    min-width: 180px;
+    flex-shrink: 0;
+    transition: background 0.2s;
+  }
+  .client-item:hover { background: var(--surface); }
+  .client-name {
+    font-family: var(--mono); font-size: 13px;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--muted); white-space: nowrap;
+    transition: color 0.2s;
+  }
+  .client-item:hover .client-name { color: var(--white); }
+  .client-logo {
+    max-height: 28px;
+    max-width: 140px;
+    filter: grayscale(1) brightness(0) invert(1);
+    opacity: 0.4;
+    transition: opacity 0.2s;
+    object-fit: contain;
+  }
+  .client-item:hover .client-logo {
+    opacity: 1;
+  }
+
+  /* ─── WORK EXAMPLES ─── */
+  .work-intro {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; margin-bottom: 64px; align-items: end;
+  }
+  .work-desc { font-size: 17px; line-height: 1.7; color: rgba(255,255,255,0.45); max-width: 400px; }
+  .work-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    border-top: 1px solid var(--border); border-left: 1px solid var(--border);
+  }
+  .work-card {
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    position: relative; overflow: hidden;
+    aspect-ratio: 4/3;
+    background: var(--surface);
+    display: flex; align-items: flex-end;
+    cursor: default;
+  }
+  .work-card-vis {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .work-card-content {
+    position: relative; z-index: 2;
+    padding: 28px 32px;
+    background: linear-gradient(0deg, rgba(8,8,8,0.9) 0%, transparent 100%);
+    width: 100%;
+  }
+  .work-client {
+    font-family: var(--mono); font-size: 10px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 6px;
+  }
+  .work-title {
+    font-family: var(--serif); font-size: 18px; font-weight: 700;
+    color: var(--white); line-height: 1.25;
+  }
+  .work-tag {
+    font-family: var(--mono); font-size: 10px;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: rgba(255,255,255,0.35); margin-top: 6px;
+  }
+
+  /* Generative visuals inside work cards */
+  canvas.work-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+  /* ─── TWO PATHS ─── */
+  .paths-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    border-top: 1px solid var(--border); border-left: 1px solid var(--border);
+    margin-top: 64px;
+  }
+  .path-card {
+    padding: 64px 48px;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    position: relative; overflow: hidden;
+    display: flex; flex-direction: column;
+  }
+  .path-card.featured { background: var(--accent); }
+  .path-num {
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.1em; color: var(--muted);
+    margin-bottom: 32px;
+  }
+  .path-card.featured .path-num { color: rgba(255,255,255,0.5); }
+  .path-title {
+    font-family: var(--serif); font-size: 32px; font-weight: 700;
+    margin-bottom: 16px; line-height: 1.15; color: var(--white);
+  }
+  .path-card.featured .path-title { color: var(--white); }
+  .path-body {
+    font-size: 15px; line-height: 1.7; color: var(--muted);
+    max-width: 380px; margin-bottom: 40px; flex: 1;
+  }
+  .path-card.featured .path-body { color: rgba(255,255,255,0.75); }
+  .path-link {
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em;
+    text-transform: uppercase; text-decoration: none;
+    color: var(--white); border: 1px solid var(--border2);
+    padding: 14px 24px; transition: all 0.2s;
+    display: inline-block; align-self: flex-start;
+  }
+  .path-link:hover { border-color: var(--white); }
+  .path-card.featured .path-link {
+    background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.3);
+  }
+  .path-card.featured .path-link:hover { background: rgba(255,255,255,0.25); }
+
+  /* ─── PRICING SNAPSHOT ─── */
+  .pricing-intro {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; margin-bottom: 64px; align-items: end;
+  }
+  .pricing-desc { font-size: 17px; line-height: 1.7; color: rgba(255,255,255,0.45); max-width: 400px; }
+  .pricing-cards {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid var(--border); border-left: 1px solid var(--border);
+  }
+  .price-card {
+    padding: 48px 36px;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    display: flex; flex-direction: column;
+  }
+  .price-card.featured {
+    background: var(--surface2); border-top: 2px solid var(--accent);
+  }
+  .price-num {
+    font-family: var(--mono); font-size: 10px;
+    letter-spacing: 0.1em; color: var(--muted);
+    margin-bottom: 20px;
+  }
+  .price-card.featured .price-num { color: var(--accent); }
+  .price-name {
+    font-family: var(--serif); font-size: 19px; font-weight: 700;
+    margin-bottom: 8px; color: var(--white);
+  }
+  .price-tagline { font-size: 13px; line-height: 1.6; color: var(--muted); margin-bottom: 28px; flex: 1; }
+  .price-amount {
+    font-family: var(--serif); font-size: 30px; font-weight: 700;
+    color: var(--white); line-height: 1;
+  }
+  .price-card.featured .price-amount { color: var(--accent); }
+  .price-note { font-family: var(--mono); font-size: 10px; color: var(--muted); margin-top: 4px; }
+
+  .pricing-cta-row {
+    display: flex; align-items: center; gap: 24px;
+    margin-top: 40px; padding-top: 40px;
+    border-top: 1px solid var(--border);
+  }
+  .pricing-cta-text { font-size: 15px; color: var(--muted); }
+  .link-arrow {
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--accent);
+    text-decoration: none; display: flex; align-items: center; gap: 8px;
+    transition: gap 0.2s;
+  }
+  .link-arrow:hover { gap: 12px; }
+
+  /* ─── BELIEFS / MANIFESTO ─── */
+  .beliefs-section {
+    background: var(--surface); border-bottom: 1px solid var(--border);
+  }
+  .beliefs-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid var(--border); border-left: 1px solid var(--border);
+    margin-top: 64px;
+  }
+  .belief-item {
+    padding: 48px 36px;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .belief-idx {
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.1em; color: var(--accent); margin-bottom: 20px;
+  }
+  .belief-title {
+    font-family: var(--serif); font-size: 20px; font-weight: 700;
+    margin-bottom: 12px; line-height: 1.25; color: var(--white);
+  }
+  .belief-body { font-size: 13px; line-height: 1.65; color: var(--muted); }
+
+  /* ─── CTA FINAL ─── */
+  .cta-section {
+    padding: 120px 48px;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: center;
+    border-bottom: 1px solid var(--border);
+  }
+  .cta-heading {
+    font-family: var(--serif); font-size: clamp(40px, 4.5vw, 72px);
+    font-weight: 400; line-height: 1.05; letter-spacing: -0.02em; color: var(--white);
+  }
+  .cta-heading em { font-style: italic; color: rgba(255,255,255,0.3); }
+  .cta-body { font-size: 17px; line-height: 1.7; color: rgba(255,255,255,0.45); margin-bottom: 32px; }
+
+  /* ─── FOOTER ─── */
+  footer { background: var(--surface); border-top: 1px solid var(--border); padding: 64px 48px 40px; }
+  .footer-top {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+    gap: 48px; padding-bottom: 48px;
+    border-bottom: 1px solid var(--border); margin-bottom: 40px;
+  }
+  .footer-logo { height: 17px; width: auto; display: block; margin-bottom: 16px; }
+  .footer-tagline { font-size: 13px; line-height: 1.65; color: rgba(255,255,255,0.3); }
+  .footer-col-title {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: rgba(255,255,255,0.25); margin-bottom: 18px;
+  }
+  .footer-links { list-style: none; }
+  .footer-links li { margin-bottom: 10px; }
+  .footer-links a {
+    font-size: 13px; color: rgba(255,255,255,0.4);
+    text-decoration: none; transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--white); }
+  .footer-bottom {
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em;
+    color: rgba(255,255,255,0.2);
+  }
+
+  /* ─── FADE IN ─── */
+  .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.75s ease, transform 0.75s ease; }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 1100px) {
+    .services-grid { grid-template-columns: repeat(2, 1fr); }
+    .pain-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 900px) {
+    nav { padding: 0 24px; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-left { border-right: none; padding: 120px 24px 40px; }
+    .hero-right { padding: 40px 24px 64px; }
+    .hero-canvas-panel { display: none; }
+    section { padding: 64px 24px; }
+    .familiar-intro, .services-intro, .work-intro, .pricing-intro, .cta-section { grid-template-columns: 1fr; gap: 40px; }
+    .services-grid, .pain-grid, .pricing-cards { grid-template-columns: 1fr; }
+    .paths-grid, .work-grid { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+    .beliefs-grid { grid-template-columns: 1fr; }
+    .clients-section { padding: 64px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="Media/NCSSTYlogo.png" alt="NECESSITY.INK" style="filter:brightness(0) invert(1);">
+  </a>
+  <ul class="nav-links">
+    <li><a href="strategy.html">Strategy</a></li>
+    <li><a href="reporting.html">Reporting</a></li>
+    <li><a href="marketing.html">Marketing</a></li>
+    <li><a href="products.html">Products</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <a href="brief-builder.html" class="nav-cta" id="nav-cta-brief">Get a free quote</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-left fade-up">
+    <p class="hero-eyebrow">AI, Strategy & Data Design</p>
+    <h1 class="hero-title">Turn complex data<br>into experiences<br>people <em>feel</em><br>and act on.</h1>
+    <div class="hero-tags">
+      <span class="hero-tag">Data Strategy</span>
+      <span class="hero-tag">Data Reporting</span>
+      <span class="hero-tag">Marketing & Campaigns</span>
+      <span class="hero-tag">Products & Tools</span>
+      <span class="hero-tag">Sonic Identity</span>
+      <span class="hero-tag">Installations</span>
+    </div>
+  </div>
+  <div class="hero-right fade-up" style="transition-delay:0.15s">
+    <p class="hero-desc">We are a creative technology studio founded in London — extending data into high-end visual, sonic, and interactive systems. When an idea involves data, complexity, or emerging tech, we make it work.</p>
+    <div class="hero-btns">
+      <a href="brief-builder.html" class="btn-primary" id="hero-cta-quote">Get a free quote in 48h</a>
+      <a href="marketing.html" class="btn-secondary" id="hero-cta-work">Explore our work</a>
+    </div>
+    </div>
+  </div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner" id="tickerInner">
+    <span>Data Visualisation</span>
+    <span>AI Strategy</span>
+    <span>Sonic Identity</span>
+    <span>Brand Activations</span>
+    <span>Data Reporting</span>
+    <span>Interactive Experiences</span>
+    <span>Generative Design</span>
+    <span>Installations</span>
+    <span>Data Visualisation</span>
+    <span>AI Strategy</span>
+    <span>Sonic Identity</span>
+    <span>Brand Activations</span>
+    <span>Data Reporting</span>
+    <span>Interactive Experiences</span>
+    <span>Generative Design</span>
+    <span>Installations</span>
+  </div>
+</div>
+
+<!-- IF ANY OF THIS SOUNDS FAMILIAR -->
+<section class="fade-up" id="familiar">
+  <div class="familiar-intro">
+    <div>
+      <p class="section-label">Why clients come to us</p>
+      <h2 class="section-heading">If any of this<br>sounds familiar…</h2>
+    </div>
+    <p class="familiar-desc">Most of our clients arrive with data they don't know how to use, ideas they can't quite articulate, or deliverables that fell flat. We've heard it all — and we know how to fix it.</p>
+  </div>
+  <div class="pain-grid">
+    <div class="pain-card">
+      <div class="pain-num">01</div>
+      <h3 class="pain-title">"We have the data but don't know how to make it land."</h3>
+      <p class="pain-body">You're sitting on insights that should be driving decisions — but they're buried in spreadsheets nobody reads.</p>
+    </div>
+    <div class="pain-card">
+      <div class="pain-num">02</div>
+      <h3 class="pain-title">"Our reports look generic and don't reflect who we are."</h3>
+      <p class="pain-body">Standard charts, standard templates — nothing distinctive. Your data deserves a visual language that's truly yours.</p>
+    </div>
+    <div class="pain-card">
+      <div class="pain-num">03</div>
+      <h3 class="pain-title">"We have a big idea but no team to execute it."</h3>
+      <p class="pain-body">An ambitious data-driven campaign or installation that needs a studio capable of concept, design, and delivery all at once.</p>
+    </div>
+    <div class="pain-card">
+      <div class="pain-num">04</div>
+      <h3 class="pain-title">"We need a data partner, not just a supplier."</h3>
+      <p class="pain-body">You're tired of briefing agencies. You want someone who understands data deeply and stays in the room across the whole project.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="fade-up" id="services">
+  <div class="services-intro">
+    <div>
+      <p class="section-label">What we do</p>
+      <h2 class="section-heading">Four disciplines.<br>One studio.</h2>
+    </div>
+    <p class="services-desc">We operate across strategy, reporting, marketing, and product — treating data as the raw material for everything we make.</p>
+  </div>
+  <div class="services-grid">
+    <a href="strategy.html" class="svc-card" id="svc-strategy">
+      <div class="svc-num">01</div>
+      <h3 class="svc-title">Strategy</h3>
+      <p class="svc-body">Data strategy, AI adoption frameworks, and organisational intelligence design. We help teams understand what data they have, what it means, and what to do with it.</p>
+      <span class="svc-arrow">↗</span>
+    </a>
+    <a href="reporting.html" class="svc-card" id="svc-reporting">
+      <div class="svc-num">02</div>
+      <h3 class="svc-title">Reporting</h3>
+      <p class="svc-body">Annual reports, dashboards, and data publications that communicate with clarity and authority. Editorial-grade design for your most important outputs.</p>
+      <span class="svc-arrow">↗</span>
+    </a>
+    <a href="marketing.html" class="svc-card" id="svc-marketing">
+      <div class="svc-num">03</div>
+      <h3 class="svc-title">Marketing</h3>
+      <p class="svc-body">Data-driven campaigns, sonic identity, brand activations, and generative experiences. We turn your data into something audiences feel.</p>
+      <span class="svc-arrow">↗</span>
+    </a>
+    <a href="products.html" class="svc-card" id="svc-products">
+      <div class="svc-num">04</div>
+      <h3 class="svc-title">Products</h3>
+      <p class="svc-body">Interactive tools, custom data products, and digital experiences built around complex information. From concept to functional prototype.</p>
+      <span class="svc-arrow">↗</span>
+    </a>
+  </div>
+</section>
+
+<!-- CLIENTS -->
+<div class="clients-section fade-up">
+  <p class="clients-label">Who we work with</p>
+  <div class="clients-scroll">
+    <div class="clients-track" id="clientsTrack">
+      <div class="client-item"><span class="client-name">National Gallery</span></div>
+      <div class="client-item"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Wired_logo.svg/1280px-Wired_logo.svg.png" alt="Wired UK" class="client-logo"></div>
+      <div class="client-item"><span class="client-name">Infogr8</span></div>
+      <div class="client-item"><span class="client-name">LAGO Collective</span></div>
+      <div class="client-item"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Financial_Times_masthead.svg/3840px-Financial_Times_masthead.svg.png" alt="Financial Times" class="client-logo"></div>
+      <div class="client-item"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google" class="client-logo"></div>
+      <div class="client-item"><img src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg" alt="Meta" class="client-logo"></div>
+      <div class="client-item"><img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Twilio-logo-red.svg" alt="Twilio" class="client-logo"></div>
+      <div class="client-item"><img src="https://upload.wikimedia.org/wikipedia/commons/8/8f/Disney_logo.png" alt="Disney" class="client-logo"></div>
+      <div class="client-item"><img src="https://upload.wikimedia.org/wikipedia/commons/7/75/The_Guardian_2018.svg" alt="The Guardian" class="client-logo"></div>
+      <div class="client-item"><img src="https://upload.wikimedia.org/wikipedia/commons/4/41/BBC_Logo_2021.svg" alt="BBC" class="client-logo"></div>
+      
+      <div class="client-item"><span class="client-name">National Gallery</span></div>
+      <div class="client-item"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Wired_logo.svg/1280px-Wired_logo.svg.png" alt="Wired UK" class="client-logo"></div>
+      <div class="client-item"><span class="client-name">Infogr8</span></div>
+      <div class="client-item"><span class="client-name">LAGO Collective</span></div>
+      <div class="client-item"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Financial_Times_masthead.svg/3840px-Financial_Times_masthead.svg.png" alt="Financial Times" class="client-logo"></div>
+      <div class="client-item"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google" class="client-logo"></div>
+      <div class="client-item"><img src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg" alt="Meta" class="client-logo"></div>
+      <div class="client-item"><img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Twilio-logo-red.svg" alt="Twilio" class="client-logo"></div>
+      <div class="client-item"><img src="https://upload.wikimedia.org/wikipedia/commons/8/8f/Disney_logo.png" alt="Disney" class="client-logo"></div>
+      <div class="client-item"><img src="https://upload.wikimedia.org/wikipedia/commons/7/75/The_Guardian_2018.svg" alt="The Guardian" class="client-logo"></div>
+      <div class="client-item"><img src="https://upload.wikimedia.org/wikipedia/commons/4/41/BBC_Logo_2021.svg" alt="BBC" class="client-logo"></div>
+    </div>
+  </div>
+</div>
+
+<!-- TWO PATHS -->
+<section class="fade-up" id="paths">
+  <div>
+    <p class="section-label">How to start</p>
+    <h2 class="section-heading" style="margin-bottom:0">Two ways<br>to work with us.</h2>
+  </div>
+  <div class="paths-grid">
+    <div class="path-card">
+      <div class="path-num">01 — Expert conversation</div>
+      <h3 class="path-title">Talk to us first.<br>Get a tailored proposal.</h3>
+      <p class="path-body">Not sure what you need? Tell us about your data, your timeline, and your ambitions. We'll return a proper proposal — scoped, priced, and ready to go — within 48 hours. No commitment required.</p>
+      <a href="contact.html" class="path-link" id="path-contact">Book a conversation →</a>
+    </div>
+    <div class="path-card featured">
+      <div class="path-num">02 — Brief builder</div>
+      <h3 class="path-title">Know what you want?<br>Build your brief.</h3>
+      <p class="path-body">If you have a clear idea in mind, skip straight to our brief builder. Answer a few focused questions and we'll come back with a fast, fixed-scope proposal. The fastest way to a quote.</p>
+      <a href="brief-builder.html" class="path-link" id="path-brief">Start your brief →</a>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING SNAPSHOT -->
+<section class="fade-up" id="pricing-preview">
+  <div class="pricing-intro">
+    <div>
+      <p class="section-label">Transparent pricing</p>
+      <h2 class="section-heading">Three ways<br>to engage.</h2>
+    </div>
+    <p class="pricing-desc">We don't charge day rates. Every project is scoped and priced to outcome. Choose the model that fits how you work with data — and what you need to get done.</p>
+  </div>
+  <div class="pricing-cards">
+    <div class="price-card">
+      <div class="price-num">Model 01</div>
+      <h3 class="price-name">One-off Projects</h3>
+      <p class="price-tagline">A defined brief, clearly scoped — reports, visualisations, prototypes and experiences.</p>
+      <div class="price-amount">£8,000</div>
+      <div class="price-note">Starting from / per project</div>
+    </div>
+    <div class="price-card featured">
+      <div class="price-num">Model 02 — Most popular</div>
+      <h3 class="price-name">Retainer Partnership</h3>
+      <p class="price-tagline">Ongoing data and AI design support for teams that work with data regularly.</p>
+      <div class="price-amount">£3,000<span style="font-size:18px;font-weight:400">/mo</span></div>
+      <div class="price-note">From / 3-month minimum</div>
+    </div>
+    <div class="price-card">
+      <div class="price-num">Model 03</div>
+      <h3 class="price-name">Productised Packages</h3>
+      <p class="price-tagline">Fast, fixed-scope packages for quick wins — audits, workshops, and smaller initiatives.</p>
+      <div class="price-amount">£2,500</div>
+      <div class="price-note">Starting from / 1–3 week turnaround</div>
+    </div>
+  </div>
+  <div class="pricing-cta-row">
+    <p class="pricing-cta-text">Full pricing breakdown, comparisons and FAQs</p>
+    <a href="pricing.html" class="link-arrow" id="pricing-fulllink">View all pricing →</a>
+  </div>
+</section>
+
+<!-- WHAT WE BELIEVE -->
+<section class="beliefs-section fade-up" id="beliefs">
+  <p class="section-label">What we believe</p>
+  <h2 class="section-heading">Data is a creative<br>act. We treat it<br>as one.</h2>
+  <div class="beliefs-grid">
+    <div class="belief-item">
+      <div class="belief-idx">I.</div>
+      <h3 class="belief-title">Data has stories that charts can't tell.</h3>
+      <p class="belief-body">Standard charts flatten meaning. We go deeper — finding the tension, the surprise, and the significance that make data genuinely worth communicating.</p>
+    </div>
+    <div class="belief-item">
+      <div class="belief-idx">II.</div>
+      <h3 class="belief-title">Aesthetic rigour is not optional.</h3>
+      <p class="belief-body">How something looks affects what gets acted on. We apply the same discipline to visual language that others apply to data quality.</p>
+    </div>
+    <div class="belief-item">
+      <div class="belief-idx">III.</div>
+      <h3 class="belief-title">Complexity is not an excuse for confusion.</h3>
+      <p class="belief-body">The most complex datasets can be made clear. Complexity is a design challenge, not a limitation — and we exist to solve it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section fade-up" id="cta">
+  <div>
+    <h2 class="cta-heading">Ready to make<br>your data<br><em>matter?</em></h2>
+  </div>
+  <div>
+    <p class="cta-body">Tell us what you're working on. We'll come back with a focused proposal — scoped to your ambitions, delivered in 48 hours. No day rates, no vague estimates.</p>
+    <div class="hero-btns">
+      <a href="brief-builder.html" class="btn-primary" id="cta-get-quote">Get a free quote</a>
+      <a href="contact.html" class="btn-secondary" id="cta-contact">Book a conversation</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <img src="Media/NCSSTYlogo.png" alt="NECESSITY.INK" class="footer-logo" style="filter:brightness(0) invert(1);">
+      <p class="footer-tagline">AI, Strategy and Data Design<br>for Organisations Building<br>the Future. London & Barcelona.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Solutions</div>
+      <ul class="footer-links">
+        <li><a href="strategy.html">Strategy</a></li>
+        <li><a href="reporting.html">Reporting</a></li>
+        <li><a href="marketing.html">Marketing</a></li>
+        <li><a href="products.html">Products</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Pricing</div>
+      <ul class="footer-links">
+        <li><a href="pricing.html">Overview</a></li>
+        <li><a href="pricing.html#models">Engagement Models</a></li>
+        <li><a href="pricing.html#faq">FAQs</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Start</div>
+      <ul class="footer-links">
+        <li><a href="brief-builder.html">Brief Builder</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="contact.html#visit">Visit Studio</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Follow</div>
+      <ul class="footer-links">
+        <li><a href="https://www.instagram.com/necessity.ink" target="_blank">Instagram</a></li>
+        <li><a href="https://www.linkedin.com/company/necessity-ink" target="_blank">LinkedIn</a></li>
+        <li><a href="mailto:hello@necessity.ink">Email us</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>hello@necessity.ink</span>
+    <span>© 2026 Necessity.ink — London & Barcelona</span>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+// Canvas logic remained as it was before, it's specific to homepage
+(function() {
+  const canvas = document.createElement('canvas');
+  canvas.id = 'heroCanvas';
+  const panel = document.createElement('div');
+  panel.className = 'hero-canvas-panel';
+  panel.appendChild(canvas);
+  document.querySelector('.hero').appendChild(panel);
+
+  const ctx = canvas.getContext('2d');
+  let w, h, dots = [];
+  function resize() {
+    w = canvas.width = panel.offsetWidth;
+    h = canvas.height = panel.offsetHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  for (let i = 0; i < 80; i++) {
+    dots.push({
+      x: Math.random() * 1, y: Math.random() * 1,
+      vx: (Math.random() - 0.5) * 0.0002,
+      vy: (Math.random() - 0.5) * 0.0002,
+      r: Math.random() * 2 + 0.5
+    });
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, w, h);
+    dots.forEach(d => {
+      d.x = (d.x + d.vx + 1) % 1;
+      d.y = (d.y + d.vy + 1) % 1;
+      ctx.beginPath();
+      ctx.arc(d.x * w, d.y * h, d.r, 0, Math.PI * 2);
+      ctx.fillStyle = '#e7191f';
+      ctx.fill();
+    });
+    // draw connections
+    for (let i = 0; i < dots.length; i++) {
+      for (let j = i + 1; j < dots.length; j++) {
+        const dx = (dots[i].x - dots[j].x) * w;
+        const dy = (dots[i].y - dots[j].y) * h;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if (dist < 120) {
+          ctx.beginPath();
+          ctx.moveTo(dots[i].x * w, dots[i].y * h);
+          ctx.lineTo(dots[j].x * w, dots[j].y * h);
+          ctx.strokeStyle = `rgba(231,25,31,${0.25 * (1 - dist/120)})`;
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+</script>
+</body>
+</html>

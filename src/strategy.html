@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Strategy — NECESSITY.INK</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/main.css">
+<style>
+  /* ─── HERO ─── */
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 90vh;
+    padding: 0 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: stretch;
+    border-bottom: 1px solid var(--rule);
+  }
+  .hero-left {
+    padding-top: 20vh;
+    padding-bottom: 100px;
+  }
+
+  .hero-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .hero-label::before {
+    content: '';
+    display: block;
+    width: 32px; height: 1px;
+    background: var(--mid);
+  }
+
+  .hero-title {
+    font-family: var(--serif);
+    font-size: clamp(36px, 4.5vw, 64px);
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--mid);
+  }
+
+  .hero-right {
+    padding-bottom: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  .hero-desc {
+    font-size: 18px;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 40px;
+    max-width: 460px;
+  }
+
+  .hero-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border-top: 1px solid var(--rule);
+    border-left: 1px solid var(--rule);
+    margin-bottom: 40px;
+    max-width: 460px;
+  }
+
+  .stat {
+    padding: 24px;
+    border-bottom: 1px solid var(--rule);
+    border-right: 1px solid var(--rule);
+  }
+
+  .stat-num {
+    font-family: var(--serif);
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .stat-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--mid);
+  }
+
+  /* ─── SECTION COMMON ─── */
+  section { padding: 100px 48px; border-bottom: 1px solid var(--rule); }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 48px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-label::before {
+    content: '';
+    display: block;
+    width: 32px; height: 1px;
+    background: var(--rule);
+  }
+
+  .section-heading {
+    font-family: var(--serif);
+    font-size: clamp(30px, 3.5vw, 52px);
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin-bottom: 24px;
+  }
+
+  /* ─── WHAT WE DO ─── */
+  .what-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--rule);
+    border-left: 1px solid var(--rule);
+    margin-top: 64px;
+  }
+
+  .what-item {
+    padding: 48px 40px;
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+    transition: background 0.25s;
+  }
+  .what-item:hover { background: var(--ink); color: var(--white); }
+  .what-item:hover .what-icon { border-color: rgba(255,255,255,0.2); color: var(--accent); }
+  .what-item:hover .what-body { color: rgba(255,255,255,0.65); }
+  .what-item:hover .what-num { color: rgba(255,255,255,0.2); }
+
+  .what-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--rule);
+    margin-bottom: 24px;
+    transition: color 0.25s;
+  }
+
+  .what-icon {
+    width: 48px; height: 48px;
+    border: 1px solid var(--rule);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    margin-bottom: 24px;
+    transition: all 0.25s;
+  }
+
+  .what-title {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    line-height: 1.2;
+  }
+
+  .what-body {
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--mid);
+    transition: color 0.25s;
+  }
+
+  /* ─── PROCESS ─── */
+  .process-section { background: var(--ink); color: var(--white); }
+
+  .process-section .section-label { color: rgba(255,255,255,0.4); }
+  .process-section .section-label::before { background: rgba(255,255,255,0.15); }
+  .process-section .section-heading { color: var(--white); }
+
+  .process-intro {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    margin-bottom: 80px;
+    align-items: end;
+  }
+
+  .process-desc {
+    font-size: 17px;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.65);
+    max-width: 440px;
+  }
+
+  .process-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border-top: 1px solid rgba(255,255,255,0.12);
+    border-left: 1px solid rgba(255,255,255,0.12);
+  }
+
+  .process-step {
+    padding: 40px 32px;
+    border-right: 1px solid rgba(255,255,255,0.12);
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+    position: relative;
+  }
+
+  .step-index {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    margin-bottom: 20px;
+  }
+
+  .step-title {
+    font-family: var(--serif);
+    font-size: 19px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    color: var(--white);
+    line-height: 1.25;
+  }
+
+  .step-body {
+    font-size: 14px;
+    line-height: 1.65;
+    color: rgba(255,255,255,0.5);
+  }
+
+  .step-connector {
+    position: absolute;
+    top: 40px; right: -20px;
+    width: 40px; height: 1px;
+    background: var(--accent);
+    z-index: 1;
+  }
+  .process-step:last-child .step-connector { display: none; }
+
+  /* ─── DELIVERABLES ─── */
+  .deliverables-layout {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .deliverables-left {}
+
+  .deliverables-intro {
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--mid);
+    margin-bottom: 40px;
+  }
+
+  .deliverables-list {
+    list-style: none;
+    border-top: 1px solid var(--rule);
+  }
+
+  .deliverables-list li {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--rule);
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  .deliverables-list li::before {
+    content: '→';
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--mid);
+    flex-shrink: 0;
+  }
+
+  .deliverables-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border-top: 1px solid var(--rule);
+    border-left: 1px solid var(--rule);
+  }
+
+  .deliverable-card {
+    padding: 36px 32px;
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .card-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 16px;
+    padding: 4px 10px;
+    border: 1px solid var(--rule);
+    display: inline-block;
+  }
+
+  .card-title {
+    font-family: var(--serif);
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    line-height: 1.2;
+  }
+
+  .card-body {
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--mid);
+  }
+
+  /* ─── WHO IT'S FOR ─── */
+  .who-section {
+    background: var(--ink);
+  }
+
+  .who-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border-top: 1px solid var(--rule);
+    border-left: 1px solid var(--rule);
+    margin-top: 64px;
+  }
+
+  .who-card {
+    padding: 56px 48px;
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .who-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    background: var(--ink);
+    color: var(--white);
+    padding: 4px 10px;
+    display: inline-block;
+    margin-bottom: 28px;
+  }
+
+  .who-title {
+    font-family: var(--serif);
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    line-height: 1.2;
+  }
+
+  .who-body {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--mid);
+    margin-bottom: 28px;
+  }
+
+  .who-examples {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: var(--mid);
+    border-top: 1px solid var(--rule);
+    padding-top: 20px;
+  }
+
+  /* ─── CASE STUDY TEASER ─── */
+  .case-section {
+    background: var(--ink);
+    color: var(--white);
+    padding: 100px 48px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .case-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .case-label { color: rgba(255,255,255,0.4); }
+  .case-label::before { background: rgba(255,255,255,0.15); }
+
+  .case-heading {
+    font-family: var(--serif);
+    font-size: clamp(28px, 3vw, 44px);
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--white);
+    margin-top: 48px;
+    margin-bottom: 24px;
+  }
+
+  .case-desc {
+    font-size: 16px;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 40px;
+  }
+
+  .case-visual {
+    aspect-ratio: 4/3;
+    background: #111;
+    border: 1px solid rgba(255,255,255,0.1);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .case-visual-inner {
+    width: 100%; height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  /* Generative data viz placeholder */
+  .viz-circles {
+    position: absolute;
+    inset: 0;
+  }
+  .viz-circles circle { fill: none; stroke: var(--accent); opacity: 0; animation: pulse 3s ease-in-out infinite; }
+  .viz-circles circle:nth-child(1) { animation-delay: 0s; }
+  .viz-circles circle:nth-child(2) { animation-delay: 0.6s; }
+  .viz-circles circle:nth-child(3) { animation-delay: 1.2s; }
+  .viz-circles circle:nth-child(4) { animation-delay: 1.8s; }
+  .viz-circles circle:nth-child(5) { animation-delay: 2.4s; }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0; transform: scale(0.8); }
+    50% { opacity: 0.6; transform: scale(1); }
+  }
+
+  .case-placeholder-text {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    z-index: 1;
+  }
+
+  /* ─── PRICING ─── */
+  .pricing-section {}
+
+  .pricing-layout {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 80px;
+    margin-top: 64px;
+  }
+
+  .pricing-intro {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--mid);
+  }
+
+  .pricing-cards {
+    display: grid;
+    gap: 0;
+    border-top: 1px solid var(--rule);
+    border-left: 1px solid var(--rule);
+  }
+
+  .pricing-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    border-bottom: 1px solid var(--rule);
+    border-right: 1px solid var(--rule);
+  }
+
+  .pricing-cell {
+    padding: 32px 28px;
+    border-right: 1px solid var(--rule);
+  }
+  .pricing-cell:last-child { border-right: none; }
+
+  .pricing-cell-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 10px;
+  }
+
+  .pricing-cell-value {
+    font-family: var(--serif);
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .pricing-cell-note {
+    font-size: 13px;
+    color: var(--mid);
+    margin-top: 6px;
+  }
+
+  /* Highlighted row */
+  .pricing-row.highlight { background: var(--ink); color: var(--white); }
+  .pricing-row.highlight .pricing-cell-label { color: rgba(255,255,255,0.4); }
+  .pricing-row.highlight .pricing-cell-value { color: var(--accent); }
+  .pricing-row.highlight .pricing-cell-note { color: rgba(255,255,255,0.5); }
+  .pricing-row.highlight .pricing-cell { border-right-color: rgba(255,255,255,0.1); }
+
+  /* ─── CTA ─── */
+  .cta-section {
+    padding: 120px 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    border-bottom: none;
+  }
+
+  .cta-heading {
+    font-family: var(--serif);
+    font-size: clamp(36px, 4vw, 64px);
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+
+  .cta-heading em { font-style: italic; color: var(--mid); }
+
+  .cta-right {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .cta-body {
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--mid);
+  }
+
+  .btn-group {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background: var(--accent);
+    color: var(--white);
+    border: none;
+    padding: 16px 28px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: #c8141a; }
+
+  .btn-secondary {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--ink);
+    padding: 16px 28px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+    display: inline-block;
+  }
+  .btn-secondary:hover { background: var(--ink); color: var(--white); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--ink);
+    color: var(--white);
+    padding: 64px 48px 40px;
+  }
+
+  .footer-top {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+    gap: 48px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    margin-bottom: 40px;
+  }
+
+  .footer-brand {
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .footer-tagline {
+    font-size: 14px;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.4);
+  }
+
+  .footer-col-title {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 16px;
+  }
+
+  .footer-links { list-style: none; }
+  .footer-links li { margin-bottom: 10px; }
+  .footer-links a {
+    font-size: 13px;
+    color: rgba(255,255,255,0.55);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--white); }
+
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: rgba(255,255,255,0.3);
+  }
+
+  /* ─── ANIMATIONS ─── */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* stagger children */
+  .stagger > * { transition-delay: calc(var(--i, 0) * 80ms); }
+
+  /* ─── WIREFRAME ANNOTATIONS ─── */
+  .annotation {
+    position: relative;
+    display: inline-block;
+  }
+  .annotation::after {
+    content: attr(data-note);
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 0;
+    background: var(--accent);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    padding: 4px 8px;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+    z-index: 10;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    nav { padding: 0 24px; }
+    .nav-links { display: none; }
+    .hero, .process-intro, .deliverables-layout,
+    .who-layout, .case-layout, .pricing-layout,
+    .cta-section { grid-template-columns: 1fr; gap: 40px; }
+    section { padding: 64px 24px; }
+    .hero { padding: 120px 24px 64px; }
+    .process-steps { grid-template-columns: 1fr 1fr; }
+    .what-grid, .deliverables-cards, .pricing-row { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo"><img src="Media/NCSSTYlogo.png" alt="NECESSITY.INK" style="height:21px;width:auto;display:block;filter:brightness(0) invert(1);"></a>
+  <ul class="nav-links">
+    <li><a href="strategy.html" class="active">Strategy</a></li>
+    <li><a href="reporting.html">Reporting</a></li>
+    <li><a href="marketing.html">Marketing</a></li>
+    <li><a href="products.html">Products</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <a href="brief-builder.html" class="nav-cta" id="nav-cta-brief">Get a free quote</a>
+</nav>
+
+
+<!-- HERO -->
+<div class="hero fade-up">
+  <div class="hero-left">
+    <p class="hero-label">Solution — 01</p>
+    <h1 class="hero-title">Make sense<br>of your data<br><em>before you<br>build anything.</em></h1>
+  </div>
+  <div class="hero-right">
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">48h</div>
+        <div class="stat-label">Quote turnaround</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Bespoke approach</div>
+      </div>
+    </div>
+    <p class="hero-desc">We help organisations define how data, AI and algorithms should be used across products, communications and internal systems. From early exploration to technical roadmaps, we turn complex possibilities into clear strategies your team can execute.</p>
+  </div>
+</div>
+
+<!-- WHAT WE DO -->
+<section>
+  <p class="section-label">What Strategy Includes</p>
+  <h2 class="section-heading">Where strategy work<br>begins and ends.</h2>
+  <div class="what-grid stagger">
+    <div class="what-item" style="--i:0">
+      <div class="what-num">01</div>
+      <div class="what-icon">◈</div>
+      <h3 class="what-title">Data Strategy</h3>
+      <p class="what-body">We audit what data you have, how it's structured, and what it could do. We then define a clear direction for how it should be used across your organisation.</p>
+    </div>
+    <div class="what-item" style="--i:1">
+      <div class="what-num">02</div>
+      <div class="what-icon">◎</div>
+      <h3 class="what-title">AI Opportunity Mapping</h3>
+      <p class="what-body">We identify where AI and machine learning can genuinely add value — and where they can't. Honest, technical, grounded in your actual context.</p>
+    </div>
+    <div class="what-item" style="--i:2">
+      <div class="what-num">03</div>
+      <div class="what-icon">▲</div>
+      <h3 class="what-title">Concept Development</h3>
+      <p class="what-body">Turning ambiguous ideas into defined concepts. We work with your team to pressure-test assumptions and surface the most viable paths forward.</p>
+    </div>
+    <div class="what-item" style="--i:3">
+      <div class="what-num">04</div>
+      <div class="what-icon">⬡</div>
+      <h3 class="what-title">Prototyping Roadmaps</h3>
+      <p class="what-body">A clear, sequenced plan for moving from strategy to build. Includes technical dependencies, resource requirements, and milestone definitions.</p>
+    </div>
+    <div class="what-item" style="--i:4">
+      <div class="what-num">05</div>
+      <div class="what-icon">◻</div>
+      <h3 class="what-title">Innovation Consulting</h3>
+      <p class="what-body">For teams navigating emerging technologies without a map. We bring external expertise, sector knowledge, and the confidence to challenge existing thinking.</p>
+    </div>
+    <div class="what-item" style="--i:5">
+      <div class="what-num">06</div>
+      <div class="what-icon">⊕</div>
+      <h3 class="what-title">Workshop Facilitation</h3>
+      <p class="what-body">Structured sessions with your team to align on goals, surface data challenges, and build shared understanding before committing to a direction.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process-section">
+  <div class="process-intro">
+    <div>
+      <p class="section-label" style="color:rgba(255,255,255,0.4)">How We Work</p>
+      <h2 class="section-heading" style="color:var(--white)">A structured process<br>for complex problems.</h2>
+    </div>
+    <p class="process-desc">Strategy is not a single output — it's a sequence. We move through defined phases, each building on the last, so nothing is built on untested assumptions.</p>
+  </div>
+  <div class="process-steps">
+    <div class="process-step">
+      <div class="step-index">Phase 01</div>
+      <h3 class="step-title">Discovery &amp; Audit</h3>
+      <p class="step-body">We map your existing data landscape, tools, and workflows. Understanding what you have before imagining what's possible.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-index">Phase 02</div>
+      <h3 class="step-title">Opportunity Analysis</h3>
+      <p class="step-body">We identify where data, AI or algorithms could create genuine value — ranked by feasibility, impact, and strategic fit.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-index">Phase 03</div>
+      <h3 class="step-title">Concept &amp; Validation</h3>
+      <p class="step-body">Key ideas are developed into testable concepts. We prototype where needed to validate assumptions before committing resources.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-index">Phase 04</div>
+      <h3 class="step-title">Roadmap Delivery</h3>
+      <p class="step-body">A clear, executable strategy document your team can act on — with defined next steps, timelines, and decision points.</p>
+    </div>
+  </div>
+</section>
+
+<!-- DELIVERABLES -->
+<section>
+  <p class="section-label">What You Receive</p>
+  <div class="deliverables-layout">
+    <div class="deliverables-left">
+      <h2 class="section-heading">Tangible outputs, not just conversations.</h2>
+      <p class="deliverables-intro">Every strategy engagement ends with documentation your team can use. Not slides that gather dust — frameworks, roadmaps and research that drive decisions.</p>
+      <ul class="deliverables-list">
+        <li>Data audit report</li>
+        <li>AI opportunity matrix</li>
+        <li>Concept briefs (1–3 directions)</li>
+        <li>Technical feasibility assessment</li>
+        <li>Prototyping roadmap</li>
+        <li>Workshop documentation</li>
+        <li>Stakeholder presentation deck</li>
+      </ul>
+    </div>
+    <div class="deliverables-cards">
+      <div class="deliverable-card">
+        <span class="card-tag">Document</span>
+        <h3 class="card-title">Data Landscape Audit</h3>
+        <p class="card-body">A structured overview of your current data assets, quality, gaps, and potential. The foundation for everything that follows.</p>
+      </div>
+      <div class="deliverable-card">
+        <span class="card-tag">Framework</span>
+        <h3 class="card-title">AI Opportunity Matrix</h3>
+        <p class="card-body">A prioritised map of where AI could add real value across your organisation — with honest effort-to-impact assessments.</p>
+      </div>
+      <div class="deliverable-card">
+        <span class="card-tag">Prototype</span>
+        <h3 class="card-title">Proof-of-Concept Build</h3>
+        <p class="card-body">Where strategy benefits from demonstration, we build lightweight prototypes to validate ideas and support internal pitches.</p>
+      </div>
+      <div class="deliverable-card">
+        <span class="card-tag">Roadmap</span>
+        <h3 class="card-title">Technical Roadmap</h3>
+        <p class="card-body">A sequenced plan translating strategy into buildable phases — with dependencies, resource estimates, and clear decision points.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO IT'S FOR -->
+<section class="who-section">
+  <p class="section-label">Who This Is For</p>
+  <h2 class="section-heading">Strategy work fits two kinds<br>of organisations.</h2>
+  <div class="who-layout">
+    <div class="who-card">
+      <span class="who-tag">Modernising</span>
+      <h3 class="who-title">You have data but no clear direction for how to use it.</h3>
+      <p class="who-body">Your current tools and workflows no longer reflect what your organisation needs. You want to understand what's possible before committing to a build.</p>
+      <p class="who-examples">Examples: Cultural institutions, research organisations, established brands</p>
+    </div>
+    <div class="who-card">
+      <span class="who-tag">Building New</span>
+      <h3 class="who-title">You're ready to build something ambitious and need a technical partner to shape the idea.</h3>
+      <p class="who-body">You already work with data and technology, and you want to explore new ways to turn it into products, experiences or brand assets.</p>
+      <p class="who-examples">Examples: Technology companies, innovation teams, forward-thinking brands</p>
+    </div>
+    <div class="who-card">
+      <span class="who-tag">Pitching</span>
+      <h3 class="who-title">You need a prototype or proposal to secure internal buy-in or investor funding.</h3>
+      <p class="who-body">Strategy work often culminates in a stakeholder-ready deliverable. We regularly support teams preparing innovation proposals and funding applications.</p>
+      <p class="who-examples">Examples: Internal innovation teams, startups, NGOs</p>
+    </div>
+    <div class="who-card">
+      <span class="who-tag">Exploring</span>
+      <h3 class="who-title">You have a vague idea and need help understanding whether it's viable.</h3>
+      <p class="who-body">Many projects start here. We can sense-check the concept, assess technical feasibility, and help you decide whether to proceed — and how.</p>
+      <p class="who-examples">Examples: Any organisation curious about AI, data or algorithmic systems</p>
+    </div>
+  </div>
+</section>
+
+<!-- CASE STUDY TEASER -->
+<section class="case-section">
+  <div class="case-layout">
+    <div>
+      <p class="section-label case-label">Work in Context</p>
+      <h2 class="case-heading">From ambiguous brief to executable roadmap in four weeks.</h2>
+      <p class="case-desc">A global research organisation needed to understand how AI could improve how it stored, interpreted, and published its data across 12 country teams. We ran a discovery sprint, mapped opportunities, and delivered a 3-phase technical roadmap.</p>
+      <div class="btn-group">
+        <a href="#" class="btn-primary" style="background:var(--accent);color:var(--ink)">View Case Study</a>
+        <a href="#" class="btn-secondary" style="color:rgba(255,255,255,0.7);border-color:rgba(255,255,255,0.3)">Explore All Work</a>
+      </div>
+    </div>
+    <div class="case-visual">
+      <div class="case-visual-inner">
+        <svg class="viz-circles" viewBox="0 0 500 400" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="250" cy="200" r="160" stroke-width="0.5"/>
+          <circle cx="250" cy="200" r="120" stroke-width="0.5"/>
+          <circle cx="250" cy="200" r="80" stroke-width="1"/>
+          <circle cx="250" cy="200" r="44" stroke-width="1"/>
+          <circle cx="250" cy="200" r="12" stroke-width="2" fill="rgba(231,25,31,0.3)"/>
+          <!-- radial lines -->
+          <line x1="250" y1="40" x2="250" y2="360" stroke="#e7191f" stroke-width="0.3" opacity="0.2"/>
+          <line x1="90" y1="200" x2="410" y2="200" stroke="#e7191f" stroke-width="0.3" opacity="0.2"/>
+          <line x1="136" y1="86" x2="364" y2="314" stroke="#e7191f" stroke-width="0.3" opacity="0.15"/>
+          <line x1="364" y1="86" x2="136" y2="314" stroke="#e7191f" stroke-width="0.3" opacity="0.15"/>
+          <!-- data points -->
+          <circle cx="250" cy="80" r="4" fill="#e7191f" opacity="0.8"/>
+          <circle cx="380" cy="160" r="4" fill="#e7191f" opacity="0.6"/>
+          <circle cx="340" cy="310" r="4" fill="#e7191f" opacity="0.7"/>
+          <circle cx="140" cy="290" r="4" fill="#e7191f" opacity="0.5"/>
+          <circle cx="120" cy="150" r="4" fill="#e7191f" opacity="0.8"/>
+        </svg>
+        <span class="case-placeholder-text">[ Case Study Visual ]</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing-section">
+  <p class="section-label">Pricing</p>
+  <h2 class="section-heading">Strategy engagements are<br>scoped to your situation.</h2>
+  <div class="pricing-layout">
+    <div>
+      <p class="pricing-intro">Costs vary based on scope, timeline, and the depth of discovery required. Most strategy projects pair with a subsequent build phase — many clients begin with a short engagement before expanding.</p>
+    </div>
+    <div class="pricing-cards">
+      <div class="pricing-row">
+        <div class="pricing-cell">
+          <div class="pricing-cell-label">Model</div>
+          <div class="pricing-cell-value" style="font-size:14px;font-family:var(--mono)">What it includes</div>
+        </div>
+        <div class="pricing-cell">
+          <div class="pricing-cell-label">Timeline</div>
+          <div class="pricing-cell-value" style="font-size:14px;font-family:var(--mono)">Typical duration</div>
+        </div>
+        <div class="pricing-cell">
+          <div class="pricing-cell-label">Starting from</div>
+          <div class="pricing-cell-value" style="font-size:14px;font-family:var(--mono)">Indicative cost</div>
+        </div>
+      </div>
+      <div class="pricing-row">
+        <div class="pricing-cell">
+          <div class="pricing-cell-label">Discovery Sprint</div>
+          <div class="pricing-cell-value">Audit + Opportunity Report</div>
+          <div class="pricing-cell-note">Best for early exploration</div>
+        </div>
+        <div class="pricing-cell">
+          <div class="pricing-cell-label">Timeline</div>
+          <div class="pricing-cell-value">1–2 weeks</div>
+        </div>
+        <div class="pricing-cell">
+          <div class="pricing-cell-label">From</div>
+          <div class="pricing-cell-value">£2,500</div>
+        </div>
+      </div>
+      <div class="pricing-row highlight">
+        <div class="pricing-cell">
+          <div class="pricing-cell-label">Full Strategy</div>
+          <div class="pricing-cell-value">End-to-end engagement</div>
+          <div class="pricing-cell-note">Most popular starting point</div>
+        </div>
+        <div class="pricing-cell">
+          <div class="pricing-cell-label">Timeline</div>
+          <div class="pricing-cell-value">3–6 weeks</div>
+        </div>
+        <div class="pricing-cell">
+          <div class="pricing-cell-label">From</div>
+          <div class="pricing-cell-value">£8,000</div>
+        </div>
+      </div>
+      <div class="pricing-row">
+        <div class="pricing-cell">
+          <div class="pricing-cell-label">Retainer</div>
+          <div class="pricing-cell-value">Ongoing strategic support</div>
+          <div class="pricing-cell-note">For continuous collaboration</div>
+        </div>
+        <div class="pricing-cell">
+          <div class="pricing-cell-label">Timeline</div>
+          <div class="pricing-cell-value">Monthly</div>
+        </div>
+        <div class="pricing-cell">
+          <div class="pricing-cell-label">From</div>
+          <div class="pricing-cell-value">£3,000/mo</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" style="border-bottom: 1px solid var(--rule);">
+  <div>
+    <h2 class="cta-heading">Have an idea you'd like<br>to <em>explore with us?</em></h2>
+  </div>
+  <div class="cta-right">
+    <p class="cta-body">Tell us what you're working on and we'll help you understand what's possible, how long it may take, and what it could cost. Most quotes are returned within 48 hours.</p>
+    <div class="btn-group">
+      <a href="#" class="btn-primary">Get a Free Quote</a>
+      <a href="#" class="btn-secondary">Book a Call</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <img src="Media/NCSSTYlogo.png" alt="NECESSITY.INK" style="height:17px;width:auto;display:block;margin-bottom:16px;filter:brightness(0) invert(1);">
+      <p class="footer-tagline">AI, Strategy and Data Design<br>for Organisations Building<br>the Future.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Company</div>
+      <ul class="footer-links">
+        <li><a href="index.html">About</a></li>
+        <li><a href="contact.html">Keynotes</a></li>
+        <li><a href="contact.html">Careers</a></li>
+        <li><a href="contact.html">Partners</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Solutions</div>
+      <ul class="footer-links">
+        <li><a href="strategy.html">Strategy</a></li>
+        <li><a href="reporting.html">Reporting</a></li>
+        <li><a href="marketing.html">Marketing</a></li>
+        <li><a href="products.html">Products</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Pricing</div>
+      <ul class="footer-links">
+        <li><a href="pricing.html">Overview</a></li>
+        <li><a href="pricing.html#models">Fixed Packages</a></li>
+        <li><a href="pricing.html#models">Retainers</a></li>
+        <li><a href="pricing.html#models">Workshops</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Contact</div>
+      <ul class="footer-links">
+        <li><a href="contact.html">Book a Call</a></li>
+        <li><a href="mailto:hello@necessity.ink">Send an Email</a></li>
+        <li><a href="brief-builder.html">Brief Builder</a></li>
+        <li><a href="contact.html#visit">Visit Studio</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>hello@necessity.ink</span>
+    <span>© 2026 Necessity.ink — London</span>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

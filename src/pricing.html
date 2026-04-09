@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pricing — NECESSITY.INK</title>
+<meta name="description" content="Flexible pricing for different types of data design projects. From one-off deliverables to ongoing retainer partnerships. No day rates. Scoped to your ambition.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/main.css">
+<style>
+  /* ─── HERO ─── */
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 90vh;
+    padding: 0 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: stretch;
+    border-bottom: 1px solid var(--rule);
+  }
+  .hero > div:first-child {
+    padding-top: 20vh;
+    padding-bottom: 100px;
+  }
+  .hero-label {
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--mid); margin-bottom: 24px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .hero-label::before {
+    content: ''; display: block; width: 32px; height: 1px; background: var(--mid);
+  }
+  .hero-title {
+    font-family: var(--serif);
+    font-size: clamp(36px, 4.5vw, 64px);
+    font-weight: 400; line-height: 1.05; letter-spacing: -0.02em; color: var(--white);
+  }
+  .hero-title em { font-style: italic; color: rgba(255,255,255,0.3); }
+  .hero-right {
+    padding-bottom: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+  .hero-desc {
+    font-size: 18px; line-height: 1.7; color: rgba(255,255,255,0.5);
+    margin-bottom: 0px; max-width: 460px;
+  }
+  .hero-stats {
+    display: grid; grid-template-columns: 1fr 1fr;
+    border-top: 1px solid var(--rule); border-left: 1px solid var(--rule);
+    margin-bottom: 40px;
+    max-width: 460px;
+  }
+  .stat {
+    padding: 24px;
+    border-bottom: 1px solid var(--rule); border-right: 1px solid var(--rule);
+  }
+  .stat-num {
+    font-family: var(--serif); font-size: 36px;
+    font-weight: 700; line-height: 1; margin-bottom: 6px; color: var(--white);
+  }
+  .stat-label {
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--mid);
+  }
+
+  /* ─── TICKER ─── */
+  .ticker {
+    background: var(--accent); overflow: hidden; white-space: nowrap;
+    border-bottom: 1px solid var(--rule); padding: 12px 0;
+  }
+  .ticker-inner { display: inline-block; animation: ticker 30s linear infinite; }
+  .ticker-inner span {
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--text); padding: 0 32px;
+  }
+  .ticker-inner span::after { content: '·'; margin-left: 32px; }
+  @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* ─── SECTION COMMON ─── */
+  section { padding: 100px 48px; border-bottom: 1px solid var(--rule); }
+  .section-label {
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--mid); margin-bottom: 48px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .section-label::before {
+    content: ''; display: block; width: 32px; height: 1px; background: var(--rule);
+  }
+  .section-heading {
+    font-family: var(--serif);
+    font-size: clamp(30px, 3.5vw, 52px);
+    font-weight: 400; line-height: 1.15;
+    letter-spacing: -0.01em; margin-bottom: 24px; color: var(--white);
+  }
+
+  /* ─── MODELS SECTION ─── */
+  .models-intro {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; margin-bottom: 64px; align-items: end;
+  }
+  .models-desc { font-size: 17px; line-height: 1.7; color: var(--mid); max-width: 420px; }
+
+  /* Three cards side-by-side, no expand yet */
+  .models-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid var(--rule); border-left: 1px solid var(--rule);
+  }
+
+  /* ── Card ── */
+  .model-card {
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    display: flex; flex-direction: column;
+    position: relative; overflow: hidden;
+  }
+
+  /* Card summary (always visible) */
+  .model-summary {
+    padding: 48px 36px 36px;
+    display: flex; flex-direction: column;
+    position: relative; z-index: 1;
+    cursor: pointer;
+    transition: background 0.25s;
+  }
+
+  .model-card.featured .model-summary { background: var(--ink); }
+
+  .model-num {
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.1em; color: var(--rule);
+    margin-bottom: 24px; transition: color 0.25s;
+  }
+  .model-card.featured .model-num { color: rgba(255,255,255,0.2); }
+
+  .model-title {
+    font-family: var(--serif); font-size: 22px; font-weight: 700;
+    margin-bottom: 10px; line-height: 1.2; transition: color 0.25s; color: var(--white);
+  }
+  .model-card.featured .model-title { color: var(--white); }
+
+  .model-tagline {
+    font-size: 14px; line-height: 1.65; color: var(--mid);
+    margin-bottom: 28px; transition: color 0.25s;
+    min-height: 72px;
+  }
+  .model-card.featured .model-tagline { color: rgba(255,255,255,0.45); }
+
+  .model-best {
+    font-family: var(--mono); font-size: 10px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 4px 10px; display: inline-block;
+    border: 1px solid var(--rule); color: var(--mid);
+    margin-bottom: 28px; align-self: flex-start;
+    transition: all 0.25s;
+  }
+  .model-card.featured .model-best {
+    border-color: rgba(255,255,255,0.15); color: rgba(255,255,255,0.4);
+  }
+
+  .model-price-wrap { margin-bottom: 0; }
+  .model-price-label {
+    font-family: var(--mono); font-size: 10px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--mid); margin-bottom: 4px;
+  }
+  .model-card.featured .model-price-label { color: rgba(255,255,255,0.35); }
+
+  .model-price {
+    font-family: var(--serif); font-size: 34px; font-weight: 700; line-height: 1;
+  }
+  .model-price sup { font-size: 18px; vertical-align: super; }
+  .model-card.featured .model-price { color: var(--accent); }
+
+  .model-price-note {
+    font-family: var(--mono); font-size: 11px;
+    color: var(--mid); margin-top: 4px;
+  }
+  .model-card.featured .model-price-note { color: rgba(255,255,255,0.35); }
+
+  /* Expand toggle bar */
+  .model-toggle {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 36px;
+    border-top: 1px solid var(--rule);
+    cursor: pointer;
+    background: transparent;
+    border-left: none; border-right: none; border-bottom: none;
+    width: 100%; text-align: left;
+    position: relative; z-index: 1;
+    transition: background 0.2s;
+    user-select: none;
+  }
+  .model-card.featured .model-toggle {
+    border-top-color: rgba(255,255,255,0.1);
+    background: var(--ink);
+  }
+  .model-toggle:hover { background: rgba(0,0,0,0.04); }
+  .model-card.featured .model-toggle:hover { background: rgba(255,255,255,0.05); }
+
+  .model-toggle-label {
+    font-family: var(--mono); font-size: 10px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--mid); transition: color 0.2s;
+  }
+  .model-card.featured .model-toggle-label { color: rgba(255,255,255,0.4); }
+  .model-card.open .model-toggle-label { color: var(--text); }
+  .model-card.featured.open .model-toggle-label { color: rgba(255,255,255,0.8); }
+
+  .model-toggle-icon {
+    width: 20px; height: 20px;
+    border: 1px solid var(--rule);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--mono); font-size: 14px;
+    color: var(--mid); line-height: 1;
+    transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), background 0.2s, border-color 0.2s, color 0.2s;
+    flex-shrink: 0;
+  }
+  .model-card.featured .model-toggle-icon {
+    border-color: rgba(255,255,255,0.2); color: rgba(255,255,255,0.5);
+  }
+  .model-card.open .model-toggle-icon {
+    transform: rotate(45deg);
+    background: var(--ink); border-color: var(--text); color: var(--white);
+  }
+  .model-card.featured.open .model-toggle-icon {
+    background: var(--accent); border-color: var(--accent); color: var(--text);
+  }
+
+  /* Expand panel */
+  .model-expand {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.5s cubic-bezier(0.22,1,0.36,1);
+    border-top: 0px solid var(--rule);
+  }
+  .model-card.open .model-expand { max-height: 600px; }
+  .model-card.featured .model-expand { background: var(--ink); }
+
+  .model-expand-inner { padding: 28px 36px 36px; }
+
+  /* Includes list */
+  .model-includes {
+    list-style: none; margin-bottom: 28px;
+  }
+  .model-includes li {
+    display: flex; gap: 12px; align-items: baseline;
+    font-size: 14px; padding: 10px 0;
+    border-bottom: 1px solid var(--rule);
+    color: rgba(255,255,255,0.5);
+  }
+  .model-includes li::before {
+    content: '→'; font-family: var(--mono); font-size: 11px;
+    color: var(--mid); flex-shrink: 0;
+  }
+  .model-card.featured .model-includes li {
+    border-bottom-color: rgba(255,255,255,0.08); color: rgba(255,255,255,0.65);
+  }
+  .model-card.featured .model-includes li::before { color: var(--accent); }
+
+  /* Includes header label */
+  .model-expand-label {
+    font-family: var(--mono); font-size: 10px;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--mid); margin-bottom: 12px;
+  }
+  .model-card.featured .model-expand-label { color: rgba(255,255,255,0.3); }
+
+  /* Extra detail row (timeline etc.) */
+  .model-meta {
+    display: flex; gap: 0;
+    border-top: 1px solid var(--rule); border-left: 1px solid var(--rule);
+    margin-bottom: 28px;
+  }
+  .model-card.featured .model-meta { border-color: rgba(255,255,255,0.1); }
+
+  .model-meta-cell {
+    flex: 1; padding: 16px 18px;
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .model-card.featured .model-meta-cell { border-color: rgba(255,255,255,0.1); }
+  .model-meta-cell:last-child { border-right: none; }
+
+  .meta-label {
+    font-family: var(--mono); font-size: 9px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--mid); margin-bottom: 4px;
+  }
+  .model-card.featured .meta-label { color: rgba(255,255,255,0.3); }
+
+  .meta-value {
+    font-family: var(--serif); font-size: 15px; font-weight: 700; line-height: 1.2;
+  }
+  .model-card.featured .meta-value { color: var(--white); }
+
+  /* Add-on note */
+  .model-addon {
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 14px 16px;
+    border: 1px solid var(--rule);
+    margin-bottom: 24px;
+  }
+  .model-card.featured .model-addon { border-color: rgba(255,255,255,0.12); }
+  .model-addon-badge {
+    font-family: var(--mono); font-size: 9px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 3px 7px; background: var(--ink); color: var(--mid);
+    border: 1px solid var(--rule); flex-shrink: 0; white-space: nowrap;
+    align-self: flex-start; margin-top: 1px;
+  }
+  .model-card.featured .model-addon-badge {
+    background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.4);
+  }
+  .model-addon-text {
+    font-size: 13px; line-height: 1.55; color: var(--mid);
+  }
+  .model-card.featured .model-addon-text { color: rgba(255,255,255,0.4); }
+
+  /* ─── WHICH MODEL ─── */
+  .which-section { background: var(--ink); color: var(--white); }
+  .which-intro {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; margin-bottom: 64px; align-items: end;
+  }
+  .which-desc { font-size: 17px; line-height: 1.7; color: rgba(255,255,255,0.5); max-width: 420px; }
+  .which-table {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    border-left: 1px solid rgba(255,255,255,0.1);
+  }
+  .which-row {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    border-right: 1px solid rgba(255,255,255,0.1);
+  }
+  .which-row.header-row { background: rgba(255,255,255,0.04); }
+  .which-cell {
+    padding: 20px 24px;
+    border-right: 1px solid rgba(255,255,255,0.07);
+    font-size: 14px; color: rgba(255,255,255,0.6);
+  }
+  .which-cell:last-child { border-right: none; }
+  .which-cell.situation { color: rgba(255,255,255,0.85); }
+  .which-cell.col-head {
+    font-family: var(--mono); font-size: 10px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: rgba(255,255,255,0.35); font-weight: 400;
+  }
+  .which-cell.col-head.hl { color: var(--accent); }
+  .which-recommended {
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.06em; text-transform: uppercase;
+  }
+  .which-recommended.match { color: var(--accent); }
+  .which-recommended.partial { color: rgba(255,255,255,0.3); }
+  .which-recommended.no { color: rgba(255,255,255,0.12); }
+
+  /* CTA button in expand */
+  .model-cta {
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.06em;
+    text-transform: uppercase; background: var(--ink); color: var(--white);
+    border: none; padding: 14px 24px; cursor: pointer;
+    text-decoration: none; transition: background 0.2s, color 0.2s;
+    display: block; text-align: center; width: 100%;
+  }
+  .model-cta:hover { background: #2a2a2a; }
+  .model-card.featured .model-cta { background: var(--accent); color: var(--text); }
+  .model-card.featured .model-cta:hover { background: #c8141a; }
+
+  /* ─── FAQ ─── */
+  .faq-section { border-bottom: 1px solid var(--rule); }
+  .faq-layout {
+    display: grid; grid-template-columns: 1fr 2fr;
+    gap: 80px; margin-top: 64px; align-items: start;
+  }
+  .faq-sidebar-title {
+    font-family: var(--serif); font-size: 28px; font-weight: 400;
+    line-height: 1.2; margin-bottom: 16px;
+  }
+  .faq-sidebar-title em { font-style: italic; color: var(--mid); }
+  .faq-sidebar-body { font-size: 15px; line-height: 1.7; color: var(--mid); margin-bottom: 32px; }
+  .faq-grid {
+    border-top: 1px solid var(--rule); border-left: 1px solid var(--rule);
+    display: grid; grid-template-columns: 1fr 1fr;
+  }
+  .faq-item {
+    padding: 36px 32px;
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .faq-q {
+    font-family: var(--serif); font-size: 17px; font-weight: 700;
+    margin-bottom: 12px; line-height: 1.3; color: var(--white);
+  }
+  .faq-a { font-size: 14px; line-height: 1.7; color: var(--mid); }
+
+  /* ─── CTA ─── */
+  .cta-section {
+    padding: 120px 48px; display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: center; border-bottom: 1px solid var(--rule);
+  }
+  .cta-heading {
+    font-family: var(--serif); font-size: clamp(36px, 4vw, 64px);
+    font-weight: 400; line-height: 1.1; letter-spacing: -0.02em;
+  }
+  .cta-heading em { font-style: italic; color: var(--mid); }
+  .cta-body { font-size: 17px; line-height: 1.7; color: var(--mid); margin-bottom: 28px; }
+  .btn-group { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn-primary {
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.06em;
+    text-transform: uppercase; background: var(--accent); color: var(--white);
+    border: none; padding: 16px 28px; cursor: pointer;
+    text-decoration: none; transition: background 0.2s; display: inline-block;
+  }
+  .btn-primary:hover { background: #c8141a; }
+  .btn-secondary {
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.06em;
+    text-transform: uppercase; background: transparent; color: var(--text);
+    border: 1px solid var(--ink); padding: 16px 28px; cursor: pointer;
+    text-decoration: none; transition: all 0.2s; display: inline-block;
+  }
+  .btn-secondary:hover { background: var(--ink); color: var(--white); }
+
+  /* ─── FOOTER ─── */
+  footer { background: var(--ink); color: var(--white); padding: 64px 48px 40px; }
+  .footer-top {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+    gap: 48px; padding-bottom: 48px;
+    border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 40px;
+  }
+  .footer-brand { font-family: var(--mono); font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 16px; }
+  .footer-tagline { font-size: 14px; line-height: 1.6; color: rgba(255,255,255,0.35); }
+  .footer-col-title { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 16px; }
+  .footer-links { list-style: none; }
+  .footer-links li { margin-bottom: 10px; }
+  .footer-links a { font-size: 13px; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--white); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; color: rgba(255,255,255,0.25); }
+
+  /* ─── FADE IN ─── */
+  .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    nav { padding: 0 24px; }
+    .nav-links { display: none; }
+    .hero, .models-intro, .faq-layout, .cta-section { grid-template-columns: 1fr; gap: 40px; }
+    .hero { padding: 120px 24px 64px; }
+    section { padding: 64px 24px; }
+    .models-grid { grid-template-columns: 1fr; }
+    .faq-grid { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo"><img src="Media/NCSSTYlogo.png" alt="NECESSITY.INK" style="height:21px;width:auto;display:block;filter:brightness(0) invert(1);"></a>
+  <ul class="nav-links">
+    <li><a href="strategy.html">Strategy</a></li>
+    <li><a href="reporting.html">Reporting</a></li>
+    <li><a href="marketing.html">Marketing</a></li>
+    <li><a href="products.html">Products</a></li>
+    <li><a href="pricing.html" class="active">Pricing</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <a href="brief-builder.html" class="nav-cta" id="nav-cta-brief">Get a free quote</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero fade-up">
+  <div>
+    <p class="hero-label">Pricing</p>
+    <h1 class="hero-title">Flexible pricing<br>for <em>different</em><br>types of projects.</h1>
+  </div>
+  <div class="hero-right">
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">£2.5k</div>
+        <div class="stat-label">Starting from</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">48h</div>
+        <div class="stat-label">Proposal turnaround</div>
+      </div>
+    </div>
+    <p class="hero-desc">We don't sell retainers to everyone or one-off projects to everyone. We price around the type of relationship that actually makes sense for how you work with data — and what you need to get done.</p>
+  </div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner" id="tickerInner">
+    <span>One-off projects</span>
+    <span>Retainer partnerships</span>
+    <span>Productised packages</span>
+    <span>No day rates</span>
+    <span>48-hour proposals</span>
+    <span>Scoped to your ambition</span>
+    <span>Transparent pricing</span>
+    <span>Flexible engagement</span>
+    <span>One-off projects</span>
+    <span>Retainer partnerships</span>
+    <span>Productised packages</span>
+    <span>No day rates</span>
+    <span>48-hour proposals</span>
+    <span>Scoped to your ambition</span>
+    <span>Transparent pricing</span>
+    <span>Flexible engagement</span>
+  </div>
+</div>
+
+<!-- ENGAGEMENT MODELS -->
+<section class="fade-up" id="models">
+  <div class="models-intro">
+    <div>
+      <p class="section-label">Engagement Models</p>
+      <h2 class="section-heading">Three ways<br>to work together.</h2>
+    </div>
+    <p class="models-desc">Every project starts with a conversation. We'll recommend the model that fits your timeline, budget, and how regularly you need data design support. Click any card to expand all three at once.</p>
+  </div>
+
+  <div class="models-grid">
+
+    <!-- ── Model 01 ── -->
+    <div class="model-card" id="card-1">
+      <div class="model-summary" role="button" tabindex="0" aria-expanded="false" aria-controls="expand-1">
+        <div class="model-num">01</div>
+        <h3 class="model-title">One-off Projects</h3>
+        <p class="model-tagline">A defined brief with a clearly scoped outcome — reports, visualisations, prototypes, and experiences.</p>
+        <span class="model-best">Best for defined ideas</span>
+        <div class="model-price-wrap">
+          <div class="model-price-label">Starting from</div>
+          <div class="model-price"><sup>£</sup>8,000</div>
+          <div class="model-price-note">Per project</div>
+        </div>
+      </div>
+      <button class="model-toggle" onclick="toggleAll()" aria-expanded="false">
+        <span class="model-toggle-label">See what's included</span>
+        <span class="model-toggle-icon">+</span>
+      </button>
+      <div class="model-expand" id="expand-1" role="region">
+        <div class="model-expand-inner">
+          <div class="model-meta">
+            <div class="model-meta-cell">
+              <div class="meta-label">Timeline</div>
+              <div class="meta-value">4–12 wks</div>
+            </div>
+            <div class="model-meta-cell">
+              <div class="meta-label">Billing</div>
+              <div class="meta-value">Fixed fee</div>
+            </div>
+            <div class="model-meta-cell">
+              <div class="meta-label">Revisions</div>
+              <div class="meta-value">2 rounds</div>
+            </div>
+          </div>
+          <div class="model-expand-label">Includes</div>
+          <ul class="model-includes">
+            <li>Exploratory data analysis to find the story</li>
+            <li>Creative and strategic direction</li>
+            <li>Design and build of agreed deliverable</li>
+            <li>Two structured revision rounds</li>
+            <li>Launch or publication support</li>
+          </ul>
+          <div class="model-addon">
+            <span class="model-addon-badge">Add-on</span>
+            <span class="model-addon-text">Full IP ownership available — transferred on final payment. Standard terms retain a portfolio licence. Ask us about your requirements.</span>
+          </div>
+          <a href="brief-builder.html" class="model-cta" id="cta-oneoff">Start a project →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Model 02 — featured ── -->
+    <div class="model-card featured" id="card-2">
+      <div class="model-summary" role="button" tabindex="0" aria-expanded="false" aria-controls="expand-2">
+        <div class="model-num">02</div>
+        <h3 class="model-title">Retainer Partnerships</h3>
+        <p class="model-tagline">Ongoing AI and data design support for teams that work with data regularly and need a trusted partner in the room.</p>
+        <span class="model-best">Best for regular data work</span>
+        <div class="model-price-wrap">
+          <div class="model-price-label">Starting from</div>
+          <div class="model-price"><sup>£</sup>3,000<span style="font-size:18px;font-weight:400">/mo</span></div>
+          <div class="model-price-note">Billed monthly, 3-month minimum</div>
+        </div>
+      </div>
+      <button class="model-toggle" onclick="toggleAll()" aria-expanded="false">
+        <span class="model-toggle-label">See what's included</span>
+        <span class="model-toggle-icon">+</span>
+      </button>
+      <div class="model-expand" id="expand-2" role="region">
+        <div class="model-expand-inner">
+          <div class="model-meta">
+            <div class="model-meta-cell">
+              <div class="meta-label">Commitment</div>
+              <div class="meta-value">3 mo min.</div>
+            </div>
+            <div class="model-meta-cell">
+              <div class="meta-label">Billing</div>
+              <div class="meta-value">Monthly</div>
+            </div>
+            <div class="model-meta-cell">
+              <div class="meta-label">Response</div>
+              <div class="meta-value">Priority</div>
+            </div>
+          </div>
+          <div class="model-expand-label">Includes</div>
+          <ul class="model-includes">
+            <li>Dedicated hours each month</li>
+            <li>Priority access and fast response</li>
+            <li>Strategy, design and production across projects</li>
+            <li>Monthly review and planning session</li>
+            <li>AI tool and workflow integration</li>
+          </ul>
+          <div class="model-addon">
+            <span class="model-addon-badge">Add-on</span>
+            <span class="model-addon-text">Full IP ownership of all deliverables — available as standard on retainer. Included from month 2 onwards or negotiable upfront.</span>
+          </div>
+          <a href="contact.html" class="model-cta" id="cta-retainer">Book a call →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Model 03 ── -->
+    <div class="model-card" id="card-3">
+      <div class="model-summary" role="button" tabindex="0" aria-expanded="false" aria-controls="expand-3">
+        <div class="model-num">03</div>
+        <h3 class="model-title">Productised Packages</h3>
+        <p class="model-tagline">Fast, fixed-scope packages for quick wins — prototypes, audits, workshops and smaller initiatives.</p>
+        <span class="model-best">Best for fast prototypes</span>
+        <div class="model-price-wrap">
+          <div class="model-price-label">Starting from</div>
+          <div class="model-price"><sup>£</sup>2,500</div>
+          <div class="model-price-note">1–3 week typical timeline</div>
+        </div>
+      </div>
+      <button class="model-toggle" onclick="toggleAll()" aria-expanded="false">
+        <span class="model-toggle-label">See what's included</span>
+        <span class="model-toggle-icon">+</span>
+      </button>
+      <div class="model-expand" id="expand-3" role="region">
+        <div class="model-expand-inner">
+          <div class="model-meta">
+            <div class="model-meta-cell">
+              <div class="meta-label">Timeline</div>
+              <div class="meta-value">1–3 wks</div>
+            </div>
+            <div class="model-meta-cell">
+              <div class="meta-label">Billing</div>
+              <div class="meta-value">Fixed fee</div>
+            </div>
+            <div class="model-meta-cell">
+              <div class="meta-label">Scope</div>
+              <div class="meta-value">Defined</div>
+            </div>
+          </div>
+          <div class="model-expand-label">Available packages</div>
+          <ul class="model-includes">
+            <li>Data audit sprint — £2,500</li>
+            <li>Visualisation prototype — £4,000</li>
+            <li>Workshop facilitation — £3,000</li>
+            <li>Strategy session + report — £3,500</li>
+            <li>Defined deliverable, fixed cost</li>
+            <li>Fast turnaround guaranteed</li>
+          </ul>
+          <a href="pricing.html" class="model-cta" id="cta-packages">See all packages →</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- WHICH MODEL IS RIGHT FOR YOU -->
+<section class="which-section fade-up" style="padding:100px 48px;border-bottom:1px solid rgba(255,255,255,0.08);">
+  <div class="which-intro">
+    <div>
+      <p class="section-label" style="color:rgba(255,255,255,0.3)">Decision Guide</p>
+      <h2 class="section-heading" style="color:var(--white)">Which model is<br>right for you?</h2>
+    </div>
+    <p class="which-desc">Not sure where to start? Match your situation to a model. Or just book a call — we'll tell you which one fits.</p>
+  </div>
+  <div class="which-table">
+    <div class="which-row header-row">
+      <div class="which-cell col-head">Your situation</div>
+      <div class="which-cell col-head">One-off</div>
+      <div class="which-cell col-head hl">Retainer</div>
+      <div class="which-cell col-head">Package</div>
+    </div>
+    <div class="which-row">
+      <div class="which-cell situation">You have a defined project with a clear outcome</div>
+      <div class="which-cell"><span class="which-recommended match">Best fit</span></div>
+      <div class="which-cell"><span class="which-recommended partial">Possible</span></div>
+      <div class="which-cell"><span class="which-recommended partial">If small scope</span></div>
+    </div>
+    <div class="which-row">
+      <div class="which-cell situation">You need ongoing data and AI support across multiple projects</div>
+      <div class="which-cell"><span class="which-recommended no">Not ideal</span></div>
+      <div class="which-cell"><span class="which-recommended match">Best fit</span></div>
+      <div class="which-cell"><span class="which-recommended no">Not ideal</span></div>
+    </div>
+    <div class="which-row">
+      <div class="which-cell situation">You want a fast, low-commitment starting point</div>
+      <div class="which-cell"><span class="which-recommended partial">Possible</span></div>
+      <div class="which-cell"><span class="which-recommended no">Not ideal</span></div>
+      <div class="which-cell"><span class="which-recommended match">Best fit</span></div>
+    </div>
+    <div class="which-row">
+      <div class="which-cell situation">You're working to a fixed budget with no flexibility</div>
+      <div class="which-cell"><span class="which-recommended match">Best fit</span></div>
+      <div class="which-cell"><span class="which-recommended no">Not ideal</span></div>
+      <div class="which-cell"><span class="which-recommended match">Best fit</span></div>
+    </div>
+    <div class="which-row">
+      <div class="which-cell situation">You want IP ownership of all deliverables</div>
+      <div class="which-cell"><span class="which-recommended partial">Add-on</span></div>
+      <div class="which-cell"><span class="which-recommended partial">Add-on</span></div>
+      <div class="which-cell"><span class="which-recommended partial">Add-on</span></div>
+    </div>
+    <div class="which-row">
+      <div class="which-cell situation">You need a data strategy before committing to build</div>
+      <div class="which-cell"><span class="which-recommended no">Not ideal</span></div>
+      <div class="which-cell"><span class="which-recommended match">Best fit</span></div>
+      <div class="which-cell"><span class="which-recommended match">Best fit</span></div>
+    </div>
+    <div class="which-row">
+      <div class="which-cell situation">You want a large-scale installation or campaign</div>
+      <div class="which-cell"><span class="which-recommended match">Best fit</span></div>
+      <div class="which-cell"><span class="which-recommended partial">Possible</span></div>
+      <div class="which-cell"><span class="which-recommended no">Too small</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section fade-up" id="faq">
+  <p class="section-label">Common Questions</p>
+  <h2 class="section-heading">Straight answers<br>to the questions<br>we always get.</h2>
+  <div class="faq-layout">
+    <div class="faq-sidebar">
+      <h3 class="faq-sidebar-title">Still not sure<br>where to <em>start?</em></h3>
+      <p class="faq-sidebar-body">If yours isn't here, send us a message. We respond to every enquiry within one business day.</p>
+      <a href="contact.html" class="btn-primary" id="faq-contact">Send a message</a>
+    </div>
+    <div class="faq-grid">
+      <div class="faq-item">
+        <h3 class="faq-q">Do you charge day rates?</h3>
+        <p class="faq-a">Never. We price around scope, not time. You know the total cost before we start — no surprises if something takes longer than expected.</p>
+      </div>
+      <div class="faq-item">
+        <h3 class="faq-q">How quickly can you start?</h3>
+        <p class="faq-a">Most projects begin within two weeks of sign-off. Productised packages can start within one week. Retainers typically start the following calendar month.</p>
+      </div>
+      <div class="faq-item">
+        <h3 class="faq-q">Can I try a small project before committing to a retainer?</h3>
+        <p class="faq-a">Yes — and we'd encourage it. Many of our longest retainer relationships began as a single data audit or prototype. It's the best way to see how we work.</p>
+      </div>
+      <div class="faq-item">
+        <h3 class="faq-q">What if my data is sensitive or confidential?</h3>
+        <p class="faq-a">We treat all client data as confidential by default. NDAs available on request. We never use client data for training AI models, ever.</p>
+      </div>
+      <div class="faq-item">
+        <h3 class="faq-q">Do you work with organisations outside the UK?</h3>
+        <p class="faq-a">Yes. We work globally and are remote-first. Pricing is in GBP but we invoice in other currencies. Time zones have never been an obstacle.</p>
+      </div>
+      <div class="faq-item">
+        <h3 class="faq-q">What if my project doesn't fit any model?</h3>
+        <p class="faq-a">Tell us about it. Some of our most interesting work comes from briefs that don't fit a standard category. If we can help, we'll say how. If we can't, we'll say so.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section fade-up">
+  <div>
+    <h2 class="cta-heading">Ready to scope<br>your first<br><em>project?</em></h2>
+  </div>
+  <div>
+    <p class="cta-body">Tell us about your data, your timeline, and what outcome you're working towards. We'll match you to the right model and return a tailored proposal within 48 hours.</p>
+    <div class="btn-group">
+      <a href="brief-builder.html" class="btn-primary" id="main-cta-quote">Get a Free Quote</a>
+      <a href="contact.html" class="btn-secondary" id="main-cta-call">Book a Call</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <img src="Media/NCSSTYlogo.png" alt="NECESSITY.INK" style="height:17px;width:auto;display:block;margin-bottom:16px;filter:brightness(0) invert(1);">
+      <p class="footer-tagline">AI, Strategy and Data Design<br>for Organisations Building<br>the Future.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Company</div>
+      <ul class="footer-links">
+        <li><a href="index.html">About</a></li>
+        <li><a href="contact.html">Keynotes</a></li>
+        <li><a href="contact.html">Careers</a></li>
+        <li><a href="contact.html">Partners</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Solutions</div>
+      <ul class="footer-links">
+        <li><a href="strategy.html">Strategy</a></li>
+        <li><a href="reporting.html">Reporting</a></li>
+        <li><a href="marketing.html">Marketing</a></li>
+        <li><a href="products.html">Products</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Pricing</div>
+      <ul class="footer-links">
+        <li><a href="pricing.html">Overview</a></li>
+        <li><a href="pricing.html#models">Fixed Packages</a></li>
+        <li><a href="pricing.html#models">Retainers</a></li>
+        <li><a href="pricing.html#models">Workshops</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Contact</div>
+      <ul class="footer-links">
+        <li><a href="contact.html">Book a Call</a></li>
+        <li><a href="mailto:hello@necessity.ink">Send an Email</a></li>
+        <li><a href="brief-builder.html">Brief Builder</a></li>
+        <li><a href="contact.html#visit">Visit Studio</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>hello@necessity.ink</span>
+    <span>© 2026 Necessity.ink — London</span>
+  </div>
+</footer>
+
+<script>
+(function() {
+// ─── TOGGLE ALL CARDS SIMULTANEOUSLY ───
+function toggleAll() {
+  const cards = document.querySelectorAll('.model-card');
+  // Determine current state based on first card
+  const allOpen = [...cards].every(c => c.classList.contains('open'));
+
+  cards.forEach(card => {
+    const label = card.querySelector('.model-toggle-label');
+    const icon = card.querySelector('.model-toggle-icon');
+    const btn = card.querySelector('.model-toggle');
+    const summary = card.querySelector('.model-summary');
+
+    if (allOpen) {
+      // Close all
+      card.classList.remove('open');
+      if (btn) btn.setAttribute('aria-expanded', 'false');
+      if (summary) summary.setAttribute('aria-expanded', 'false');
+      if (label) label.textContent = "See what's included";
+    } else {
+      // Open all
+      card.classList.add('open');
+      if (btn) btn.setAttribute('aria-expanded', 'true');
+      if (summary) summary.setAttribute('aria-expanded', 'true');
+      if (label) label.textContent = 'Hide details';
+    }
+  });
+}
+
+  // Model Summary Click
+  document.querySelectorAll('.model-summary').forEach(summary => {
+    summary.addEventListener('click', toggleAll);
+  });
+
+  // FAQ Toggles
+  document.querySelectorAll('.faq-question').forEach(q => {
+    q.addEventListener('click', () => {
+      const item = q.parentElement;
+      const isOpen = item.classList.contains('active');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+      if (!isOpen) item.classList.add('active');
+    });
+  });
+})();
+</script>
+<script src="js/main.js"></script>
+</body>
+</html>

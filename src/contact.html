@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — NECESSITY.INK</title>
+  <meta name="description"
+    content="Get in touch with NECESSITY.INK. Contact us, book a studio visit, or connect on social. London & Barcelona.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Syne:wght@400;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+  <style>
+    /* ─── HERO ─── */
+
+    /* ─── HERO ─── */
+    .hero {
+      padding: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-bottom: 1px solid var(--border);
+      min-height: 90vh;
+    }
+
+    .hero-left {
+      padding: 20vh 56px 80px 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      border-right: 1px solid var(--border);
+    }
+
+    .hero-eyebrow {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 32px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 28px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .hero-title {
+      font-family: var(--serif);
+      font-size: clamp(36px, 4.5vw, 64px);
+      font-weight: 400;
+      line-height: 1.0;
+      letter-spacing: -0.03em;
+      color: var(--white);
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: rgba(255, 255, 255, 0.3);
+    }
+
+    .hero-right {
+      padding: 80px 48px 80px 56px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    .hero-desc {
+      font-size: 18px;
+      line-height: 1.75;
+      color: rgba(255, 255, 255, 0.45);
+      max-width: 440px;
+      margin-bottom: 40px;
+    }
+
+    .hero-contact-info {
+      list-style: none;
+    }
+
+    .hero-contact-info li {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.04em;
+    }
+
+    .hero-contact-info li:first-child {
+      border-top: 1px solid var(--border);
+    }
+
+    .contact-label {
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-size: 10px;
+      min-width: 80px;
+    }
+
+    .contact-val {
+      color: var(--text);
+    }
+
+    .contact-val a {
+      color: var(--text);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .contact-val a:hover {
+      color: var(--accent);
+    }
+
+    /* ─── SECTION COMMON ─── */
+    section {
+      padding: 100px 48px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 48px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 28px;
+      height: 1px;
+      background: var(--border2);
+    }
+
+    .section-heading {
+      font-family: var(--serif);
+      font-size: clamp(30px, 3.5vw, 52px);
+      font-weight: 400;
+      line-height: 1.12;
+      letter-spacing: -0.015em;
+      color: var(--white);
+    }
+
+    /* ─── CONTACT FORM ─── */
+    .form-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+      margin-top: 64px;
+    }
+
+    .form-intro {
+      font-size: 17px;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    .form-intro p {
+      margin-bottom: 24px;
+    }
+
+    .form-intro .response-note {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .form-intro .response-note::before {
+      content: '';
+      display: block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid var(--border);
+      margin-top: -1px;
+      margin-left: -1px;
+      position: relative;
+      transition: border-color 0.2s;
+    }
+
+    .form-field:focus-within {
+      border-color: var(--accent);
+      z-index: 1;
+    }
+
+    .form-field label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 16px 20px 6px;
+      transition: color 0.2s;
+    }
+
+    .form-field:focus-within label {
+      color: var(--accent);
+    }
+
+    .form-field input,
+    .form-field select,
+    .form-field textarea {
+      background: transparent;
+      border: none;
+      outline: none;
+      font-family: var(--sans);
+      font-size: 15px;
+      color: var(--white);
+      padding: 0 20px 16px;
+      resize: none;
+    }
+
+    .form-field select {
+      cursor: pointer;
+    }
+
+    .form-field select option {
+      background: #1a1a1a;
+      color: var(--white);
+    }
+
+    .form-field textarea {
+      min-height: 140px;
+      padding-top: 8px;
+    }
+
+    .form-field.full {
+      grid-column: 1 / -1;
+    }
+
+    .form-submit {
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: var(--accent);
+      color: var(--white);
+      border: none;
+      padding: 18px 32px;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 0;
+      align-self: flex-start;
+      border: 1px solid var(--accent);
+      white-space: nowrap;
+    }
+
+    .form-submit:hover {
+      background: #c8141a;
+      border-color: #c8141a;
+    }
+
+    /* Form container - using grid for the field border trick */
+    .form-fields-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border: 1px solid var(--border);
+      margin-bottom: 0;
+    }
+
+    .form-field-inner {
+      display: flex;
+      flex-direction: column;
+      padding: 16px 20px;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.2s;
+      position: relative;
+    }
+
+    .form-field-inner:focus-within {
+      background: var(--surface2);
+    }
+
+    .form-field-inner:focus-within::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--accent);
+    }
+
+    .form-field-inner.full-row {
+      grid-column: 1 / -1;
+      border-right: none;
+    }
+
+    .form-field-inner:nth-child(even) {
+      border-right: none;
+    }
+
+    .field-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+      transition: color 0.2s;
+    }
+
+    .form-field-inner:focus-within .field-label {
+      color: var(--accent);
+    }
+
+    .field-input {
+      background: transparent;
+      border: none;
+      outline: none;
+      font-family: var(--sans);
+      font-size: 15px;
+      color: var(--white);
+      resize: none;
+      width: 100%;
+    }
+
+    .field-input::placeholder {
+      color: var(--muted);
+    }
+
+    .field-input option {
+      background: #1a1a1a;
+    }
+
+    .submit-row {
+      border: 1px solid var(--border);
+      border-top: none;
+      padding: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .submit-note {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+    }
+
+    /* ─── SOCIAL LINKS ─── */
+    .social-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-top: 1px solid var(--border);
+      border-left: 1px solid var(--border);
+      margin-top: 64px;
+    }
+
+    .social-card {
+      padding: 48px 36px;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      text-decoration: none;
+      display: block;
+      transition: background 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .social-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .social-card:hover {
+      background: var(--surface2);
+    }
+
+    .social-card:hover::after {
+      transform: scaleX(1);
+    }
+
+    .social-icon {
+      font-size: 28px;
+      margin-bottom: 20px;
+      display: block;
+      color: var(--border2);
+      transition: color 0.25s;
+    }
+
+    .social-card:hover .social-icon {
+      color: var(--accent);
+    }
+
+    .social-name {
+      font-family: var(--serif);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .social-handle {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      transition: color 0.25s;
+    }
+
+    .social-card:hover .social-handle {
+      color: var(--accent);
+    }
+
+    /* ─── STUDIO LOCATION ─── */
+    .location-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      align-items: stretch;
+      border-top: 1px solid var(--border);
+      border-left: 1px solid var(--border);
+      margin-top: 64px;
+    }
+
+    .location-map {
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+      min-height: 380px;
+    }
+
+    .location-map iframe {
+      width: 100%;
+      height: 100%;
+      min-height: 380px;
+      border: none;
+      display: block;
+      filter: invert(90%) hue-rotate(180deg) saturate(0.5);
+    }
+
+    .location-info {
+      padding: 56px 48px;
+      border-bottom: 1px solid var(--border);
+      border-right: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .location-tag {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: var(--accent);
+      color: var(--white);
+      padding: 4px 12px;
+      display: inline-block;
+      margin-bottom: 32px;
+      align-self: flex-start;
+    }
+
+    .location-name {
+      font-family: var(--serif);
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+
+    .location-detail {
+      font-size: 15px;
+      line-height: 1.8;
+      color: rgba(255, 255, 255, 0.45);
+      margin-bottom: 32px;
+    }
+
+    .location-note {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      padding-top: 20px;
+    }
+
+    .location-note a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .location-note a:hover {
+      text-decoration: underline;
+    }
+
+    /* ─── BOOK A VISIT ─── */
+    .booking-section {
+      background: var(--surface);
+    }
+
+    .booking-layout {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 80px;
+      align-items: start;
+      margin-top: 64px;
+    }
+
+    .booking-intro {}
+
+    .booking-title {
+      font-family: var(--serif);
+      font-size: 26px;
+      font-weight: 400;
+      color: var(--white);
+      margin-bottom: 16px;
+      line-height: 1.3;
+    }
+
+    .booking-title em {
+      font-style: italic;
+      color: rgba(255, 255, 255, 0.35);
+    }
+
+    .booking-body {
+      font-size: 15px;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.4);
+      margin-bottom: 28px;
+    }
+
+    .booking-details {
+      list-style: none;
+    }
+
+    .booking-details li {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .booking-details li::before {
+      content: '→';
+      color: var(--accent);
+    }
+
+    .calendly-placeholder {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      min-height: 500px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 20px;
+      text-align: center;
+      padding: 48px;
+    }
+
+    .cal-icon {
+      width: 64px;
+      height: 64px;
+      border: 1px solid var(--border2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .cal-title {
+      font-family: var(--serif);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .cal-body {
+      font-size: 13px;
+      color: var(--muted);
+      max-width: 280px;
+      line-height: 1.6;
+    }
+
+    .cal-cta {
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: var(--accent);
+      color: var(--white);
+      border: none;
+      padding: 14px 24px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s;
+      display: inline-block;
+      margin-top: 12px;
+    }
+
+    .cal-cta:hover {
+      background: #c8141a;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 64px 48px 40px;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 40px;
+    }
+
+    .footer-logo {
+      height: 17px;
+      width: auto;
+      display: block;
+      margin-bottom: 16px;
+    }
+
+    .footer-tagline {
+      font-size: 13px;
+      line-height: 1.65;
+      color: rgba(255, 255, 255, 0.3);
+    }
+
+    .footer-col-title {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.25);
+      margin-bottom: 18px;
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 10px;
+    }
+
+    .footer-links a {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.4);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--white);
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      color: rgba(255, 255, 255, 0.2);
+    }
+
+    /* ─── FADE IN ─── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.75s ease, transform 0.75s ease;
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      nav {
+        padding: 0 24px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+
+      .hero-left {
+        border-right: none;
+        padding: 100px 24px 40px;
+      }
+
+      .hero-right {
+        padding: 40px 24px 64px;
+      }
+
+      section {
+        padding: 64px 24px;
+      }
+
+      .form-layout,
+      .booking-layout {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .social-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .location-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-top {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .location-info {
+        padding: 40px 24px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <img src="Media/NCSSTYlogo.png" alt="NECESSITY.INK" style="filter:brightness(0) invert(1);">
+    </a>
+    <ul class="nav-links">
+      <li><a href="strategy.html">Strategy</a></li>
+      <li><a href="reporting.html">Reporting</a></li>
+      <li><a href="marketing.html">Marketing</a></li>
+      <li><a href="products.html">Products</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+    </ul>
+    <a href="brief-builder.html" class="nav-cta" id="nav-cta-brief">Get a free quote</a>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero fade-up">
+    <div class="hero-left">
+      <p class="hero-eyebrow">Get in touch</p>
+      <h1 class="hero-title">Let's<br>talk<em>.</em></h1>
+    </div>
+    <div class="hero-right">
+      <p class="hero-desc">Whether you have a defined project, a half-formed idea, or just want to know if we'd be the
+        right fit — we respond to every enquiry within one business day.</p>
+      <ul class="hero-contact-info">
+        <li>
+          <span class="contact-label">Email</span>
+          <span class="contact-val"><a href="mailto:hello@necessity.ink">hello@necessity.ink</a></span>
+        </li>
+        <li>
+          <span class="contact-label">Studio</span>
+          <span class="contact-val">London & Barcelona</span>
+        </li>
+        <li>
+          <span class="contact-label">Response</span>
+          <span class="contact-val">Within 1 business day</span>
+        </li>
+        <li>
+          <span class="contact-label">Instagram</span>
+          <span class="contact-val"><a href="https://www.instagram.com/necessity.ink"
+              target="_blank">@necessity.ink</a></span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- CONTACT FORM -->
+  <section class="fade-up" id="form">
+    <p class="section-label">Send a message</p>
+    <div class="form-layout">
+      <div>
+        <h2 class="section-heading" style="margin-bottom:32px">Tell us what<br>you're working on.</h2>
+        <div class="form-intro">
+          <p>A focused message gets a better answer. Tell us your timeline, your data, and what outcome you're chasing.
+            We'll come back with a proper, tailored response — not a template.</p>
+          <p class="response-note">Typically within 24 hours</p>
+        </div>
+      </div>
+      <div>
+        <form class="contact-form" id="contactForm" action="mailto:hello@necessity.ink" method="post"
+          enctype="text/plain">
+          <div class="form-fields-grid">
+            <div class="form-field-inner">
+              <label class="field-label" for="contact-name">Full name</label>
+              <input class="field-input" type="text" id="contact-name" name="name" placeholder="Your name" required>
+            </div>
+            <div class="form-field-inner">
+              <label class="field-label" for="contact-company">Company / Organisation</label>
+              <input class="field-input" type="text" id="contact-company" name="company" placeholder="Where you work">
+            </div>
+            <div class="form-field-inner">
+              <label class="field-label" for="contact-email">Email address</label>
+              <input class="field-input" type="email" id="contact-email" name="email" placeholder="your@email.com"
+                required>
+            </div>
+            <div class="form-field-inner">
+              <label class="field-label" for="contact-budget">Budget range</label>
+              <select class="field-input" id="contact-budget" name="budget">
+                <option value="" disabled selected>Select a range</option>
+                <option value="under5k">Under £5,000</option>
+                <option value="5-15k">£5,000 – £15,000</option>
+                <option value="15-30k">£15,000 – £30,000</option>
+                <option value="30-50k">£30,000 – £50,000</option>
+                <option value="50k+">£50,000+</option>
+                <option value="retainer">Ongoing retainer</option>
+                <option value="unknown">Not sure yet</option>
+              </select>
+            </div>
+            <div class="form-field-inner">
+              <label class="field-label" for="contact-service">Type of work</label>
+              <select class="field-input" id="contact-service" name="service">
+                <option value="" disabled selected>Select a service</option>
+                <option value="strategy">Strategy & AI</option>
+                <option value="reporting">Data Reporting</option>
+                <option value="marketing">Marketing & Campaigns</option>
+                <option value="products">Products & Tools</option>
+                <option value="installation">Installation</option>
+                <option value="sonic">Sonic Identity</option>
+                <option value="other">Something else</option>
+              </select>
+            </div>
+            <div class="form-field-inner">
+              <label class="field-label" for="contact-timeline">Timeline</label>
+              <select class="field-input" id="contact-timeline" name="timeline">
+                <option value="" disabled selected>When do you need it?</option>
+                <option value="asap">ASAP</option>
+                <option value="1-3months">1–3 months</option>
+                <option value="3-6months">3–6 months</option>
+                <option value="6months+">6+ months</option>
+                <option value="ongoing">Ongoing / no deadline</option>
+              </select>
+            </div>
+            <div class="form-field-inner full-row">
+              <label class="field-label" for="contact-message">Your message</label>
+              <textarea class="field-input" id="contact-message" name="message"
+                placeholder="Tell us about your project, your data, and what outcome you're working towards…" rows="6"
+                required></textarea>
+            </div>
+          </div>
+          <div class="submit-row">
+            <span class="submit-note">We respond within 1 business day <br>No day rates · No vague proposals</span>
+            <button type="submit" class="form-submit" id="contact-submit">Send message →</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOCIAL LINKS -->
+  <section class="fade-up" id="social">
+    <p class="section-label">Follow the work</p>
+    <h2 class="section-heading" style="margin-bottom:0">Stay in the loop.</h2>
+    <div class="social-grid">
+      <a href="https://www.instagram.com/necessity.ink" target="_blank" class="social-card" id="social-instagram">
+        <span class="social-icon">◎</span>
+        <div class="social-name">Instagram</div>
+        <div class="social-handle">@necessity.ink</div>
+      </a>
+      <a href="https://www.linkedin.com/company/necessity-ink" target="_blank" class="social-card" id="social-linkedin">
+        <span class="social-icon">▣</span>
+        <div class="social-name">LinkedIn</div>
+        <div class="social-handle">necessity-ink</div>
+      </a>
+      <a href="mailto:hello@necessity.ink" class="social-card" id="social-email">
+        <span class="social-icon">✉</span>
+        <div class="social-name">Email</div>
+        <div class="social-handle">hello@necessity.ink</div>
+      </a>
+      <a href="https://necessity.ink" target="_blank" class="social-card" id="social-website">
+        <span class="social-icon">◈</span>
+        <div class="social-name">Portfolio</div>
+        <div class="social-handle">necessity.ink</div>
+      </a>
+    </div>
+  </section>
+
+  <!-- STUDIO LOCATION -->
+  <section class="fade-up" id="visit">
+    <p class="section-label">Where we are</p>
+    <h2 class="section-heading">Visit the studio.</h2>
+    <div class="location-layout">
+      <div class="location-map">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d158858.47340002653!2d-0.24168120642536574!3d51.52855824164916!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47d8a00baf21de75%3A0x52963a5addd52a99!2sLondon%2C%20UK!5e0!3m2!1sen!2str!4v1735000000000!5m2!1sen!2str"
+          allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          title="NECESSITY.INK Studio Location"></iframe>
+      </div>
+      <div class="location-info">
+        <div>
+          <span class="location-tag">By Appointment</span>
+          <h3 class="location-name">London Studio</h3>
+          <p class="location-detail">
+            Studio visits are available by appointment.<br>
+            We're based in London with a second base in Barcelona.<br><br>
+            We speak five languages and work across all timezones.
+          </p>
+        </div>
+        <div class="location-note">
+          Studio visits are by appointment only. Email us first or book directly below.<br>
+          <a href="https://maps.app.goo.gl/52rgSUZVWYiynYbq5" target="_blank">Open in Google Maps →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOOK A VISIT -->
+  <section class="booking-section fade-up" id="book">
+    <p class="section-label">Studio visits</p>
+    <div class="booking-layout">
+      <div class="booking-intro">
+        <h2 class="booking-title">Book a<br><em>studio visit.</em></h2>
+        <p class="booking-body">Come and see our work in person, discuss your project face to face, or simply learn more
+          about how we could collaborate. Studio visits last approximately 60 minutes.</p>
+        <ul class="booking-details">
+          <li>Available Monday — Friday</li>
+          <li>London studio, by appointment</li>
+          <li>60 minute sessions</li>
+          <li>Bring your data if you have it</li>
+          <li>No agency formalisms required</li>
+        </ul>
+      </div>
+      <div class="calendly-placeholder" id="booking-calendar">
+        <div class="cal-icon">📅</div>
+        <h3 class="cal-title">Studio Visit Booking</h3>
+        <p class="cal-body">Select a date and time that works for you. We'll confirm within a few hours.</p>
+        <a href="mailto:hello@necessity.ink?subject=Studio%20Visit%20Request" class="cal-cta" id="cal-book-btn">Request
+          a visit →</a>
+        <p style="font-family:var(--mono);font-size:10px;color:var(--muted);margin-top:12px;letter-spacing:0.06em">
+          CALENDAR BOOKING COMING SOON</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-top">
+      <div>
+        <img src="Media/NCSSTYlogo.png" alt="NECESSITY.INK" class="footer-logo" style="filter:brightness(0) invert(1);">
+        <p class="footer-tagline">AI, Strategy and Data Design<br>for Organisations Building<br>the Future. London &
+          Barcelona.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Solutions</div>
+        <ul class="footer-links">
+          <li><a href="strategy.html">Strategy</a></li>
+          <li><a href="reporting.html">Reporting</a></li>
+          <li><a href="marketing.html">Marketing</a></li>
+          <li><a href="products.html">Products</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Pricing</div>
+        <ul class="footer-links">
+          <li><a href="pricing.html">Overview</a></li>
+          <li><a href="pricing.html#models">Engagement Models</a></li>
+          <li><a href="pricing.html#faq">FAQs</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Start</div>
+        <ul class="footer-links">
+          <li><a href="brief-builder.html">Brief Builder</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="contact.html#visit">Visit Studio</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Follow</div>
+        <ul class="footer-links">
+          <li><a href="https://www.instagram.com/necessity.ink" target="_blank">Instagram</a></li>
+          <li><a href="https://www.linkedin.com/company/necessity-ink" target="_blank">LinkedIn</a></li>
+          <li><a href="mailto:hello@necessity.ink">Email us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>hello@necessity.ink</span>
+      <span>© 2026 Necessity.ink — London & Barcelona</span>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+
+</html>
