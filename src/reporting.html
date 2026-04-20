@@ -129,13 +129,13 @@
     gap: 6px; height: 80px; margin-top: 12px;
   }
   .bar {
-    flex: 1; background: rgba(231,25,31,0.15);
-    border-top: 2px solid rgba(231,25,31,0.4);
+    flex: 1; background: rgba(232,248,0,0.15);
+    border-top: 2px solid rgba(232,248,0,0.4);
     transition: background 0.3s;
     position: relative;
   }
-  .bar:hover { background: rgba(231,25,31,0.3); }
-  .bar.active { background: rgba(231,25,31,0.35); border-top-color: var(--accent); }
+  .bar:hover { background: rgba(232,248,0,0.3); }
+  .bar.active { background: rgba(232,248,0,0.35); border-top-color: var(--accent); }
 
   /* Sparkline SVG */
   .sparkline { width: 100%; height: 60px; margin-top: 12px; }
@@ -422,7 +422,7 @@
   .who-tag {
     font-family: var(--mono); font-size: 10px;
     letter-spacing: 0.12em; text-transform: uppercase;
-    background: var(--accent); color: var(--white);
+    background: var(--accent); color: var(--ink);
     padding: 4px 10px; display: inline-block; margin-bottom: 24px;
   }
   .who-title {
@@ -561,11 +561,11 @@
   .btn-primary {
     font-family: var(--mono); font-size: 12px;
     letter-spacing: 0.06em; text-transform: uppercase;
-    background: var(--accent); color: var(--white);
+    background: var(--accent); color: var(--ink);
     border: none; padding: 16px 28px; cursor: pointer;
     text-decoration: none; transition: background 0.2s; display: inline-block;
   }
-  .btn-primary:hover { background: #c8141a; }
+  .btn-primary:hover { background: #cddc00; }
   .btn-secondary {
     font-family: var(--mono); font-size: 12px;
     letter-spacing: 0.06em; text-transform: uppercase;
@@ -695,13 +695,13 @@
         <svg class="sparkline" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <linearGradient id="sg" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#e7191f" stop-opacity="0.3"/>
-              <stop offset="100%" stop-color="#e7191f" stop-opacity="0"/>
+              <stop offset="0%" stop-color="#e8f800" stop-opacity="0.3"/>
+              <stop offset="100%" stop-color="#e8f800" stop-opacity="0"/>
             </linearGradient>
           </defs>
-          <path d="M0,45 L20,40 L40,42 L60,35 L80,30 L100,28 L120,22 L140,18 L160,15 L180,10 L200,8" fill="none" stroke="#e7191f" stroke-width="1.5" opacity="0.7"/>
+          <path d="M0,45 L20,40 L40,42 L60,35 L80,30 L100,28 L120,22 L140,18 L160,15 L180,10 L200,8" fill="none" stroke="#e8f800" stroke-width="1.5" opacity="0.7"/>
           <path d="M0,45 L20,40 L40,42 L60,35 L80,30 L100,28 L120,22 L140,18 L160,15 L180,10 L200,8 L200,60 L0,60Z" fill="url(#sg)"/>
-          <circle cx="200" cy="8" r="3" fill="#e7191f"/>
+          <circle cx="200" cy="8" r="3" fill="#e8f800"/>
         </svg>
       </div>
 
@@ -712,14 +712,14 @@
         <div class="donut-wrap">
           <svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
             <circle cx="32" cy="32" r="24" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="12"/>
-            <circle cx="32" cy="32" r="24" fill="none" stroke="#e7191f" stroke-width="12" stroke-dasharray="90 151" stroke-dashoffset="38" opacity="0.9"/>
-            <circle cx="32" cy="32" r="24" fill="none" stroke="rgba(231,25,31,0.35)" stroke-width="12" stroke-dasharray="55 151" stroke-dashoffset="-52"/>
-            <circle cx="32" cy="32" r="24" fill="none" stroke="rgba(231,25,31,0.15)" stroke-width="12" stroke-dasharray="36 151" stroke-dashoffset="-107"/>
+            <circle cx="32" cy="32" r="24" fill="none" stroke="#e8f800" stroke-width="12" stroke-dasharray="90 151" stroke-dashoffset="38" opacity="0.9"/>
+            <circle cx="32" cy="32" r="24" fill="none" stroke="rgba(232,248,0,0.35)" stroke-width="12" stroke-dasharray="55 151" stroke-dashoffset="-52"/>
+            <circle cx="32" cy="32" r="24" fill="none" stroke="rgba(232,248,0,0.15)" stroke-width="12" stroke-dasharray="36 151" stroke-dashoffset="-107"/>
           </svg>
           <div class="donut-legend">
-            <div class="legend-item"><span class="legend-dot" style="background:#e7191f"></span>Europe 59%</div>
-            <div class="legend-item"><span class="legend-dot" style="background:rgba(231,25,31,0.45)"></span>Americas 36%</div>
-            <div class="legend-item"><span class="legend-dot" style="background:rgba(231,25,31,0.2)"></span>APAC 24%</div>
+            <div class="legend-item"><span class="legend-dot" style="background:#e8f800"></span>Europe 59%</div>
+            <div class="legend-item"><span class="legend-dot" style="background:rgba(232,248,0,0.45)"></span>Americas 36%</div>
+            <div class="legend-item"><span class="legend-dot" style="background:rgba(232,248,0,0.2)"></span>APAC 24%</div>
           </div>
         </div>
       </div>
@@ -850,17 +850,17 @@
         <text x="36" y="60" font-family="serif" font-size="18" font-weight="700" fill="white">84,271</text>
         <rect x="176" y="24" width="140" height="48" fill="#1a1a1a"/>
         <text x="188" y="42" font-family="monospace" font-size="8" fill="rgba(255,255,255,0.3)" letter-spacing="1">RATE</text>
-        <text x="188" y="60" font-family="serif" font-size="18" font-weight="700" fill="#e7191f">73.6%</text>
+        <text x="188" y="60" font-family="serif" font-size="18" font-weight="700" fill="#e8f800">73.6%</text>
         <rect x="328" y="24" width="168" height="48" fill="#1a1a1a"/>
         <text x="340" y="42" font-family="monospace" font-size="8" fill="rgba(255,255,255,0.3)" letter-spacing="1">REGIONS</text>
         <text x="340" y="60" font-family="serif" font-size="18" font-weight="700" fill="white">14</text>
         <!-- area chart -->
-        <path d="M24,290 C80,265 120,270 170,240 C220,210 260,195 320,175 C370,158 420,140 496,110" fill="none" stroke="#e7191f" stroke-width="2" opacity="0.8"/>
-        <path d="M24,290 C80,265 120,270 170,240 C220,210 260,195 320,175 C370,158 420,140 496,110 L496,320 L24,320Z" fill="rgba(231,25,31,0.06)"/>
+        <path d="M24,290 C80,265 120,270 170,240 C220,210 260,195 320,175 C370,158 420,140 496,110" fill="none" stroke="#e8f800" stroke-width="2" opacity="0.8"/>
+        <path d="M24,290 C80,265 120,270 170,240 C220,210 260,195 320,175 C370,158 420,140 496,110 L496,320 L24,320Z" fill="rgba(232,248,0,0.06)"/>
         <!-- data points -->
-        <circle cx="170" cy="240" r="3" fill="#e7191f" opacity="0.7"/>
-        <circle cx="320" cy="175" r="3" fill="#e7191f" opacity="0.7"/>
-        <circle cx="496" cy="110" r="4" fill="#e7191f"/>
+        <circle cx="170" cy="240" r="3" fill="#e8f800" opacity="0.7"/>
+        <circle cx="320" cy="175" r="3" fill="#e8f800" opacity="0.7"/>
+        <circle cx="496" cy="110" r="4" fill="#e8f800"/>
         <!-- label -->
         <text x="24" y="108" font-family="monospace" font-size="8" fill="rgba(255,255,255,0.2)" letter-spacing="1">TREND — ALL CHANNELS</text>
       </svg>
@@ -907,15 +907,15 @@
               <div class="vis-rbar" style="height:70%"></div>
               <div class="vis-rbar" style="height:60%"></div>
               <div class="vis-rbar" style="height:85%"></div>
-              <div class="vis-rbar" style="height:100%; border-top-color: #e7191f; background: rgba(231,25,31,0.12)"></div>
+              <div class="vis-rbar" style="height:100%; border-top-color: #e8f800; background: rgba(232,248,0,0.12)"></div>
             </div>
           </div>
           <div class="vis-report-col">
             <div style="background:#0a0a0a; height:100%; display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;">
               <svg width="140" height="140" viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="70" cy="70" r="55" fill="none" stroke="#e8e4de" stroke-width="16"/>
-                <circle cx="70" cy="70" r="55" fill="none" stroke="#e7191f" stroke-width="16" stroke-dasharray="180 346" stroke-dashoffset="69" opacity="0.9"/>
-                <circle cx="70" cy="70" r="55" fill="none" stroke="rgba(231,25,31,0.3)" stroke-width="16" stroke-dasharray="100 346" stroke-dashoffset="-111"/>
+                <circle cx="70" cy="70" r="55" fill="none" stroke="#e8f800" stroke-width="16" stroke-dasharray="180 346" stroke-dashoffset="69" opacity="0.9"/>
+                <circle cx="70" cy="70" r="55" fill="none" stroke="rgba(232,248,0,0.3)" stroke-width="16" stroke-dasharray="100 346" stroke-dashoffset="-111"/>
                 <circle cx="70" cy="70" r="55" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="16" stroke-dasharray="66 346" stroke-dashoffset="-211"/>
                 <text x="70" y="66" text-anchor="middle" font-family="serif" font-size="20" font-weight="700" fill="white">52%</text>
                 <text x="70" y="82" text-anchor="middle" font-family="monospace" font-size="7" fill="rgba(255,255,255,0.35)" letter-spacing="1">KEY METRIC</text>
@@ -948,7 +948,7 @@
       <svg width="100%" height="100%" viewBox="0 0 520 360" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0">
         <rect width="520" height="360" fill="#0a0a0a"/>
         <!-- Filter controls -->
-        <rect x="24" y="24" width="80" height="24" fill="#e7191f"/>
+        <rect x="24" y="24" width="80" height="24" fill="#e8f800"/>
         <text x="64" y="40" text-anchor="middle" font-family="monospace" font-size="8" fill="#0a0a0a" letter-spacing="1">ALL</text>
         <rect x="112" y="24" width="80" height="24" fill="#1a1a1a"/>
         <text x="152" y="40" text-anchor="middle" font-family="monospace" font-size="8" fill="rgba(255,255,255,0.4)" letter-spacing="1">EUROPE</text>
@@ -957,19 +957,19 @@
         <rect x="288" y="24" width="80" height="24" fill="#1a1a1a"/>
         <text x="328" y="40" text-anchor="middle" font-family="monospace" font-size="8" fill="rgba(255,255,255,0.4)" letter-spacing="1">APAC</text>
         <!-- Scatter plot -->
-        <circle cx="120" cy="200" r="18" fill="rgba(231,25,31,0.2)" stroke="#e7191f" stroke-width="1" opacity="0.9"/>
-        <circle cx="200" cy="150" r="28" fill="rgba(231,25,31,0.15)" stroke="#e7191f" stroke-width="1" opacity="0.8"/>
-        <circle cx="290" cy="220" r="12" fill="rgba(231,25,31,0.2)" stroke="#e7191f" stroke-width="1" opacity="0.7"/>
-        <circle cx="360" cy="140" r="36" fill="rgba(231,25,31,0.12)" stroke="#e7191f" stroke-width="1.5" opacity="0.9"/>
-        <circle cx="440" cy="180" r="20" fill="rgba(231,25,31,0.18)" stroke="#e7191f" stroke-width="1" opacity="0.75"/>
-        <circle cx="160" cy="270" r="8" fill="rgba(231,25,31,0.2)" stroke="#e7191f" stroke-width="1" opacity="0.6"/>
-        <circle cx="410" cy="270" r="14" fill="rgba(231,25,31,0.15)" stroke="#e7191f" stroke-width="1" opacity="0.7"/>
+        <circle cx="120" cy="200" r="18" fill="rgba(232,248,0,0.2)" stroke="#e8f800" stroke-width="1" opacity="0.9"/>
+        <circle cx="200" cy="150" r="28" fill="rgba(232,248,0,0.15)" stroke="#e8f800" stroke-width="1" opacity="0.8"/>
+        <circle cx="290" cy="220" r="12" fill="rgba(232,248,0,0.2)" stroke="#e8f800" stroke-width="1" opacity="0.7"/>
+        <circle cx="360" cy="140" r="36" fill="rgba(232,248,0,0.12)" stroke="#e8f800" stroke-width="1.5" opacity="0.9"/>
+        <circle cx="440" cy="180" r="20" fill="rgba(232,248,0,0.18)" stroke="#e8f800" stroke-width="1" opacity="0.75"/>
+        <circle cx="160" cy="270" r="8" fill="rgba(232,248,0,0.2)" stroke="#e8f800" stroke-width="1" opacity="0.6"/>
+        <circle cx="410" cy="270" r="14" fill="rgba(232,248,0,0.15)" stroke="#e8f800" stroke-width="1" opacity="0.7"/>
         <!-- Tooltip -->
-        <rect x="340" y="80" width="130" height="50" fill="#1a1a1a" stroke="rgba(231,25,31,0.4)" stroke-width="1"/>
+        <rect x="340" y="80" width="130" height="50" fill="#1a1a1a" stroke="rgba(232,248,0,0.4)" stroke-width="1"/>
         <text x="352" y="98" font-family="monospace" font-size="8" fill="rgba(255,255,255,0.4)" letter-spacing="1">REGION 04</text>
         <text x="352" y="114" font-family="serif" font-size="14" font-weight="700" fill="white">36,190</text>
-        <text x="352" y="124" font-family="monospace" font-size="7" fill="#e7191f">↑ 18.2%</text>
-        <line x1="360" y1="130" x2="360" y2="140" stroke="rgba(231,25,31,0.4)" stroke-width="1"/>
+        <text x="352" y="124" font-family="monospace" font-size="7" fill="#e8f800">↑ 18.2%</text>
+        <line x1="360" y1="130" x2="360" y2="140" stroke="rgba(232,248,0,0.4)" stroke-width="1"/>
         <!-- Axes -->
         <line x1="80" y1="90" x2="80" y2="310" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
         <line x1="80" y1="310" x2="490" y2="310" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
@@ -1252,7 +1252,7 @@
     const cell = document.createElement('div');
     cell.className = 'heatmap-cell';
     const alpha = 0.08 + val * 0.5;
-    cell.style.background = `rgba(231,25,31,${alpha})`;
+    cell.style.background = `rgba(232,248,0,${alpha})`;
     cell.style.animationDelay = (i * 15) + 'ms';
     cell.style.animationDuration = '0.4s';
     cell.style.opacity = alpha;
@@ -1263,12 +1263,12 @@
   const caseBars = document.getElementById('caseBars');
   if (caseBars) {
     const caseData = [
-      {h:72,c:'rgba(231,25,31,0.5)'},{h:45,c:'rgba(231,25,31,0.4)'},
-      {h:88,c:'rgba(231,25,31,0.6)'},{h:60,c:'rgba(231,25,31,0.4)'},
-      {h:55,c:'rgba(231,25,31,0.4)'},{h:38,c:'rgba(231,25,31,0.3)'},
-      {h:70,c:'rgba(231,25,31,0.5)'},{h:48,c:'rgba(231,25,31,0.4)'},
-      {h:65,c:'rgba(231,25,31,0.45)'},{h:100,c:'#e7191f'},
-      {h:42,c:'rgba(231,25,31,0.35)'},{h:58,c:'rgba(231,25,31,0.4)'}
+      {h:72,c:'rgba(232,248,0,0.5)'},{h:45,c:'rgba(232,248,0,0.4)'},
+      {h:88,c:'rgba(232,248,0,0.6)'},{h:60,c:'rgba(232,248,0,0.4)'},
+      {h:55,c:'rgba(232,248,0,0.4)'},{h:38,c:'rgba(232,248,0,0.3)'},
+      {h:70,c:'rgba(232,248,0,0.5)'},{h:48,c:'rgba(232,248,0,0.4)'},
+      {h:65,c:'rgba(232,248,0,0.45)'},{h:100,c:'#e8f800'},
+      {h:42,c:'rgba(232,248,0,0.35)'},{h:58,c:'rgba(232,248,0,0.4)'}
     ];
     caseData.forEach((d, i) => {
       const bar = document.createElement('div');

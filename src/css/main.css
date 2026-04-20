@@ -11,8 +11,8 @@
   --text: #d8d4cb;
   --text-dim: #6a6660;
   --white: #ffffff;
-  --accent: #e7191f;
-  --accent-dim: rgba(231,25,31,0.1);
+  --accent: #e8f800;
+  --accent-dim: rgba(232,248,0,0.1);
   --ink: #080808;
   
   --serif: 'SolferinoText', Georgia, serif;
@@ -57,11 +57,11 @@ nav {
 .nav-links a:hover, .nav-links a.active { color: var(--white); }
 .nav-cta {
   font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em;
-  text-transform: uppercase; background: var(--accent); color: var(--white);
+  text-transform: uppercase; background: var(--accent); color: var(--ink);
   border: none; padding: 10px 20px; cursor: pointer;
   text-decoration: none; transition: background 0.2s, opacity 0.2s; display: inline-block;
 }
-.nav-cta:hover { background: #c8141a; }
+.nav-cta:hover { background: #cddc00; }
 
 /* ─── SHARED FOOTER (Unified) ─── */
 footer { background: var(--surface); border-top: 1px solid var(--border); padding: 64px 48px 40px; }

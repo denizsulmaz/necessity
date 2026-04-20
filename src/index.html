@@ -67,11 +67,11 @@
   .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 64px; }
   .btn-primary {
     font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em;
-    text-transform: uppercase; background: var(--accent); color: var(--white);
+    text-transform: uppercase; background: var(--accent); color: var(--ink);
     border: none; padding: 16px 28px; cursor: pointer;
     text-decoration: none; transition: background 0.2s; display: inline-block;
   }
-  .btn-primary:hover { background: #c8141a; }
+  .btn-primary:hover { background: #cddc00; }
   .btn-secondary {
     font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em;
     text-transform: uppercase; background: transparent; color: var(--text);
@@ -115,7 +115,7 @@
   .ticker-inner span {
     font-family: var(--mono); font-size: 10px;
     letter-spacing: 0.12em; text-transform: uppercase;
-    color: var(--white); padding: 0 32px;
+    color: var(--ink); padding: 0 32px;
   }
   .ticker-inner span::after { content: '·'; margin-left: 32px; opacity: 0.5; }
   @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
@@ -344,17 +344,17 @@
     letter-spacing: 0.1em; color: var(--muted);
     margin-bottom: 32px;
   }
-  .path-card.featured .path-num { color: rgba(255,255,255,0.5); }
+  .path-card.featured .path-num { color: rgba(8,8,8,0.5); }
   .path-title {
     font-family: var(--serif); font-size: 32px; font-weight: 700;
     margin-bottom: 16px; line-height: 1.15; color: var(--white);
   }
-  .path-card.featured .path-title { color: var(--white); }
+  .path-card.featured .path-title { color: var(--ink); }
   .path-body {
     font-size: 15px; line-height: 1.7; color: var(--muted);
     max-width: 380px; margin-bottom: 40px; flex: 1;
   }
-  .path-card.featured .path-body { color: rgba(255,255,255,0.75); }
+  .path-card.featured .path-body { color: rgba(8,8,8,0.75); }
   .path-link {
     font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em;
     text-transform: uppercase; text-decoration: none;
@@ -364,9 +364,9 @@
   }
   .path-link:hover { border-color: var(--white); }
   .path-card.featured .path-link {
-    background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.3);
+    background: rgba(8,8,8,0.15); border-color: rgba(8,8,8,0.3); color: var(--ink);
   }
-  .path-card.featured .path-link:hover { background: rgba(255,255,255,0.25); }
+  .path-card.featured .path-link:hover { background: rgba(8,8,8,0.25); }
 
   /* ─── PRICING SNAPSHOT ─── */
   .pricing-intro {
@@ -836,8 +836,13 @@
   const ctx = canvas.getContext('2d');
   let w, h, dots = [];
   function resize() {
-    w = canvas.width = panel.offsetWidth;
-    h = canvas.height = panel.offsetHeight;
+    const dpr = window.devicePixelRatio || 1;
+    w = panel.offsetWidth;
+    h = panel.offsetHeight;
+    canvas.width = w * dpr;
+    canvas.height = h * dpr;
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.scale(dpr, dpr);
   }
   resize();
   window.addEventListener('resize', resize);
@@ -858,7 +863,7 @@
       d.y = (d.y + d.vy + 1) % 1;
       ctx.beginPath();
       ctx.arc(d.x * w, d.y * h, d.r, 0, Math.PI * 2);
-      ctx.fillStyle = '#e7191f';
+      ctx.fillStyle = '#e8f800';
       ctx.fill();
     });
     // draw connections
@@ -871,7 +876,7 @@
           ctx.beginPath();
           ctx.moveTo(dots[i].x * w, dots[i].y * h);
           ctx.lineTo(dots[j].x * w, dots[j].y * h);
-          ctx.strokeStyle = `rgba(231,25,31,${0.25 * (1 - dist/120)})`;
+          ctx.strokeStyle = `rgba(232,248,0,${0.25 * (1 - dist/120)})`;
           ctx.lineWidth = 0.5;
           ctx.stroke();
         }

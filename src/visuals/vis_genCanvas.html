@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>genCanvas Embed</title>
+<style>
+  body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: #080808; overflow: hidden; font-family: monospace; }
+  
+</style>
+</head>
+<body>
+<div style="width:100%; height:100%; position:relative;"><canvas id="genCanvas" style="position:absolute; inset:0; width:100%; height:100%; display:block;"></canvas></div>
+<script>
+(function() {
+const canvas = document.getElementById('genCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let W, H, particles = [], t = 0;
+
+  function resize() {
+    const dpr = window.devicePixelRatio || 1;
+    W = canvas.offsetWidth;
+    H = canvas.offsetHeight;
+    canvas.width = W * dpr;
+    canvas.height = H * dpr;
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.scale(dpr, dpr);
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  // Data-flow particles
+  class Particle {
+    constructor() { this.reset(); }
+    reset() {
+      this.x = Math.random() * W;
+      this.y = Math.random() * H;
+      this.vx = (Math.random() - 0.5) * 0.15;
+      this.vy = (Math.random() - 0.5) * 0.15;
+      this.life = Math.random();
+      this.maxLife = 0.004 + Math.random() * 0.003;
+      this.size = 1 + Math.random() * 2.5;
+      this.trail = [];
+    }
+    update() {
+      // Noise-like steering
+      const angle = Math.sin(this.x * 0.008 + t * 0.3) * Math.cos(this.y * 0.006 + t * 0.2) * Math.PI * 2;
+      this.vx += Math.cos(angle) * 0.06;
+      this.vy += Math.sin(angle) * 0.06;
+      const speed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
+      if (speed > 1.8) { this.vx *= 1.8 / speed; this.vy *= 1.8 / speed; }
+      this.x += this.vx;
+      this.y += this.vy;
+      this.trail.push({ x: this.x, y: this.y });
+      if (this.trail.length > 18) this.trail.shift();
+      this.life += this.maxLife;
+      if (this.life > 1 || this.x < 0 || this.x > W || this.y < 0 || this.y > H) this.reset();
+    }
+    draw() {
+      if (this.trail.length < 2) return;
+      const alpha = Math.sin(this.life * Math.PI) * 0.65;
+      ctx.beginPath();
+      ctx.moveTo(this.trail[0].x, this.trail[0].y);
+      for (let i = 1; i < this.trail.length; i++) ctx.lineTo(this.trail[i].x, this.trail[i].y);
+      ctx.strokeStyle = `rgba(232,248,0,${alpha * 0.5})`;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size * 0.5, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(232,248,0,${alpha})`;
+      ctx.fill();
+    }
+  }
+
+  for (let i = 0; i < 110; i++) particles.push(new Particle());
+
+  // Concentric rings in background
+  function drawRings() {
+    const cx = W * 0.55, cy = H * 0.5;
+    for (let r = 40; r < Math.max(W, H); r += 70) {
+      ctx.beginPath();
+      ctx.arc(cx, cy, r + Math.sin(t * 0.5 + r * 0.01) * 8, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(232,248,0,${0.025 - r * 0.00004})`;
+      ctx.lineWidth = 0.5;
+      ctx.stroke();
+    }
+  }
+
+  function frame() {
+    ctx.fillStyle = 'rgba(10,10,10,0.18)';
+    ctx.fillRect(0, 0, W, H);
+    drawRings();
+    particles.forEach(p => { p.update(); p.draw(); });
+    t += 0.012;
+    requestAnimationFrame(frame);
+  }
+  frame();
+})();
+</script>
+</body>
+</html>

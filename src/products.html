@@ -136,7 +136,7 @@
     cursor: pointer; transition: background 0.2s;
     position: relative; overflow: hidden;
   }
-  .product-card:hover { background: rgba(231,25,31,0.03); }
+  .product-card:hover { background: rgba(232,248,0,0.03); }
   .product-card:hover .pc-arrow { opacity: 1; transform: translateX(0); }
 
   .pc-visual {
@@ -167,7 +167,7 @@
     border-left: 1px solid rgba(255,255,255,0.1);
   }
   .wl-card { padding: 36px 28px; border-right: 1px solid rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.1); transition: background 0.25s; }
-  .wl-card:hover { background: rgba(231,25,31,0.04); }
+  .wl-card:hover { background: rgba(232,248,0,0.04); }
   .wl-icon { font-size: 20px; margin-bottom: 16px; }
   .wl-title { font-family: var(--serif); font-size: 17px; font-weight: 700; margin-bottom: 10px; color: var(--white); line-height: 1.2; }
   .wl-body { font-size: 13px; line-height: 1.65; color: rgba(255,255,255,0.45); }
@@ -227,8 +227,8 @@
   .cta-heading em { font-style: italic; color: var(--mid); }
   .cta-body { font-size: 17px; line-height: 1.7; color: var(--mid); margin-bottom: 28px; }
   .btn-group { display: flex; gap: 12px; flex-wrap: wrap; }
-  .btn-primary { font-family: var(--mono); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; background: var(--accent); color: var(--white); border: none; padding: 16px 28px; cursor: pointer; text-decoration: none; transition: background 0.2s; display: inline-block; }
-  .btn-primary:hover { background: #c8141a; }
+  .btn-primary { font-family: var(--mono); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; background: var(--accent); color: var(--ink); border: none; padding: 16px 28px; cursor: pointer; text-decoration: none; transition: background 0.2s; display: inline-block; }
+  .btn-primary:hover { background: #cddc00; }
   .btn-secondary { font-family: var(--mono); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; background: transparent; color: var(--text); border: 1px solid var(--ink); padding: 16px 28px; cursor: pointer; text-decoration: none; transition: all 0.2s; display: inline-block; }
   .btn-secondary:hover { background: var(--ink); color: var(--white); }
 
@@ -691,7 +691,7 @@ function fitCanvas(c) {
     ctx.fillStyle = '#111';
     ctx.fillRect(0, 0, 60, h);
     [0.2, 0.35, 0.5, 0.65, 0.8].forEach(y => {
-      ctx.fillStyle = y === 0.35 ? 'rgba(231,25,31,0.7)' : 'rgba(255,255,255,0.08)';
+      ctx.fillStyle = y === 0.35 ? 'rgba(232,248,0,0.7)' : 'rgba(255,255,255,0.08)';
       ctx.fillRect(14, h * y - 8, 32, 16);
     });
 
@@ -713,7 +713,7 @@ function fitCanvas(c) {
       ctx.fillStyle = 'rgba(255,255,255,0.2)';
       ctx.font = '9px monospace';
       ctx.fillText(['TOTAL RESPONSES','COMPLETION RATE','ACTIVE REGIONS'][i], kx + 14, 76);
-      ctx.fillStyle = i === 1 ? '#e7191f' : '#fff';
+      ctx.fillStyle = i === 1 ? '#e8f800' : '#fff';
       ctx.font = 'bold 22px serif';
       ctx.fillText(val, kx + 14, 108);
     });
@@ -740,7 +740,7 @@ function fitCanvas(c) {
       const bh = chartH * b.h * 0.85;
       const by = chartY + chartH - bh;
       const alpha = 0.25 + b.h * 0.55;
-      ctx.fillStyle = `rgba(231,25,31,${alpha})`;
+      ctx.fillStyle = `rgba(232,248,0,${alpha})`;
       ctx.fillRect(bx, by, bw, bh);
     });
 
@@ -751,7 +751,7 @@ function fitCanvas(c) {
       const by = chartY + chartH - chartH * b.h * 0.85;
       i === 0 ? ctx.moveTo(bx, by) : ctx.lineTo(bx, by);
     });
-    ctx.strokeStyle = 'rgba(231,25,31,0.7)';
+    ctx.strokeStyle = 'rgba(232,248,0,0.7)';
     ctx.lineWidth = 1.5;
     ctx.stroke();
 
@@ -823,7 +823,7 @@ function fitCanvas(c) {
       ctx.beginPath();
       ctx.moveTo(nodes[0].x, nodes[0].y);
       ctx.lineTo(n.x, n.y);
-      ctx.strokeStyle = `rgba(231,25,31,${alpha})`;
+      ctx.strokeStyle = `rgba(232,248,0,${alpha})`;
       ctx.lineWidth = n.type === 'primary' ? 0.8 : 0.4;
       ctx.stroke();
     });
@@ -839,14 +839,14 @@ function fitCanvas(c) {
       const px = nodes[0].x + (tn.x - nodes[0].x) * activeConn.progress;
       const py = nodes[0].y + (tn.y - nodes[0].y) * activeConn.progress;
       ctx.beginPath(); ctx.arc(px, py, 4, 0, Math.PI * 2);
-      ctx.fillStyle = '#e7191f'; ctx.fill();
+      ctx.fillStyle = '#e8f800'; ctx.fill();
       // Trail
       for (let tr = 1; tr <= 4; tr++) {
         const tp = Math.max(0, activeConn.progress - tr * 0.04);
         const tx = nodes[0].x + (tn.x - nodes[0].x) * tp;
         const ty = nodes[0].y + (tn.y - nodes[0].y) * tp;
         ctx.beginPath(); ctx.arc(tx, ty, 2 * (1 - tr / 5), 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(231,25,31,${0.5 - tr * 0.1})`; ctx.fill();
+        ctx.fillStyle = `rgba(232,248,0,${0.5 - tr * 0.1})`; ctx.fill();
       }
     }
 
@@ -855,11 +855,11 @@ function fitCanvas(c) {
       n.pulse += 0.025 + i * 0.001;
       const pa = 0.35 + Math.sin(n.pulse) * 0.25;
       ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
-      ctx.fillStyle = n.type === 'central' ? `rgba(231,25,31,${0.7 + Math.sin(n.pulse)*0.2})` : `rgba(231,25,31,${pa})`;
+      ctx.fillStyle = n.type === 'central' ? `rgba(232,248,0,${0.7 + Math.sin(n.pulse)*0.2})` : `rgba(232,248,0,${pa})`;
       ctx.fill();
       if (n.type === 'central' || n.type === 'primary') {
         ctx.beginPath(); ctx.arc(n.x, n.y, n.r + 5 + Math.sin(n.pulse) * 3, 0, Math.PI * 2);
-        ctx.strokeStyle = `rgba(231,25,31,${pa * 0.3})`; ctx.lineWidth = 1; ctx.stroke();
+        ctx.strokeStyle = `rgba(232,248,0,${pa * 0.3})`; ctx.lineWidth = 1; ctx.stroke();
       }
       if (n.label && n.type === 'primary') {
         ctx.fillStyle = 'rgba(255,255,255,0.35)';
@@ -897,7 +897,7 @@ function fitCanvas(c) {
         x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
       }
       const alpha = 0.15 + (line / 6) * 0.55;
-      ctx.strokeStyle = `rgba(231,25,31,${alpha})`;
+      ctx.strokeStyle = `rgba(232,248,0,${alpha})`;
       ctx.lineWidth = 0.8;
       ctx.stroke();
     }
@@ -927,7 +927,7 @@ function fitCanvas(c) {
     // Active query box
     ctx.fillStyle = '#141414';
     ctx.fillRect(8, h - 56, w - 16, 40);
-    ctx.strokeStyle = 'rgba(231,25,31,0.4)'; ctx.lineWidth = 1;
+    ctx.strokeStyle = 'rgba(232,248,0,0.4)'; ctx.lineWidth = 1;
     ctx.strokeRect(8, h - 56, w - 16, 40);
 
     waiting++;
@@ -935,7 +935,7 @@ function fitCanvas(c) {
     if (ci < queries[qi].length) ci++;
     const displayText = queries[qi].slice(0, ci);
     const cursor = Math.floor(t * 3) % 2 === 0 ? '|' : '';
-    ctx.fillStyle = 'rgba(231,25,31,0.85)';
+    ctx.fillStyle = 'rgba(232,248,0,0.85)';
     ctx.font = '11px monospace'; ctx.fillText(displayText + cursor, 18, h - 30);
 
     // Result dots
@@ -973,7 +973,7 @@ function fitCanvas(c) {
         p === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
       }
       ctx.closePath();
-      ctx.strokeStyle = `rgba(231,25,31,${0.6 - i * 0.1})`;
+      ctx.strokeStyle = `rgba(232,248,0,${0.6 - i * 0.1})`;
       ctx.lineWidth = i === 0 ? 1.5 : 0.8;
       ctx.stroke();
     }
@@ -997,7 +997,7 @@ function fitCanvas(c) {
       for (let row = 0; row < rows; row++) {
         const v = Math.sin(col * 0.5 + t * 1.5) * Math.cos(row * 0.7 - t * 0.8) * 0.5 + 0.5;
         const size = 3 + v * (Math.min(cw, ch) * 0.45);
-        ctx.fillStyle = `rgba(231,25,31,${0.1 + v * 0.7})`;
+        ctx.fillStyle = `rgba(232,248,0,${0.1 + v * 0.7})`;
         ctx.beginPath();
         ctx.arc(col * cw + cw / 2, row * ch + ch / 2, size / 2, 0, Math.PI * 2);
         ctx.fill();
@@ -1034,11 +1034,11 @@ function fitCanvas(c) {
       p.p += 0.02;
       const alpha = 0.4 + Math.sin(p.p) * 0.3;
       ctx.beginPath(); ctx.arc(p.x * w, p.y * h, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(231,25,31,${alpha})`; ctx.fill();
+      ctx.fillStyle = `rgba(232,248,0,${alpha})`; ctx.fill();
     });
     // best fit line
     ctx.beginPath(); ctx.moveTo(w * 0.12, h * 0.78); ctx.lineTo(w * 0.88, h * 0.18);
-    ctx.strokeStyle = 'rgba(231,25,31,0.4)'; ctx.lineWidth = 1.2; ctx.stroke();
+    ctx.strokeStyle = 'rgba(232,248,0,0.4)'; ctx.lineWidth = 1.2; ctx.stroke();
     t += 0.02; requestAnimationFrame(frame);
   }
   frame();
@@ -1052,9 +1052,9 @@ function fitCanvas(c) {
   function fit() { c.width = c.offsetWidth || 280; c.height = c.offsetHeight || 220; }
   fit(); window.addEventListener('resize', fit);
   const clusters = [
-    { cx: 0.28, cy: 0.35, color: 'rgba(231,25,31,', pts: Array.from({length: 18}, () => ({ dx: (Math.random()-0.5)*0.18, dy: (Math.random()-0.5)*0.18, p: Math.random()*Math.PI*2 })) },
-    { cx: 0.68, cy: 0.3, color: 'rgba(231,25,31,', pts: Array.from({length: 14}, () => ({ dx: (Math.random()-0.5)*0.15, dy: (Math.random()-0.5)*0.15, p: Math.random()*Math.PI*2 })) },
-    { cx: 0.48, cy: 0.72, color: 'rgba(231,25,31,', pts: Array.from({length: 16}, () => ({ dx: (Math.random()-0.5)*0.16, dy: (Math.random()-0.5)*0.16, p: Math.random()*Math.PI*2 })) },
+    { cx: 0.28, cy: 0.35, color: 'rgba(232,248,0,', pts: Array.from({length: 18}, () => ({ dx: (Math.random()-0.5)*0.18, dy: (Math.random()-0.5)*0.18, p: Math.random()*Math.PI*2 })) },
+    { cx: 0.68, cy: 0.3, color: 'rgba(232,248,0,', pts: Array.from({length: 14}, () => ({ dx: (Math.random()-0.5)*0.15, dy: (Math.random()-0.5)*0.15, p: Math.random()*Math.PI*2 })) },
+    { cx: 0.48, cy: 0.72, color: 'rgba(232,248,0,', pts: Array.from({length: 16}, () => ({ dx: (Math.random()-0.5)*0.16, dy: (Math.random()-0.5)*0.16, p: Math.random()*Math.PI*2 })) },
   ];
   function frame() {
     const w = c.width, h = c.height;
@@ -1064,13 +1064,13 @@ function fitCanvas(c) {
       // cluster boundary
       ctx.beginPath();
       ctx.arc(cl.cx * w, cl.cy * h, 36 + Math.sin(t + ci) * 4, 0, Math.PI * 2);
-      ctx.strokeStyle = `rgba(231,25,31,${0.15 + ci * 0.05})`; ctx.lineWidth = 1; ctx.stroke();
-      ctx.fillStyle = `rgba(231,25,31,0.03)`; ctx.fill();
+      ctx.strokeStyle = `rgba(232,248,0,${0.15 + ci * 0.05})`; ctx.lineWidth = 1; ctx.stroke();
+      ctx.fillStyle = `rgba(232,248,0,0.03)`; ctx.fill();
       cl.pts.forEach(p => {
         p.p += 0.008;
         ctx.beginPath();
         ctx.arc(cl.cx * w + p.dx * w, cl.cy * h + p.dy * h, 2.5, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(231,25,31,${alpha * (0.5 + Math.sin(p.p) * 0.3)})`;
+        ctx.fillStyle = `rgba(232,248,0,${alpha * (0.5 + Math.sin(p.p) * 0.3)})`;
         ctx.fill();
       });
     });
@@ -1099,13 +1099,13 @@ function fitCanvas(c) {
       ctx.beginPath();
       ctx.moveTo(cx + Math.cos(angle) * inner, cy + Math.sin(angle) * inner);
       ctx.lineTo(cx + Math.cos(angle) * outer, cy + Math.sin(angle) * outer);
-      ctx.strokeStyle = `rgba(231,25,31,${alpha})`;
+      ctx.strokeStyle = `rgba(232,248,0,${alpha})`;
       ctx.lineWidth = 2.5;
       ctx.stroke();
     }
     ctx.beginPath(); ctx.arc(cx, cy, 26, 0, Math.PI * 2);
-    ctx.fillStyle = 'rgba(231,25,31,0.12)'; ctx.fill();
-    ctx.strokeStyle = 'rgba(231,25,31,0.5)'; ctx.lineWidth = 1; ctx.stroke();
+    ctx.fillStyle = 'rgba(232,248,0,0.12)'; ctx.fill();
+    ctx.strokeStyle = 'rgba(232,248,0,0.5)'; ctx.lineWidth = 1; ctx.stroke();
     t += 0.04; requestAnimationFrame(frame);
   }
   frame();
@@ -1140,7 +1140,7 @@ function fitCanvas(c) {
       ctx.fillText(card[0], cx + 8, cy + 20);
       ctx.fillStyle = '#6b6b6b'; ctx.font = '9px monospace';
       ctx.fillText(card[1], cx + 8, cy + 34);
-      ctx.fillStyle = 'rgba(231,25,31,0.8)'; ctx.font = '8px monospace';
+      ctx.fillStyle = 'rgba(232,248,0,0.8)'; ctx.font = '8px monospace';
       ctx.fillText('↓ Download', cx + 8, cy + 48);
     });
     t += 0.04; requestAnimationFrame(frame);
@@ -1166,12 +1166,12 @@ function fitCanvas(c) {
       const y = cy + Math.sin(p.a) * r;
       const alpha = 0.2 + Math.abs(Math.sin(p.a + t * 0.5)) * 0.5;
       ctx.beginPath(); ctx.arc(x, y, 1.5, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(231,25,31,${alpha})`; ctx.fill();
+      ctx.fillStyle = `rgba(232,248,0,${alpha})`; ctx.fill();
     });
     // Question mark centre
-    ctx.fillStyle = 'rgba(231,25,31,0.08)';
+    ctx.fillStyle = 'rgba(232,248,0,0.08)';
     ctx.beginPath(); ctx.arc(cx, cy, 18, 0, Math.PI * 2); ctx.fill();
-    ctx.fillStyle = 'rgba(231,25,31,0.5)';
+    ctx.fillStyle = 'rgba(232,248,0,0.5)';
     ctx.font = 'bold 20px serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
     ctx.fillText('?', cx, cy);
     ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
@@ -1225,21 +1225,21 @@ function fitCanvas(c) {
         ctx.beginPath();
         ctx.moveTo(centralX, centralY);
         ctx.lineTo(n.x, n.y);
-        ctx.strokeStyle = `rgba(231,25,31,${0.3 * (1 - n.activeTimer)})`;
+        ctx.strokeStyle = `rgba(232,248,0,${0.3 * (1 - n.activeTimer)})`;
         ctx.lineWidth = 0.8; ctx.stroke();
         // Animated packet
         const px = centralX + (n.x - centralX) * n.activeTimer;
         const py = centralY + (n.y - centralY) * n.activeTimer;
         ctx.beginPath(); ctx.arc(px, py, 3, 0, Math.PI * 2);
-        ctx.fillStyle = '#e7191f'; ctx.fill();
+        ctx.fillStyle = '#e8f800'; ctx.fill();
       } else {
         ctx.beginPath(); ctx.moveTo(centralX, centralY); ctx.lineTo(n.x, n.y);
-        ctx.strokeStyle = 'rgba(231,25,31,0.06)'; ctx.lineWidth = 0.4; ctx.stroke();
+        ctx.strokeStyle = 'rgba(232,248,0,0.06)'; ctx.lineWidth = 0.4; ctx.stroke();
       }
       // Node
       const a = 0.3 + Math.sin(n.pulse) * 0.15 + (n.active ? 0.4 : 0);
       ctx.beginPath(); ctx.arc(n.x, n.y, n.active ? 6 : 4, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(231,25,31,${a})`; ctx.fill();
+      ctx.fillStyle = `rgba(232,248,0,${a})`; ctx.fill();
       ctx.fillStyle = 'rgba(255,255,255,0.3)';
       ctx.font = '8px monospace';
       ctx.fillText(n.name, n.x - 8, n.y + 14);
@@ -1248,9 +1248,9 @@ function fitCanvas(c) {
     // Central hub
     const hubPulse = Math.sin(t * 1.5) * 0.2 + 0.7;
     ctx.beginPath(); ctx.arc(centralX, centralY, 12, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(231,25,31,${hubPulse})`; ctx.fill();
+    ctx.fillStyle = `rgba(232,248,0,${hubPulse})`; ctx.fill();
     ctx.beginPath(); ctx.arc(centralX, centralY, 20 + Math.sin(t * 2) * 4, 0, Math.PI * 2);
-    ctx.strokeStyle = `rgba(231,25,31,0.25)`; ctx.lineWidth = 1; ctx.stroke();
+    ctx.strokeStyle = `rgba(232,248,0,0.25)`; ctx.lineWidth = 1; ctx.stroke();
     ctx.fillStyle = 'rgba(255,255,255,0.4)';
     ctx.font = '8px monospace'; ctx.textAlign = 'center';
     ctx.fillText('PLATFORM', centralX, centralY + 28);

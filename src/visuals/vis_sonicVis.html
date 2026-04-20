@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>sonicVis Embed</title>
+<style>
+  body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: #080808; overflow: hidden; font-family: monospace; }
+  
+.sonic-vis { width: 100%; height: 100%; padding: 40px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 6px; }
+.waveform-row { display: flex; align-items: center; gap: 3px; height: 32px; }
+.wave-bar { width: 3px; border-radius: 2px; background: #e8f800; animation: wave 1.8s ease-in-out infinite; flex-shrink: 0; }
+@keyframes wave { 0%, 100% { transform: scaleY(0.2); opacity: 0.3; } 50% { transform: scaleY(1); opacity: 0.9; } }
+
+</style>
+</head>
+<body>
+<div id="sonicVis" class="sonic-vis" style="width:100%; height:100%;"></div>
+<script>
+(function() {
+const container = document.getElementById('sonicVis');
+  if (!container) return;
+  const rowCount = 8;
+  const barsPerRow = 64;
+  const rows = [];
+  for (let r = 0; r < rowCount; r++) {
+    const row = document.createElement('div');
+    row.className = 'waveform-row';
+    const bars = [];
+    for (let b = 0; b < barsPerRow; b++) {
+      const bar = document.createElement('div');
+      bar.className = 'wave-bar';
+      const baseH = 6 + Math.sin((b / barsPerRow) * Math.PI) * 20;
+      bar.style.height = baseH + 'px';
+      bar.style.animationDelay = (b * 30 + r * 80) + 'ms';
+      bar.style.animationDuration = (1.4 + Math.random() * 0.8) + 's';
+      const alpha = 0.3 + (rowCount - r) / rowCount * 0.6;
+      bar.style.opacity = alpha;
+      row.appendChild(bar);
+      bars.push(bar);
+    }
+    container.appendChild(row);
+    rows.push(bars);
+  }
+
+  // Animate heights based on sine pattern over time
+  let t = 0;
+  function animate() {
+    rows.forEach((bars, r) => {
+      bars.forEach((bar, b) => {
+        const h = 4 + Math.abs(Math.sin((b / barsPerRow) * Math.PI * 3 + t + r * 0.3)) * 24;
+        bar.style.height = h + 'px';
+      });
+    });
+    t += 0.05;
+    requestAnimationFrame(animate);
+  }
+  animate();
+})();
+</script>
+</body>
+</html>

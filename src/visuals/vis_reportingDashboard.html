@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>reportingDashboard Embed</title>
+<style>
+  body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: #080808; overflow: hidden; font-family: monospace; }
+  
+body, html { overflow: auto; }
+.dash-preview { width: 100%; min-height: 100%; padding: 40px; box-sizing: border-box; display: flex; flex-direction: column; gap: 40px; }
+.bar-chart { display: flex; align-items: flex-end; gap: 6px; height: 80px; }
+.bar { flex: 1; background: rgba(232,248,0,0.15); border-top: 2px solid rgba(232,248,0,0.4); animation: growBar 0.8s ease forwards; transform-origin: bottom; transform: scaleY(0); }
+.bar:hover { background: rgba(232,248,0,0.3); }
+.bar.active { background: rgba(232,248,0,0.35); border-top-color: #e8f800; }
+.heatmap { display: grid; grid-template-columns: repeat(12, 1fr); gap: 4px; }
+.heatmap-cell { aspect-ratio: 1; border-radius: 2px; animation: fadeIn 0.4s ease forwards; opacity: 0; }
+.animated-bars { display: flex; align-items: flex-end; gap: 8px; height: 120px; }
+.abar { flex: 1; border-radius: 1px 1px 0 0; transform-origin: bottom; animation: growBar 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards; transform: scaleY(0); }
+@keyframes growBar { to { transform: scaleY(1); } }
+@keyframes fadeIn { to { opacity: 1; } }
+.viz-label { font-size: 10px; color: rgba(255,255,255,0.4); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.1em; }
+
+</style>
+</head>
+<body>
+
+<div class="dash-preview" id="reportingDashboard">
+  <div>
+    <div class="viz-label">Bar Chart</div>
+    <div class="bar-chart" id="barChart"></div>
+  </div>
+  <div>
+    <div class="viz-label">Heatmap</div>
+    <div class="heatmap" id="heatmap"></div>
+  </div>
+  <div>
+    <div class="viz-label">Case Study Bars</div>
+    <div class="animated-bars" id="caseBars"></div>
+  </div>
+</div>
+
+<script>
+(function() {
+// ─── BAR CHART in hero dashboard ───
+  const barChart = document.getElementById('barChart');
+  const barHeights = [35, 50, 42, 65, 58, 72, 80, 68, 88, 75, 95, 100];
+  barHeights.forEach((h, i) => {
+    const bar = document.createElement('div');
+    bar.className = 'bar' + (i === barHeights.length - 1 ? ' active' : '');
+    bar.style.height = h + '%';
+    bar.style.animationDelay = (i * 60) + 'ms';
+    barChart.appendChild(bar);
+  });
+
+  // ─── HEATMAP ───
+  const heatmap = document.getElementById('heatmap');
+  const heatData = [
+    0.2,0.3,0.4,0.5,0.55,0.6,0.65,0.7,0.75,0.8,0.85,0.9,
+    0.15,0.25,0.35,0.45,0.5,0.6,0.7,0.75,0.8,0.85,0.9,0.95,
+    0.1,0.2,0.3,0.4,0.45,0.5,0.55,0.65,0.7,0.75,0.8,0.85,
+    0.3,0.35,0.4,0.5,0.6,0.65,0.7,0.8,0.85,0.9,0.95,1.0,
+    0.2,0.25,0.35,0.45,0.55,0.6,0.65,0.75,0.8,0.85,0.9,0.95,
+  ];
+  heatData.forEach((val, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'heatmap-cell';
+    const alpha = 0.08 + val * 0.5;
+    cell.style.background = `rgba(232,248,0,${alpha})`;
+    cell.style.animationDelay = (i * 15) + 'ms';
+    cell.style.animationDuration = '0.4s';
+    cell.style.opacity = alpha;
+    heatmap.appendChild(cell);
+  });
+
+  // ─── CASE STUDY BARS ───
+  const caseBars = document.getElementById('caseBars');
+  if (caseBars) {
+    const caseData = [
+      {h:72,c:'rgba(232,248,0,0.5)'},{h:45,c:'rgba(232,248,0,0.4)'},
+      {h:88,c:'rgba(232,248,0,0.6)'},{h:60,c:'rgba(232,248,0,0.4)'},
+      {h:55,c:'rgba(232,248,0,0.4)'},{h:38,c:'rgba(232,248,0,0.3)'},
+      {h:70,c:'rgba(232,248,0,0.5)'},{h:48,c:'rgba(232,248,0,0.4)'},
+      {h:65,c:'rgba(232,248,0,0.45)'},{h:100,c:'#e8f800'},
+      {h:42,c:'rgba(232,248,0,0.35)'},{h:58,c:'rgba(232,248,0,0.4)'}
+    ];
+    caseData.forEach((d, i) => {
+      const bar = document.createElement('div');
+      bar.className = 'abar';
+      bar.style.height = d.h + '%';
+      bar.style.background = d.c;
+      bar.style.animationDelay = (i * 80) + 'ms';
+      caseBars.appendChild(bar);
+    });
+  }
+})();
+</script>
+</body>
+</html>
